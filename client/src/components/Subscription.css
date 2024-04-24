@@ -1,0 +1,48 @@
+.subscription-container h2{
+    border-left: 7px solid #8E2DE2;
+    padding-left: 20px;
+}
+
+.subscription-container ul{
+    max-height: 100px;
+    overflow: auto;
+}
+
+.subscription-container ul ::-webkit-scrollbar{
+    display: block;
+}
+
+.subscription-container ul li{
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    list-style-type: none;
+    font-size: small;
+}
+
+.subscription-container .feature-included{
+    color: lime;
+}
+
+.subscription-container .feature-excluded{
+    color: crimson;
+}
+
+.subscription-container .most-popular::before{
+    content: "Popular";
+    background: linear-gradient(45deg, limegreen, lime);
+    color: black;
+    padding: 7px 0;
+    width: 200px;
+    font-weight: bolder;
+    transform: rotate(-45deg) translate(-50%,-50%);
+    position: absolute;
+    left: 10%;
+    top: -5%;
+}
+
+@media (max-width: 990px) {
+    .subscription-container .most-popular::before{
+        left: 5%;
+    }
+}
