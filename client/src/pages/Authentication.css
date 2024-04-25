@@ -48,3 +48,11 @@
     transform: translate(-50%,-50%);
     cursor: pointer;
 }
+
+.alert{
+    color: red !important;
+    background: transparent;
+    border: 2px solid red;
+    padding: 10px 10px;
+    border-radius: 7px;
+}

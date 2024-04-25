@@ -13,8 +13,8 @@ function Subscription() {
     <>
       <div className="subscription-container hero-container">
         <h2 className='my-5 text-left'>Plans</h2>
-        <div className="row w-100">
-            <div className="col-lg-4 col-12 my-lg-0 my-5">
+        <div className="row w-100 justify-content-center">
+            <div className="col-lg-4 col-12 my-lg-0 my-5 w-100">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -79,6 +79,8 @@ function Subscription() {
             </div>
         </div>
       </div>
+
+      <div style={{height:"200vh"}}></div>
     </>
   )
 }

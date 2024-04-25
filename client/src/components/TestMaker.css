@@ -45,6 +45,13 @@
     border-left: 10px solid #4A00E0;
 }
 
+@media (max-width: 400px) {
+    .test-maker-container .paper-config .heading{
+        font-size: large;
+        padding: 7px 10px;
+    }
+}
+
 .test-maker-container .paper-config button{
     width: 100%;
     padding: var(--btn-padding);

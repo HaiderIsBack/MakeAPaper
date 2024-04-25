@@ -5,7 +5,7 @@ const login = (req, res) => {
 }
 
 const register = (req, res) => {
-
+  console.log(req.body)
 }
 
 module.exports = {

@@ -4,6 +4,7 @@ require("./db/connection")
 //Importing Dependencies
 const express = require("express")
 const cors = require("cors");
+const bodyParser = require("body-parser")
 const { loginRouter, registerRouter } = require("./routes/Authentication");
 
 //Config
@@ -13,6 +14,8 @@ const router = express();
 
 //Middleware
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 //Utilizing Routes
 app.use("/api/v1",loginRouter);

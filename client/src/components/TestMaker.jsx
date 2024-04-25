@@ -72,7 +72,7 @@ function TestMaker() {
         <>
         <div className="test-maker-container">
             <div className="row w-100">
-                <div className="col-8 paper-config d-flex flex-column">
+                <div className="col-md-8 col-12 paper-config d-flex flex-column">
                     {/* <ComponentToPrint ref={paperRef} /> */}
                     <h3 className='my-4 heading'>Question Selection Type</h3>
 
@@ -114,7 +114,7 @@ function TestMaker() {
                     </div>
 
                 </div>
-                <div className="col-4">
+                <div className="col-md-4 d-md-block d-none">
                     <div className="paper-edit-panel">
                         <button onClick={handlePrint} className='download-paper'>Download <span><FontAwesomeIcon icon={faDownload}/></span></button>
 
