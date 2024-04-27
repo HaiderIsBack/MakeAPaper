@@ -31,7 +31,7 @@ function SignUp() {
   const handleRegister = (e) => {
     e.preventDefault()
     const formData = new FormData(formRef.current);
-    const username = formData.get("username").trim();
+    const username = formData.get("username").toLowerCase().trim();
     const email = formData.get("email").toLowerCase().trim();
     const password = formData.get("password").trim();
     const confirmPassword = formData.get("confirmPassword").trim();
@@ -57,8 +57,7 @@ function SignUp() {
           const finalData = {
             username,
             email,
-            password,
-            confirmPassword
+            password
           }
           fetch("/api/v1/register",{
             headers: {
@@ -68,7 +67,9 @@ function SignUp() {
             method: "POST"
           })
           .then(res => res.json())
-          .then(data => null)
+          .then(data => {
+            console.log(data)
+          })
           .catch(error => {
             console.log(error)
             generateError("hi",12000);
@@ -110,20 +111,66 @@ function SignUp() {
 
 function Login() {
   const navigate = useNavigate();
+
+  const [errorOccured,setErrorOccured] = useState(false)
+  const [errorMessage,setErrorMessage] = useState("")
+
+  const formRef = useRef(null)
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    const formData = new FormData(formRef.current);
+    const username = formData.get("username").toLowerCase().trim();
+    const password = formData.get("password").trim();
+
+    const generateError = (msg, duration = 8000) => {
+      setErrorMessage(msg)
+      setErrorOccured(true);
+      setTimeout(()=>setErrorOccured(false),duration);
+    }
+
+    if(!username || !password){
+      generateError("please complete the Form")
+      return;
+    }else{
+      const finalData = {
+        username,
+        password
+      }
+      fetch("/api/v1/login",{
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(finalData),
+        method: "POST"
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.log(error);
+        generateError("hi",12000);
+      });
+    }
+  }
   return (
     <>
       <div className="auth-container">
         <div className="box">
             <h2 className='my-5'>LOGIN</h2>
-            <form action="" method="post" className='text-left d-flex flex-column'>
-                <label className='mt-3'>Email</label>
-                <input type="email" name="" id="" />
+            <form ref={formRef} className='text-left d-flex flex-column'>
+                <label className='mt-3'>Username</label>
+                <input type="text" name="username" />
                 <label className='mt-3'>Password</label>
-                <input type="password" name="" id="" />
+                <input type="password" name="password" />
                 
                 <p className='my-2'>Don't have an Account? <a onClick={()=>navigate("/signup")}>Create</a> One</p>
+                {errorOccured ? <p className="alert alert-danger" style={{maxWidth: "300px"}}><strong>Error!</strong> {errorMessage}</p> : null}
 
-                <button type="submit" className='btn mt-3'>Login</button>
+                <button onClick={handleLogin} className='btn mt-3'>Login</button>
             </form>
         </div>
       </div>
