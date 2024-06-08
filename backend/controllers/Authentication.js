@@ -55,7 +55,7 @@ const register = async (req, res) => {
     if(!email || !username || !password){
       res.status(400).json({msg:"please fill credentials first"})
     }else{
-      const isAlreadyExist = await Users.findOne({username});
+      const isAlreadyExist = await Users.findOne({$or:[{username:username},{email: email}]});
       if(isAlreadyExist){
         res.status(400).json({msg:"User with this username already exists"})
       }else{
@@ -67,7 +67,7 @@ const register = async (req, res) => {
           newUser.set('password',hashedPassword)
           newUser.save()
         })
-        return res.status(200).json({msg:"User created successfully"});
+        return res.status(200).json({msg:"Account Created. Redirecting to LOGIN"});
       }
     }
   } catch (error) {

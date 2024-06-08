@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useEffect, useRef } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
+    faAngleDown,
+    faAngleUp,
     faDownload
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
@@ -9,7 +11,8 @@ import './TestMaker.css'
 
 function TestMaker() {
     const [questionSelectionType,setQuestionSelectionType] = useState("manual");
-    const [currentBook, setCurrentBook] = useState("");
+    const [currentBook, setCurrentBook] = useState("none");
+    const [currentChapter, setCurrentChapter] = useState("none");
     const [subscriptionStatus, setSubscriptionStatus] = useState(false);
 
     const docs = [
@@ -55,6 +58,7 @@ function TestMaker() {
 
     const paperRef = useRef();
     const bookRef = useRef();
+    const chapterRef = useRef();
 
     const handlePrint = useReactToPrint({
         content: () => paperRef.current,
@@ -68,6 +72,26 @@ function TestMaker() {
         setCurrentBook(bookRef.current.value)
     }
 
+    const handleChapterChange = () => {
+        setCurrentChapter(chapterRef.current.value)
+    }
+
+    const getChapterObject = (book, chapterName) => {
+        var questions;
+
+        docs.forEach(doc => {
+            if(doc.book === book){
+                doc.chapters.forEach(chapter => {
+                    if(chapter.name === chapterName){
+                        questions = chapter.questions
+                    }
+                })
+            }
+        })
+
+        return questions
+    }
+
     return (
         <>
         <div className="test-maker-container">
@@ -77,14 +101,14 @@ function TestMaker() {
                     <h3 className='my-4 heading'>Question Selection Type</h3>
 
                     <div className="row">
-                        <div className="col-6"><button className={questionSelectionType === "manual" ? "active-selection" : ""} onClick={()=>setQuestionSelectionType("manual")}>Manual</button></div>
-                        <div className="col-6"><button className={questionSelectionType === "random" ? "active-selection" : ""} disabled={questionSelectionType === "random" ? false : true} onClick={()=>setQuestionSelectionType("random")}>Random</button></div>
+                        <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "manual" ? "active-selection" : ""} onClick={()=>setQuestionSelectionType("manual")}>Manual</button></div>
+                        <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "random" ? "active-selection" : ""} disabled={questionSelectionType === "random" ? false : true} onClick={()=>setQuestionSelectionType("random")}>Random</button></div>
                     </div>
                     <br />
                     <h3 className="my-3 heading">Document Selection</h3>
 
                     <div className="row my-3">
-                        <div className="col-6">
+                        <div className="col-sm-6 col-12 my-sm-0 my-2 position-relative">
                             <select name="book" ref={bookRef} onChange={handleBookChange} required>
                                 <option value="none">-- Select Book</option>
                                 {
@@ -93,9 +117,10 @@ function TestMaker() {
                                     })
                                 }
                             </select>
+                            <span className='caret'><FontAwesomeIcon icon={faAngleDown} /></span>
                         </div>
-                        <div className="col-6">
-                            <select name="chapter" id="chapter" required>
+                        <div className="col-sm-6 col-12 my-sm-0 my-2 position-relative">
+                            <select name="chapter" id="chapter" ref={chapterRef} onChange={handleChapterChange} required>
                                 <option value="none">-- Select Chapter</option>
                                 {
                                     docs.map(doc => {
@@ -110,9 +135,15 @@ function TestMaker() {
                                     })
                                 }
                             </select>
+                            <span className='caret'><FontAwesomeIcon icon={faAngleDown} /></span>
                         </div>
                     </div>
+                    {
+                        questionSelectionType === "manual" &&
+                        currentBook !== "none" && 
+                        currentChapter !== "none" ? <QuestionSelection bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
 
+                    }
                 </div>
                 <div className="col-md-4 d-md-block d-none">
                     <div className="paper-edit-panel">
@@ -124,6 +155,29 @@ function TestMaker() {
         </div>
         </>
     )
+}
+
+const QuestionSelection = ({ bookName, chapterName, questions }) => {
+    
+    return (<>
+        <div className="container manual-question-selection">
+            <h3 className='my-2'>{bookName}</h3>
+            <p>{chapterName}</p>
+            {
+                questions.map((question,index)=>{
+                    return <>
+                        <div className="question-selection">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" />
+                            <span class="checkmark"></span>
+                        </label>
+                            <h5 key={index}>{question}</h5>
+                        </div>
+                    </>
+                })
+            }
+        </div>
+    </>);
 }
 
 const ComponentToPrint = React.forwardRef((props, ref) => {

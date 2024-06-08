@@ -13,12 +13,12 @@ function Nav() {
       <div className="nav-container my-3 p-2 px-3">
           <div className="nav-brand d-flex align-items-center" onClick={()=>navigate("/")}>
               <img src="/images/MakePaper.png" alt="MakePaper" />
-              <h3 className='mb-0'>Make Paper</h3>
+              <h3 className='mb-0 d-sm-block d-none'>Make Paper</h3>
           </div>
         <div className="nav-actions d-lg-flex d-none">
             <menu>
                 <li><button>Features</button></li>
-                <li><button>Resources</button></li>
+                <li><button>Documentation</button></li>
                 <li><button onClick={()=>navigate("/plans")}>Plan & Pricings</button></li>
                 <li><button>About Us</button></li>
             </menu>

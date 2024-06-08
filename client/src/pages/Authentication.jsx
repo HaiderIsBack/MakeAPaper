@@ -13,6 +13,8 @@ function SignUp() {
   const [showConfirmPassword,setShowConfirmPassword] = useState(false);
   const [errorOccured,setErrorOccured] = useState(false)
   const [errorMessage,setErrorMessage] = useState("")
+  const [successOccured,setSuccessOccured] = useState(false)
+  const [successMessage,setSuccessMessage] = useState("")
 
   const passwordRef = useRef(null)
   const confirmPasswordRef = useRef(null)
@@ -42,6 +44,12 @@ function SignUp() {
       setTimeout(()=>setErrorOccured(false),duration);
     }
 
+    const generateSuccess = (msg, duration = 8000) => {
+      setSuccessMessage(msg)
+      setSuccessOccured(true);
+      setTimeout(()=>setSuccessOccured(false),duration);
+    }
+
     if(!username || !email || !password || !confirmPassword){
       generateError("please complete the Form")
       return;
@@ -66,13 +74,21 @@ function SignUp() {
             body: JSON.stringify(finalData),
             method: "POST"
           })
-          .then(res => res.json())
+          .then(async (res) => {
+            if(res.status == 500){
+              generateError("Server Inconvenience");
+            }else if(res.status == 200){
+              return res.json();
+            }else{
+              generateError("Bad Request!");
+            }
+          })
           .then(data => {
-            console.log(data)
+            setTimeout(()=>navigate("/login"),5000)
           })
           .catch(error => {
             console.log(error)
-            generateError("hi",12000);
+            generateError("error",12000);
           });
         }
       }
@@ -100,6 +116,7 @@ function SignUp() {
                 </div>
                 <p className='my-2'>Already have an Account? <a onClick={()=>navigate("/login")}>Login</a> Now</p>
                 {errorOccured ? <p className="alert alert-danger" style={{maxWidth: "300px"}}><strong>Error!</strong> {errorMessage}</p> : null}
+                {successOccured ? <p className="alert alert-success" style={{maxWidth: "300px"}}><strong>Success!</strong> {successMessage}</p> : null}
 
                 <button onClick={handleRegister} className='btn mt-3'>Create Account</button>
             </form>
@@ -114,6 +131,8 @@ function Login() {
 
   const [errorOccured,setErrorOccured] = useState(false)
   const [errorMessage,setErrorMessage] = useState("")
+  const [successOccured,setSuccessOccured] = useState(false)
+  const [successMessage,setSuccessMessage] = useState("")
 
   const formRef = useRef(null)
 
@@ -127,6 +146,12 @@ function Login() {
       setErrorMessage(msg)
       setErrorOccured(true);
       setTimeout(()=>setErrorOccured(false),duration);
+    }
+
+    const generateSuccess = (msg, duration = 8000) => {
+      setSuccessMessage(msg)
+      setSuccessOccured(true);
+      setTimeout(()=>setSuccessOccured(false),duration);
     }
 
     if(!username || !password){
@@ -169,6 +194,7 @@ function Login() {
                 
                 <p className='my-2'>Don't have an Account? <a onClick={()=>navigate("/signup")}>Create</a> One</p>
                 {errorOccured ? <p className="alert alert-danger" style={{maxWidth: "300px"}}><strong>Error!</strong> {errorMessage}</p> : null}
+                {successOccured ? <p className="alert alert-success" style={{maxWidth: "300px"}}><strong>Success!</strong> {successMessage}</p> : null}
 
                 <button onClick={handleLogin} className='btn mt-3'>Login</button>
             </form>

@@ -79,8 +79,6 @@ function Subscription() {
             </div>
         </div>
       </div>
-
-      <div style={{height:"200vh"}}></div>
     </>
   )
 }
