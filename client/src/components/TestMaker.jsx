@@ -6,6 +6,10 @@ import {
     faAngleUp,
     faArrowRight,
     faDownload,
+    faFileInvoice,
+    faGear,
+    faHeading,
+    faInfoCircle,
     faStar
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
@@ -28,9 +32,33 @@ function TestMaker() {
                     "name": "introduction",
                     "questions": {
                         "mcqs" : [
-                            "What is a router",
-                            "What is a switch",
-                            "What is a Network Interface Card (NIC)"
+                            {
+                                "question": "What is Router?",
+                                "options": [
+                                    "a device",
+                                    "a network",
+                                    "an enterprise",
+                                    "a server"
+                                ]
+                            },
+                            {
+                                "question": "What is Switch?",
+                                "options": [
+                                    "a device",
+                                    "a network",
+                                    "an enterprise",
+                                    "a server"
+                                ]
+                            },
+                            {
+                                "question": "What is Bridge?",
+                                "options": [
+                                    "a device",
+                                    "a network",
+                                    "an enterprise",
+                                    "a server"
+                                ]
+                            }
                         ],
                         "short" : [
                             "What is Network?",
@@ -189,7 +217,17 @@ function TestMaker() {
                 </div>
                 <div className="col-md-4 d-md-block d-none">
                     <div className="paper-edit-panel">
-                        <button onClick={handlePrint} className='download-paper'>Download <span><FontAwesomeIcon icon={faDownload}/></span></button>
+                        <h5 className='text-left'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
+
+                        <div className="section my-4 mt-5">
+                            <FontAwesomeIcon icon={faHeading} />
+                            <input type="text" placeholder='Paper Heading' className='paper-heading-input' />
+                        </div>
+
+                        <div className="section my-4">
+                            <FontAwesomeIcon icon={faFileInvoice} />
+                            <input type="number" placeholder='Total Marks' className='total-marks-input' />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -203,9 +241,14 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
     const [shortIndexes, setShortIndexes] = useState([])
     const [longIndexes, setLongIndexes] = useState([])
 
+    const [mcqsCount, setMcqsCount] = useState(0)
+    const [shortCount, setShortCount] = useState(0)
+    const [longCount, setLongCount] = useState(0)
+
     const handleMCQSChange = e => {
         if(e.target.checked){
             setMcqsIndexes(prev => [...prev, e.target.value])
+            setMcqsCount(prev => ++prev)
         }else{
             const index = mcqsIndexes.indexOf(e.target.value)
             if(index > -1){
@@ -213,6 +256,7 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
                     prev.splice(index, 1)
                     return prev;
                 })
+                setMcqsCount(prev => --prev)
             }
         }
     }
@@ -220,6 +264,7 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
     const handleShortChange = e => {
         if(e.target.checked){
             setShortIndexes(prev => [...prev, e.target.value])
+            setShortCount(prev => ++prev)
         }else{
             const index = shortIndexes.indexOf(e.target.value)
             if(index > -1){
@@ -227,6 +272,7 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
                     prev.splice(index, 1)
                     return prev;
                 })
+                setShortCount(prev => --prev)
             }
         }
     }
@@ -234,6 +280,7 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
     const handleLongChange = e => {
         if(e.target.checked){
             setLongIndexes(prev => [...prev, e.target.value])
+            setLongCount(prev => ++prev)
         }else{
             const index = longIndexes.indexOf(e.target.value)
             if(index > -1){
@@ -241,6 +288,7 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
                     prev.splice(index, 1)
                     return prev;
                 })
+                setLongCount(prev => --prev)
             }
         }
     }
@@ -272,27 +320,31 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
     
     return (<>
         <div className="container manual-question-selection">
+            <div className="alert">
+                <strong><FontAwesomeIcon icon={faInfoCircle} /> INFO</strong>
+                <p>Questions are selected based on which question you select first.</p>
+            </div>
             <h3 className='my-2'>{bookName}</h3>
             <p>{chapterName}</p>
 
             <h5 className="my-2 mt-5 heading">MCQs (Multiple Choice Questions)</h5>
-            <p>Selected MCQs : {mcqsIndexes.length} / {questions.mcqs.length}</p>
+            <p>Selected MCQs : {mcqsCount} / {questions.mcqs.length}</p>
             {
-                questions.mcqs.map((question,index)=>{
+                questions.mcqs.map((mcqs,index)=>{
                     return (
                         <div key={index} className="question-selection">
                             <label className="custom-checkbox">
                                 <input type="checkbox" value={index} onChange={handleMCQSChange} />
                                 <span className="checkmark"></span>
                             </label>
-                            <h6>{question}</h6>
+                            <h6>{mcqs.question}</h6>
                         </div>
                     );
                 })
             }
 
             <h5 className="my-2 mt-5 heading">Short Questions</h5>
-            <p>Selected Short Questions : {shortIndexes.length} / {questions.short.length}</p>
+            <p>Selected Short Questions : {shortCount} / {questions.short.length}</p>
             {
                 questions.short.map((question,index)=>{
                     return (
@@ -308,7 +360,7 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
             }
 
             <h5 className="my-2 mt-5 heading">Long Questions</h5>
-            <p>Selected Long Questions : {longIndexes.length} / {questions.long.length}</p>
+            <p>Selected Long Questions : {longCount} / {questions.long.length}</p>
             {
                 questions.long.map((question,index)=>{
                     return (
@@ -334,6 +386,8 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
         <div className="paper-content">
             <img style={{width: "50px", height: "50px"}} src="/images/MakePaper.png" alt="" />
             <br />
+            {props?.questionList?.mcqs?.length > 0 ? <center><h3><u>OBJECTIVE TYPE</u></h3></center> : null}
+
             {
                 props?.questionList?.mcqs?.length > 0 ? 
                 <>
@@ -341,7 +395,14 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                     <ol className='pl-4'>
                         {
                             props?.questionList?.mcqs?.map((mcqs, index) => {
-                                return (<li key={index}><h4>{mcqs}</h4></li>);
+                                return (<li key={index}>
+                                        <h4>{mcqs.question}</h4>
+                                        <ol className='custom-alphabet'>
+                                            {mcqs.options.map((option,ind)=>{
+                                                return (<li key={ind}>{option}</li>)
+                                            })}
+                                        </ol>
+                                    </li>);
                             })
                         }
                     </ol>
@@ -349,6 +410,8 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                 : null
             }
             <br />
+            {props?.questionList?.short?.length > 0 || props?.questionList?.long?.length > 0 ? <center><h3><u>SUBJECTIVE TYPE</u></h3></center> : null}
+
             {
                 props?.questionList?.short?.length > 0 ? 
                 <>

@@ -40,7 +40,38 @@
     background: #4A00E0;
     color: #fff;
     padding: 20px 20px;
+    position: sticky;
+    top: 0%;
 }
+
+.test-maker-container .paper-edit-panel .section{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
+}
+
+.test-maker-container .paper-edit-panel .section > input{
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 5px 0px;
+}
+
+.test-maker-container .paper-edit-panel .section .paper-heading-input{
+    border-bottom: 3px solid white;
+}
+
+.test-maker-container .paper-edit-panel .section .total-marks-input{
+    border-bottom: 3px solid white;
+    width: 50%;
+}
+
+.test-maker-container .paper-edit-panel .section > input::placeholder{
+    color: #eee;
+}
+
 
 .test-maker-container .paper-config{
     padding: 20px 0;
@@ -121,6 +152,14 @@
     gap: 20px;
 }
 
+.manual-question-selection .alert{
+    border: 2px solid var(--primary);
+}
+
+.manual-question-selection .alert strong{
+    color: var(--primary);
+}
+
 /* Custom Checkbox */
 
 .custom-checkbox{
@@ -187,4 +226,16 @@
 .custom-checkbox input:checked ~ .checkmark {
     background-color: #fff;
     border: none;
+}
+
+ol.custom-alphabet {
+    list-style-type: none; /* Remove default list styling */
+    counter-reset: alphabet-counter; /* Initialize counter */
+}
+ol.custom-alphabet li {
+    counter-increment: alphabet-counter; /* Increment counter */
+}
+ol.custom-alphabet li::before {
+    content: counter(alphabet-counter, lower-alpha) ") "; /* Add custom counter */
+    margin-right: 5px; /* Optional: Add space between counter and text */
 }
