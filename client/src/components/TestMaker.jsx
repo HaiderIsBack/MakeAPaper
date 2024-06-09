@@ -4,7 +4,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faAngleDown,
     faAngleUp,
-    faDownload
+    faArrowRight,
+    faDownload,
+    faStar
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
 import './TestMaker.css'
@@ -15,23 +17,44 @@ function TestMaker() {
     const [currentChapter, setCurrentChapter] = useState("none");
     const [subscriptionStatus, setSubscriptionStatus] = useState(false);
 
+    // Final Questions to print
+    const [questions, setQuestions] = useState({});
+
     const docs = [
         {
             "book" : "Network Administration CIT-324",
             "chapters": [
                 {
                     "name": "introduction",
-                    "questions": [
-                        "What is Network?",
-                        "Define IPv4."
-                    ]
+                    "questions": {
+                        "mcqs" : [
+                            "What is a router",
+                            "What is a switch",
+                            "What is a Network Interface Card (NIC)"
+                        ],
+                        "short" : [
+                            "What is Network?",
+                            "Define IPv4.",
+                            "What is peer-to-peer network?",
+                            "Define Task Scheduling."
+                        ],
+                        "long" : [
+                            "Explain the basic network components and also describe each component?",
+                            "Write a client end basic settings?",
+                            "Write a short note on Hub, Switch and Router?"
+                        ]
+                    }
                 },
                 {
                     "name": "microsoft windows client-end",
-                    "questions": [
-                        "What is Network?",
-                        "Define IPv4."
-                    ] 
+                    "questions": {
+                        "mcqs" : [],
+                        "short" : [
+                            "What is Network?",
+                            "Define IPv4."
+                        ],
+                        "long" : []
+                    }
                 }
             ]
         },
@@ -40,17 +63,25 @@ function TestMaker() {
             "chapters": [
                 {
                     "name": "introduction",
-                    "questions": [
-                        "What is Network?",
-                        "Define IPv4."
-                    ]
+                    "questions": {
+                        "mcqs" : [],
+                        "short" : [
+                            "What is Web Application?",
+                            "Define HTTP."
+                        ],
+                        "long" : []
+                    }
                 },
                 {
                     "name": "HTTP Basics",
-                    "questions": [
-                        "What is Network?",
-                        "Define IPv4."
-                    ] 
+                    "questions": {
+                        "mcqs" : [],
+                        "short" : [
+                            "What is HTTP GET method?",
+                            "Define HTTP POST method."
+                        ],
+                        "long" : []
+                    }
                 }
             ]
         }
@@ -77,19 +108,30 @@ function TestMaker() {
     }
 
     const getChapterObject = (book, chapterName) => {
-        var questions;
+        var questions = {
+            "mcqs": [],
+            "short": [],
+            "long": []
+        };
 
         docs.forEach(doc => {
             if(doc.book === book){
                 doc.chapters.forEach(chapter => {
                     if(chapter.name === chapterName){
-                        questions = chapter.questions
+                        questions.mcqs = chapter.questions.mcqs
+                        questions.short = chapter.questions.short
+                        questions.long = chapter.questions.long
                     }
                 })
             }
-        })
+        });
 
         return questions
+    }
+
+    const questionsToPrint = async (questionList) => {
+        await setQuestions(questionList)
+        await handlePrint()
     }
 
     return (
@@ -97,7 +139,7 @@ function TestMaker() {
         <div className="test-maker-container">
             <div className="row w-100">
                 <div className="col-md-8 col-12 paper-config d-flex flex-column">
-                    {/* <ComponentToPrint ref={paperRef} /> */}
+                    <ComponentToPrint ref={paperRef} questionList={questions} />
                     <h3 className='my-4 heading'>Question Selection Type</h3>
 
                     <div className="row">
@@ -141,14 +183,13 @@ function TestMaker() {
                     {
                         questionSelectionType === "manual" &&
                         currentBook !== "none" && 
-                        currentChapter !== "none" ? <QuestionSelection bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
+                        currentChapter !== "none" ? <QuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
 
                     }
                 </div>
                 <div className="col-md-4 d-md-block d-none">
                     <div className="paper-edit-panel">
                         <button onClick={handlePrint} className='download-paper'>Download <span><FontAwesomeIcon icon={faDownload}/></span></button>
-
                     </div>
                 </div>
             </div>
@@ -157,25 +198,132 @@ function TestMaker() {
     )
 }
 
-const QuestionSelection = ({ bookName, chapterName, questions }) => {
+const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions }) => {
+    const [mcqsIndexes, setMcqsIndexes] = useState([])
+    const [shortIndexes, setShortIndexes] = useState([])
+    const [longIndexes, setLongIndexes] = useState([])
+
+    const handleMCQSChange = e => {
+        if(e.target.checked){
+            setMcqsIndexes(prev => [...prev, e.target.value])
+        }else{
+            const index = mcqsIndexes.indexOf(e.target.value)
+            if(index > -1){
+                setMcqsIndexes(prev => {
+                    prev.splice(index, 1)
+                    return prev;
+                })
+            }
+        }
+    }
+ 
+    const handleShortChange = e => {
+        if(e.target.checked){
+            setShortIndexes(prev => [...prev, e.target.value])
+        }else{
+            const index = shortIndexes.indexOf(e.target.value)
+            if(index > -1){
+                setShortIndexes(prev => {
+                    prev.splice(index, 1)
+                    return prev;
+                })
+            }
+        }
+    }
+
+    const handleLongChange = e => {
+        if(e.target.checked){
+            setLongIndexes(prev => [...prev, e.target.value])
+        }else{
+            const index = longIndexes.indexOf(e.target.value)
+            if(index > -1){
+                setLongIndexes(prev => {
+                    prev.splice(index, 1)
+                    return prev;
+                })
+            }
+        }
+    }
+
+    const handlePrint = () => {
+        const questionList = {
+            "mcqs": [],
+            "short": [],
+            "long": []
+        }
+
+        // MCQS Entries
+        mcqsIndexes.forEach(mcqsIndex => {
+            questionList.mcqs = [...questionList.mcqs, questions.mcqs[mcqsIndex]]
+        })
+
+        // Short Entries
+        shortIndexes.forEach(shortIndex => {
+            questionList.short = [...questionList.short, questions.short[shortIndex]]
+        })
+
+        // Long Entries
+        longIndexes.forEach(longIndex => {
+            questionList.long = [...questionList.long, questions.long[longIndex]]
+        })
+
+        questionsToPrint(questionList)
+    }
     
     return (<>
         <div className="container manual-question-selection">
             <h3 className='my-2'>{bookName}</h3>
             <p>{chapterName}</p>
+
+            <h5 className="my-2 mt-5 heading">MCQs (Multiple Choice Questions)</h5>
+            <p>Selected MCQs : {mcqsIndexes.length} / {questions.mcqs.length}</p>
             {
-                questions.map((question,index)=>{
-                    return <>
-                        <div className="question-selection">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" />
-                            <span class="checkmark"></span>
-                        </label>
-                            <h5 key={index}>{question}</h5>
+                questions.mcqs.map((question,index)=>{
+                    return (
+                        <div key={index} className="question-selection">
+                            <label className="custom-checkbox">
+                                <input type="checkbox" value={index} onChange={handleMCQSChange} />
+                                <span className="checkmark"></span>
+                            </label>
+                            <h6>{question}</h6>
                         </div>
-                    </>
+                    );
                 })
             }
+
+            <h5 className="my-2 mt-5 heading">Short Questions</h5>
+            <p>Selected Short Questions : {shortIndexes.length} / {questions.short.length}</p>
+            {
+                questions.short.map((question,index)=>{
+                    return (
+                        <div key={index} className="question-selection">
+                            <label className="custom-checkbox">
+                                <input type="checkbox" value={index} onChange={handleShortChange} />
+                                <span className="checkmark"></span>
+                            </label>
+                            <h6>{question}</h6>
+                        </div>
+                    );
+                })
+            }
+
+            <h5 className="my-2 mt-5 heading">Long Questions</h5>
+            <p>Selected Long Questions : {longIndexes.length} / {questions.long.length}</p>
+            {
+                questions.long.map((question,index)=>{
+                    return (
+                        <div key={index} className="question-selection">
+                            <label className="custom-checkbox">
+                                <input type="checkbox" value={index} onChange={handleLongChange} />
+                                <span className="checkmark"></span>
+                            </label>
+                            <h6>{question}</h6>
+                        </div>
+                    );
+                })
+            }
+
+            <button onClick={handlePrint} className='download-paper my-4'>Download <span><FontAwesomeIcon icon={faDownload}/></span></button>
         </div>
     </>);
 }
@@ -185,45 +333,51 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
       <div ref={ref} className='text-dark paper'>
         <div className="paper-content">
             <img style={{width: "50px", height: "50px"}} src="/images/MakePaper.png" alt="" />
-            <h4 className='my-2'>Answer the following Short Questions (Any 10)</h4>
-            <ol>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-            </ol>
-            <h4 className='my-2'>Answer the following Long Questions (Any 10)</h4>
-            <ol>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-            </ol>
-        </div>
-        <br />
-        <div className="paper-content">
-            <h4 className='my-2'>Answer the following Short Questions (Any 10)</h4>
-            <ol>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-            </ol>
-            <h4 className='my-2'>Answer the following Long Questions (Any 10)</h4>
-            <ol>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-                <li><h6>What is Time?</h6></li>
-            </ol>
+            <br />
+            {
+                props?.questionList?.mcqs?.length > 0 ? 
+                <>
+                    <h2 className='my-4'><span><FontAwesomeIcon icon={faArrowRight} className='mr-2' /></span>Encircle the Correct Option.</h2>
+                    <ol className='pl-4'>
+                        {
+                            props?.questionList?.mcqs?.map((mcqs, index) => {
+                                return (<li key={index}><h4>{mcqs}</h4></li>);
+                            })
+                        }
+                    </ol>
+                </>
+                : null
+            }
+            <br />
+            {
+                props?.questionList?.short?.length > 0 ? 
+                <>
+                    <h2 className='my-4'><span><FontAwesomeIcon icon={faArrowRight} className='mr-2' /></span>Answer the following Short Questions</h2>
+                    <ol className='pl-4'>
+                        {
+                            props?.questionList?.short?.map((short, index) => {
+                                return (<li key={index}><h4>{short}</h4></li>);
+                            })
+                        }
+                    </ol>
+                </>
+                : null
+            }
+            <br />
+            {
+                props?.questionList?.long?.length > 0 ? 
+                <>
+                    <h2 className='my-4'><span><FontAwesomeIcon icon={faArrowRight} className='mr-2' /></span>Answer the following Long Questions</h2>
+                    <ol className='pl-4'>
+                        {
+                            props?.questionList?.long?.map((long, index) => {
+                                return (<li key={index}><h4>{long}</h4></li>);
+                            })
+                        }
+                    </ol>
+                </>
+                : null
+            }
         </div>
       </div>
     </>;
