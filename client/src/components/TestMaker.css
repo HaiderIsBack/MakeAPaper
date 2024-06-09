@@ -44,6 +44,12 @@
     top: 0%;
 }
 
+.test-maker-container .paper-edit-panel img{
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
 .test-maker-container .paper-edit-panel .section{
     display: flex;
     width: 100%;

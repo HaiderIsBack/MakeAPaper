@@ -5,11 +5,13 @@ import {
     faAngleDown,
     faAngleUp,
     faArrowRight,
+    faCamera,
     faDownload,
     faFileInvoice,
     faGear,
     faHeading,
     faInfoCircle,
+    faSchool,
     faStar
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
@@ -119,6 +121,16 @@ function TestMaker() {
     const bookRef = useRef();
     const chapterRef = useRef();
 
+    const logoRef = useRef();
+
+    const handleFileUpload = e => {
+        const file = e.target.files[0];
+        if(file){
+            const fileURL = URL.createObjectURL(file);
+            logoRef.current.src = fileURL;
+        }
+    }
+
     const handlePrint = useReactToPrint({
         content: () => paperRef.current,
         onBeforePrint: () => {
@@ -217,9 +229,21 @@ function TestMaker() {
                 </div>
                 <div className="col-md-4 d-md-block d-none">
                     <div className="paper-edit-panel">
-                        <h5 className='text-left'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
+                        <h5 className='text-left mb-5'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
+                        <div className="w-100">
+                            <img src="" alt="" ref={logoRef} />
+                        </div>
+                        <div className="section my-4">
+                            <FontAwesomeIcon icon={faCamera} />
+                            <input type="file" className='paper-heading-input' accept='.png, .jpeg, .jpg' onChange={handleFileUpload} />
+                        </div>
 
-                        <div className="section my-4 mt-5">
+                        <div className="section my-4">
+                            <FontAwesomeIcon icon={faSchool} />
+                            <input type="text" placeholder='Institute Name' className='paper-heading-input' />
+                        </div>
+
+                        <div className="section my-4">
                             <FontAwesomeIcon icon={faHeading} />
                             <input type="text" placeholder='Paper Heading' className='paper-heading-input' />
                         </div>
