@@ -25,6 +25,7 @@ function TestMaker() {
 
     // Final Questions to print
     const [questions, setQuestions] = useState({});
+    const [paperSettings, setPaperSettings] = useState({})
 
     const docs = [
         {
@@ -123,6 +124,12 @@ function TestMaker() {
 
     const logoRef = useRef();
 
+    // Paper Settings ref
+    const instituteLogoRef = useRef()
+    const instituteNameRef = useRef()
+    const paperHeadingRef = useRef()
+    const totalMarksRef = useRef()
+
     const handleFileUpload = e => {
         const file = e.target.files[0];
         if(file){
@@ -169,8 +176,19 @@ function TestMaker() {
         return questions
     }
 
+    const getPaperSettings = () => {
+        const settings = {
+            "logo": logoRef.current.src,
+            "name": instituteNameRef.current.value,
+            "totalMarks": totalMarksRef.current.value,
+            "paperHeading": paperHeadingRef.current.value
+        }
+        setPaperSettings(settings);
+    }
+
     const questionsToPrint = async (questionList) => {
         await setQuestions(questionList)
+        await getPaperSettings()
         await handlePrint()
     }
 
@@ -179,7 +197,7 @@ function TestMaker() {
         <div className="test-maker-container">
             <div className="row w-100">
                 <div className="col-md-8 col-12 paper-config d-flex flex-column">
-                    <ComponentToPrint ref={paperRef} questionList={questions} />
+                    <ComponentToPrint ref={paperRef} questionList={questions} paperSettings={paperSettings} />
                     <h3 className='my-4 heading'>Question Selection Type</h3>
 
                     <div className="row">
@@ -230,27 +248,27 @@ function TestMaker() {
                 <div className="col-md-4 d-md-block d-none">
                     <div className="paper-edit-panel">
                         <h5 className='text-left mb-5'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
-                        <div className="w-100">
-                            <img src="" alt="" ref={logoRef} />
+                        <div className="w-100 bg-secondary rounded">
+                            <img src="/images/dummy_school_logo.png" alt="" ref={logoRef} />
                         </div>
                         <div className="section my-4">
                             <FontAwesomeIcon icon={faCamera} />
-                            <input type="file" className='paper-heading-input' accept='.png, .jpeg, .jpg' onChange={handleFileUpload} />
+                            <input type="file" className='paper-heading-input' accept='.png, .jpeg, .jpg' ref={instituteLogoRef} onChange={handleFileUpload} />
                         </div>
 
                         <div className="section my-4">
                             <FontAwesomeIcon icon={faSchool} />
-                            <input type="text" placeholder='Institute Name' className='paper-heading-input' />
+                            <input type="text" placeholder='Institute Name' className='paper-heading-input' ref={instituteNameRef} />
                         </div>
 
                         <div className="section my-4">
                             <FontAwesomeIcon icon={faHeading} />
-                            <input type="text" placeholder='Paper Heading' className='paper-heading-input' />
+                            <input type="text" placeholder='Paper Heading' className='paper-heading-input' ref={paperHeadingRef} />
                         </div>
 
                         <div className="section my-4">
                             <FontAwesomeIcon icon={faFileInvoice} />
-                            <input type="number" placeholder='Total Marks' className='total-marks-input' />
+                            <input type="number" placeholder='Total Marks' className='total-marks-input' ref={totalMarksRef} />
                         </div>
                     </div>
                 </div>
@@ -405,10 +423,23 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
 }
 
 const ComponentToPrint = React.forwardRef((props, ref) => {
+    const settings = props?.paperSettings
     return <>
       <div ref={ref} className='text-dark paper'>
         <div className="paper-content">
-            <img style={{width: "50px", height: "50px"}} src="/images/MakePaper.png" alt="" />
+            <div className="d-flex align-items-center">
+                <h5>Roll no </h5>
+                <div style={{width: "100px",borderBottom: "2px solid black",marginLeft:"10px"}}></div>
+            </div>
+            <div className="d-flex align-items-center">
+                <h5>Candidate's Signature </h5>
+                <div style={{width: "100px",borderBottom: "2px solid black",marginLeft:"10px"}}></div>
+            </div>
+            <h5>Total Marks : {settings.totalMarks}</h5>
+            
+            <center><img style={{height: "100px"}} src={settings?.logo} alt="" /></center>
+            <center><h3>{settings.name}</h3></center>
+            <center><u><h4>{settings.paperHeading}</h4></u></center>
             <br />
             {props?.questionList?.mcqs?.length > 0 ? <center><h3><u>OBJECTIVE TYPE</u></h3></center> : null}
 
