@@ -21,7 +21,7 @@ function TestMaker() {
     const [questionSelectionType,setQuestionSelectionType] = useState("manual");
     const [currentBook, setCurrentBook] = useState("none");
     const [currentChapter, setCurrentChapter] = useState("none");
-    const [subscriptionStatus, setSubscriptionStatus] = useState(false);
+    const [subscriptionStatus, setSubscriptionStatus] = useState(true);
 
     // Final Questions to print
     const [questions, setQuestions] = useState({});
@@ -55,6 +55,42 @@ function TestMaker() {
                             },
                             {
                                 "question": "What is Bridge?",
+                                "options": [
+                                    "a device",
+                                    "a network",
+                                    "an enterprise",
+                                    "a server"
+                                ]
+                            },
+                            {
+                                "question": "What is Modem?",
+                                "options": [
+                                    "a device",
+                                    "a network",
+                                    "an enterprise",
+                                    "a server"
+                                ]
+                            },
+                            {
+                                "question": "What is Hub?",
+                                "options": [
+                                    "a device",
+                                    "a network",
+                                    "an enterprise",
+                                    "a server"
+                                ]
+                            },
+                            {
+                                "question": "What is TMG Server?",
+                                "options": [
+                                    "a device",
+                                    "a network",
+                                    "an enterprise",
+                                    "a server"
+                                ]
+                            },
+                            {
+                                "question": "What is Apache Tomcat?",
                                 "options": [
                                     "a device",
                                     "a network",
@@ -180,7 +216,7 @@ function TestMaker() {
         const settings = {
             "logo": logoRef.current.src,
             "name": instituteNameRef.current.value,
-            "totalMarks": totalMarksRef.current.value,
+            "totalMarks": totalMarksRef.current.value || "0",
             "paperHeading": paperHeadingRef.current.value
         }
         setPaperSettings(settings);
@@ -202,7 +238,7 @@ function TestMaker() {
 
                     <div className="row">
                         <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "manual" ? "active-selection" : ""} onClick={()=>setQuestionSelectionType("manual")}>Manual</button></div>
-                        <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "random" ? "active-selection" : ""} disabled={questionSelectionType === "random" ? false : true} onClick={()=>setQuestionSelectionType("random")}>Random</button></div>
+                        <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "random" ? "active-selection" : ""} disabled={subscriptionStatus ? false : true} onClick={()=>setQuestionSelectionType("random")}>Random</button></div>
                     </div>
                     <br />
                     <h3 className="my-3 heading">Document Selection</h3>
@@ -241,8 +277,13 @@ function TestMaker() {
                     {
                         questionSelectionType === "manual" &&
                         currentBook !== "none" && 
-                        currentChapter !== "none" ? <QuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
+                        currentChapter !== "none" ? <ManualQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
 
+                    }
+                    {
+                        questionSelectionType === "random" &&
+                        currentBook !== "none" && 
+                        currentChapter !== "none" ? <RandomQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
                     }
                 </div>
                 <div className="col-md-4 d-md-block d-none">
@@ -278,7 +319,8 @@ function TestMaker() {
     )
 }
 
-const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions }) => {
+// Manual Question Selection
+const ManualQuestionSelection = ({ questionsToPrint, bookName, chapterName, questions }) => {
     const [mcqsIndexes, setMcqsIndexes] = useState([])
     const [shortIndexes, setShortIndexes] = useState([])
     const [longIndexes, setLongIndexes] = useState([])
@@ -422,6 +464,116 @@ const QuestionSelection = ({ questionsToPrint, bookName, chapterName, questions 
     </>);
 }
 
+// Random Question Selection
+const RandomQuestionSelection = ({ questionsToPrint, bookName, chapterName, questions }) => {
+    const [mcqsIndexes, setMcqsIndexes] = useState([])
+    const [shortIndexes, setShortIndexes] = useState([])
+    const [longIndexes, setLongIndexes] = useState([])
+
+    const [mcqsCount, setMcqsCount] = useState(0)
+    const [shortCount, setShortCount] = useState(0)
+    const [longCount, setLongCount] = useState(0)
+
+    function getRandomValues(inputArray, numValues) {
+        if (!Array.isArray(inputArray)) {
+            throw new Error("The first argument must be an array.");
+        }
+    
+        if (typeof numValues !== 'number' || numValues < 0) {
+            throw new Error("The second argument must be a non-negative number.");
+        }
+    
+        // Ensure numValues does not exceed the length of the input array
+        const maxValues = Math.min(numValues, inputArray.length);
+    
+        // Create a copy of the input array to avoid modifying the original array
+        const arrayCopy = [...inputArray];
+    
+        // Shuffle the array copy using Fisher-Yates algorithm
+        for (let i = arrayCopy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]];
+        }
+    
+        // Return the first 'maxValues' elements from the shuffled array
+        return arrayCopy.slice(0, maxValues);
+    }
+
+    const handleMCQSChange = e => {
+        if(e.target.value > 0){
+            setMcqsCount(Math.min(questions.mcqs.length, e.target.value))
+        }
+        if(e.target.value <= 0){
+            setMcqsCount(0)
+        }
+    }
+
+    const handleShortChange = e => {
+        if(e.target.value > 0){
+            setShortCount(Math.min(questions.short.length, e.target.value))
+        }
+        if(e.target.value <= 0){
+            setShortCount(0)
+        }
+    }
+
+    const handleLongChange = e => {
+        if(e.target.value > 0){
+            setLongCount(Math.min(questions.long.length, e.target.value))
+        }
+        if(e.target.value <= 0){
+            setLongCount(0)
+        }
+    }
+
+    const handlePrint = () => {
+        const questionList = {
+            "mcqs": [],
+            "short": [],
+            "long": []
+        }
+
+        // MCQS Entries
+        questionList.mcqs = getRandomValues(questions.mcqs, mcqsCount)
+
+        // Short Entries
+        questionList.short = getRandomValues(questions.short, shortCount)
+
+        // Long Entries
+        questionList.long = getRandomValues(questions.long, longCount)
+
+        questionsToPrint(questionList)
+    }
+    return (<>
+        <div className="container random-question-selection">
+            <h3 className='my-2'>{bookName}</h3>
+            <p>{chapterName}</p>
+
+            <h5 className="my-2 mt-5 heading">MCQs (Multiple Choice Questions)</h5>
+            <div className="quantity d-flex align-items-baseline">
+                <input type="number" placeholder={questions.mcqs.length} value={mcqsCount} onChange={handleMCQSChange} />
+                <h5> / {questions.mcqs.length}</h5>
+            </div>
+
+            <h5 className="my-2 mt-5 heading">Short Questions</h5>
+            <div className="quantity d-flex align-items-baseline">
+                <input type="number" placeholder={questions.short.length} value={shortCount} onChange={handleShortChange} />
+                <h5> / {questions.short.length}</h5>
+            </div>
+
+            <h5 className="my-2 mt-5 heading">Long Questions</h5>
+            <div className="quantity d-flex align-items-baseline">
+                <input type="number" placeholder={questions.long.length} value={longCount} onChange={handleLongChange} />
+                <h5> / {questions.long.length}</h5>
+            </div>
+
+            <button onClick={handlePrint} className='download-paper my-4'>Download <span><FontAwesomeIcon icon={faDownload}/></span></button>
+        </div>
+    </>);
+}
+
+
+// Component to Print
 const ComponentToPrint = React.forwardRef((props, ref) => {
     const settings = props?.paperSettings
     return <>
@@ -441,6 +593,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
             <center><h3>{settings.name}</h3></center>
             <center><u><h4>{settings.paperHeading}</h4></u></center>
             <br />
+        <div className="section no-break">
             {props?.questionList?.mcqs?.length > 0 ? <center><h3><u>OBJECTIVE TYPE</u></h3></center> : null}
 
             {
@@ -464,6 +617,8 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                 </>
                 : null
             }
+        </div>
+        <div className="section">
             <br />
             {props?.questionList?.short?.length > 0 || props?.questionList?.long?.length > 0 ? <center><h3><u>SUBJECTIVE TYPE</u></h3></center> : null}
 
@@ -481,6 +636,8 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                 </>
                 : null
             }
+        </div>
+        <div className="section">
             <br />
             {
                 props?.questionList?.long?.length > 0 ? 
@@ -496,6 +653,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                 </>
                 : null
             }
+        </div>
         </div>
       </div>
     </>;

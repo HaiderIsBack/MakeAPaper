@@ -25,9 +25,3 @@ body{
 ::-webkit-scrollbar{
   display: none;
 }
-
-@media print{
-  .paper{
-    font-family: Arial, Helvetica, sans-serif;
-  }
-}
