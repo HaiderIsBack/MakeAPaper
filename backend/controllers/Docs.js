@@ -21,16 +21,6 @@ const getBooks = async (req, res) => {
     }
 }
 
-// Get a single book
-// const getBook = (req, res) => {
-//     try {
-        
-//     } catch (error) {
-//         console.log(error)
-//         res.status(500).json({msg: "Error has Occured"})
-//     }
-// }
-
 // Create a new book
 const createBook = async (req, res) => {
     try {
@@ -76,7 +66,8 @@ const getChapters = async (req, res) => {
             if(book.chapters.length < 1){
                 res.status(200).json({msg: "More Chapters are coming soon"})
             }else{
-                res.status(200).json(book.chapters);
+                const chapters = book.chapters.map(chapter => chapter.name)
+                res.status(200).json(chapters);
             }
         }
     } catch (error) {
@@ -146,7 +137,6 @@ const insertChapter = async (req, res) => {
 
 module.exports = {
     getBooks,
-    getBook,
     createBook,
     getChapters,
     getChapter,

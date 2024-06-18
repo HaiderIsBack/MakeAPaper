@@ -19,145 +19,209 @@ import './TestMaker.css'
 
 function TestMaker() {
     const [questionSelectionType,setQuestionSelectionType] = useState("manual");
-    const [currentBook, setCurrentBook] = useState("none");
-    const [currentChapter, setCurrentChapter] = useState("none");
-    const [subscriptionStatus, setSubscriptionStatus] = useState(true);
+    const [currentBook, setCurrentBook] = useState({});
+    const [currentChapterIndex, setCurrentChapterIndex] = useState(-1);
+    const [subscriptionStatus, setSubscriptionStatus] = useState(false);
 
     // Final Questions to print
     const [questions, setQuestions] = useState({});
     const [paperSettings, setPaperSettings] = useState({})
 
-    const docs = [
-        {
-            "book" : "Network Administration CIT-324",
-            "chapters": [
-                {
-                    "name": "introduction",
-                    "questions": {
-                        "mcqs" : [
-                            {
-                                "question": "What is Router?",
-                                "options": [
-                                    "a device",
-                                    "a network",
-                                    "an enterprise",
-                                    "a server"
-                                ]
-                            },
-                            {
-                                "question": "What is Switch?",
-                                "options": [
-                                    "a device",
-                                    "a network",
-                                    "an enterprise",
-                                    "a server"
-                                ]
-                            },
-                            {
-                                "question": "What is Bridge?",
-                                "options": [
-                                    "a device",
-                                    "a network",
-                                    "an enterprise",
-                                    "a server"
-                                ]
-                            },
-                            {
-                                "question": "What is Modem?",
-                                "options": [
-                                    "a device",
-                                    "a network",
-                                    "an enterprise",
-                                    "a server"
-                                ]
-                            },
-                            {
-                                "question": "What is Hub?",
-                                "options": [
-                                    "a device",
-                                    "a network",
-                                    "an enterprise",
-                                    "a server"
-                                ]
-                            },
-                            {
-                                "question": "What is TMG Server?",
-                                "options": [
-                                    "a device",
-                                    "a network",
-                                    "an enterprise",
-                                    "a server"
-                                ]
-                            },
-                            {
-                                "question": "What is Apache Tomcat?",
-                                "options": [
-                                    "a device",
-                                    "a network",
-                                    "an enterprise",
-                                    "a server"
-                                ]
-                            }
-                        ],
-                        "short" : [
-                            "What is Network?",
-                            "Define IPv4.",
-                            "What is peer-to-peer network?",
-                            "Define Task Scheduling."
-                        ],
-                        "long" : [
-                            "Explain the basic network components and also describe each component?",
-                            "Write a client end basic settings?",
-                            "Write a short note on Hub, Switch and Router?"
-                        ]
-                    }
-                },
-                {
-                    "name": "microsoft windows client-end",
-                    "questions": {
-                        "mcqs" : [],
-                        "short" : [
-                            "What is Network?",
-                            "Define IPv4."
-                        ],
-                        "long" : []
-                    }
+    // const docs = [
+    //     {
+    //         "book" : "Network Administration CIT-324",
+    //         "chapters": [
+    //             {
+    //                 "name": "introduction",
+    //                 "questions": {
+    //                     "mcqs" : [
+    //                         {
+    //                             "question": "What is Router?",
+    //                             "options": [
+    //                                 "a device",
+    //                                 "a network",
+    //                                 "an enterprise",
+    //                                 "a server"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "question": "What is Switch?",
+    //                             "options": [
+    //                                 "a device",
+    //                                 "a network",
+    //                                 "an enterprise",
+    //                                 "a server"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "question": "What is Bridge?",
+    //                             "options": [
+    //                                 "a device",
+    //                                 "a network",
+    //                                 "an enterprise",
+    //                                 "a server"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "question": "What is Modem?",
+    //                             "options": [
+    //                                 "a device",
+    //                                 "a network",
+    //                                 "an enterprise",
+    //                                 "a server"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "question": "What is Hub?",
+    //                             "options": [
+    //                                 "a device",
+    //                                 "a network",
+    //                                 "an enterprise",
+    //                                 "a server"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "question": "What is TMG Server?",
+    //                             "options": [
+    //                                 "a device",
+    //                                 "a network",
+    //                                 "an enterprise",
+    //                                 "a server"
+    //                             ]
+    //                         },
+    //                         {
+    //                             "question": "What is Apache Tomcat?",
+    //                             "options": [
+    //                                 "a device",
+    //                                 "a network",
+    //                                 "an enterprise",
+    //                                 "a server"
+    //                             ]
+    //                         }
+    //                     ],
+    //                     "short" : [
+    //                         "What is Network?",
+    //                         "Define IPv4.",
+    //                         "What is peer-to-peer network?",
+    //                         "Define Task Scheduling."
+    //                     ],
+    //                     "long" : [
+    //                         "Explain the basic network components and also describe each component?",
+    //                         "Write a client end basic settings?",
+    //                         "Write a short note on Hub, Switch and Router?"
+    //                     ]
+    //                 }
+    //             },
+    //             {
+    //                 "name": "microsoft windows client-end",
+    //                 "questions": {
+    //                     "mcqs" : [],
+    //                     "short" : [
+    //                         "What is Network?",
+    //                         "Define IPv4."
+    //                     ],
+    //                     "long" : []
+    //                 }
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         "book" : "Web Develpment with JAVA",
+    //         "chapters": [
+    //             {
+    //                 "name": "introduction",
+    //                 "questions": {
+    //                     "mcqs" : [],
+    //                     "short" : [
+    //                         "What is Web Application?",
+    //                         "Define HTTP."
+    //                     ],
+    //                     "long" : []
+    //                 }
+    //             },
+    //             {
+    //                 "name": "HTTP Basics",
+    //                 "questions": {
+    //                     "mcqs" : [],
+    //                     "short" : [
+    //                         "What is HTTP GET method?",
+    //                         "Define HTTP POST method."
+    //                     ],
+    //                     "long" : []
+    //                 }
+    //             }
+    //         ]
+    //     }
+    // ]
+    const [docs, setDocs] = useState([])
+    const [chapters, setChapters] = useState([])
+    const [chapterQuestions, setChapterQuestions] = useState([])
+
+    useEffect(()=>{
+        const fetchBooks = () => {
+            fetch("/api/v1/books")
+            .then((res)=>{
+                if(res.status === 200){
+                    return res.json()
                 }
-            ]
-        },
-        {
-            "book" : "Web Develpment with JAVA",
-            "chapters": [
-                {
-                    "name": "introduction",
-                    "questions": {
-                        "mcqs" : [],
-                        "short" : [
-                            "What is Web Application?",
-                            "Define HTTP."
-                        ],
-                        "long" : []
-                    }
-                },
-                {
-                    "name": "HTTP Basics",
-                    "questions": {
-                        "mcqs" : [],
-                        "short" : [
-                            "What is HTTP GET method?",
-                            "Define HTTP POST method."
-                        ],
-                        "long" : []
-                    }
+            })
+            .then(data => {
+                if(!data.msg){
+                    setDocs(data);
                 }
-            ]
+            })
+            .catch(error => {
+                console.log(error)
+            })
         }
-    ]
+        fetchBooks()
+    }, [])
+
+    useEffect(()=>{
+        const fetchChapters = () => {
+            if(currentBook.bookName && currentBook.author){
+                fetch(`/api/v1/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`)
+                .then((res)=>{
+                    if(res.status === 200){
+                        return res.json()
+                    }
+                })
+                .then(data => {
+                    if(!data.msg){
+                        setChapters(data);
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }
+        }
+        fetchChapters()
+    },[currentBook])
+
+    useEffect(()=>{
+        const fetchQuestions = () => {
+            if(currentChapterIndex >= 0){
+                fetch(`/api/v1/chapter?bookName=${currentBook.bookName}&author=${currentBook.author}&chapterIndex=${currentChapterIndex}`)
+                .then((res)=>{
+                    if(res.status === 200){
+                        return res.json()
+                    }
+                })
+                .then(data => {
+                    if(!data.msg){
+                        setChapterQuestions(data);
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }
+        }
+        fetchQuestions()
+    },[currentChapterIndex])
 
     const paperRef = useRef();
-    const bookRef = useRef();
-    const chapterRef = useRef();
-
     const logoRef = useRef();
 
     // Paper Settings ref
@@ -182,34 +246,12 @@ function TestMaker() {
         }
     });
 
-    const handleBookChange = () => {
-        setCurrentBook(bookRef.current.value)
+    const handleBookChange = (e) => {
+        setCurrentBook(JSON.parse(e.target.value))
     }
 
-    const handleChapterChange = () => {
-        setCurrentChapter(chapterRef.current.value)
-    }
-
-    const getChapterObject = (book, chapterName) => {
-        var questions = {
-            "mcqs": [],
-            "short": [],
-            "long": []
-        };
-
-        docs.forEach(doc => {
-            if(doc.book === book){
-                doc.chapters.forEach(chapter => {
-                    if(chapter.name === chapterName){
-                        questions.mcqs = chapter.questions.mcqs
-                        questions.short = chapter.questions.short
-                        questions.long = chapter.questions.long
-                    }
-                })
-            }
-        });
-
-        return questions
+    const handleChapterChange = (e) => {
+        setCurrentChapterIndex(e.target.value)
     }
 
     const getPaperSettings = () => {
@@ -245,29 +287,25 @@ function TestMaker() {
 
                     <div className="row my-3">
                         <div className="col-sm-6 col-12 my-sm-0 my-2 position-relative">
-                            <select name="book" ref={bookRef} onChange={handleBookChange} required>
+                            <select name="book" onChange={handleBookChange} required>
                                 <option value="none">-- Select Book</option>
                                 {
-                                    docs.map(doc => {
-                                        return <option key={doc.book} value={doc.book}>{doc.book}</option>
+                                    docs.map((doc,index) => {
+                                        return <option key={index} value={JSON.stringify(doc)}>{doc.bookName}</option>
                                     })
                                 }
                             </select>
                             <span className='caret'><FontAwesomeIcon icon={faAngleDown} /></span>
                         </div>
                         <div className="col-sm-6 col-12 my-sm-0 my-2 position-relative">
-                            <select name="chapter" id="chapter" ref={chapterRef} onChange={handleChapterChange} required>
+                            <select name="chapter" id="chapter" onChange={handleChapterChange} required>
                                 <option value="none">-- Select Chapter</option>
                                 {
-                                    docs.map(doc => {
-                                        if(currentBook === doc.book){
-                                            return doc.chapters.map((chapter,index) => {
-                                                if(!subscriptionStatus && index == 0){
-                                                    return <option key={chapter.name} value={chapter.name}>{chapter.name}</option>
-                                                }
-                                                return <option key={chapter.name} value={chapter.name} disabled={!subscriptionStatus ? true : false}>{chapter.name}</option>
-                                            })
+                                    chapters.map((chapter, index) => {
+                                        if(!subscriptionStatus && index == 0){
+                                            return <option key={index} value={index}>{chapter}</option>
                                         }
+                                        return <option key={index} value={subscriptionStatus ? index : null} disabled={!subscriptionStatus ? true : false}>{chapter}</option>
                                     })
                                 }
                             </select>
@@ -276,14 +314,14 @@ function TestMaker() {
                     </div>
                     {
                         questionSelectionType === "manual" &&
-                        currentBook !== "none" && 
-                        currentChapter !== "none" ? <ManualQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
+                        (Object.keys(currentBook).length !== 0 && currentBook.constructor === Object) && 
+                        (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <ManualQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
 
                     }
                     {
                         questionSelectionType === "random" &&
-                        currentBook !== "none" && 
-                        currentChapter !== "none" ? <RandomQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook} chapterName={currentChapter} questions={getChapterObject(currentBook, currentChapter)} /> : null
+                        (Object.keys(currentBook).length !== 0 && currentBook.constructor === Object) && 
+                        (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <RandomQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
                     }
                 </div>
                 <div className="col-md-4 d-md-block d-none">
@@ -321,6 +359,7 @@ function TestMaker() {
 
 // Manual Question Selection
 const ManualQuestionSelection = ({ questionsToPrint, bookName, chapterName, questions }) => {
+    
     const [mcqsIndexes, setMcqsIndexes] = useState([])
     const [shortIndexes, setShortIndexes] = useState([])
     const [longIndexes, setLongIndexes] = useState([])
@@ -328,6 +367,15 @@ const ManualQuestionSelection = ({ questionsToPrint, bookName, chapterName, ques
     const [mcqsCount, setMcqsCount] = useState(0)
     const [shortCount, setShortCount] = useState(0)
     const [longCount, setLongCount] = useState(0)
+
+    useEffect(()=>{
+        setMcqsIndexes([])
+        setShortIndexes([])
+        setLongIndexes([])
+        setMcqsCount(0)
+        setShortCount(0)
+        setLongCount(0)
+    },[questions])
 
     const handleMCQSChange = e => {
         if(e.target.checked){
