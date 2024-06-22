@@ -62,7 +62,7 @@ function SignUp() {
           generateError("password length must be greater than 8 Characters");
           return;
         }else{
-          const finalData = {
+          const payload = {
             username,
             email,
             password
@@ -71,20 +71,23 @@ function SignUp() {
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify(finalData),
+            body: JSON.stringify(payload),
             method: "POST"
           })
           .then(async (res) => {
-            if(res.status == 500){
-              generateError("Server Inconvenience");
-            }else if(res.status == 200){
-              return res.json();
-            }else{
-              generateError("Bad Request!");
+            if(res.status === 200 || res.status === 400){
+              return res.json()
+            }else if(res.status === 500){
+              generateError("Server Error: 500")
             }
           })
           .then(data => {
-            setTimeout(()=>navigate("/login"),5000)
+            if(data.error){
+              generateError(data.error, 5000)
+              return
+            }
+            generateSuccess(data.msg, 5000)
+            setTimeout(() => navigate("/login"), 5000)
           })
           .catch(error => {
             console.log(error)
@@ -158,7 +161,7 @@ function Login() {
       generateError("please complete the Form")
       return;
     }else{
-      const finalData = {
+      const payload = {
         username,
         password
       }
@@ -166,18 +169,28 @@ function Login() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(finalData),
+        body: JSON.stringify(payload),
         method: "POST"
       })
       .then(res => {
-        console.log(res)
+        if(res.status === 200 || res.status === 400){
+          return res.json()
+        }else if(res.status === 500){
+          generateError("Server Error: 500")
+        }
       })
       .then(data => {
-        console.log(data);
+        if(data.msg){
+          generateError(data.msg, 5000)
+          return
+        }
+        localStorage.setItem("user:details", JSON.stringify(data.user))
+        localStorage.setItem("user:token", JSON.stringify(data.token))
+        generateSuccess("Login Successfull", 3000)
+        setTimeout(() => navigate("/"), 3000)
       })
       .catch(error => {
-        console.log(error);
-        generateError("hi",12000);
+        console.log(error)
       });
     }
   }

@@ -6,7 +6,7 @@ import { BrowserRouter,Routes, Route, Navigate } from "react-router-dom";
 import Nav from './components/Nav';
 import GlassBg from "./components/GlassBg";
 import Hero from "./components/Hero";
-import Subscription from "./components/Subscription";
+import Plans from "./components/Plans";
 import TestMaker from "./components/TestMaker";
 import {Login, SignUp} from "./pages/Authentication";
 
@@ -32,7 +32,7 @@ function App() {
           <Routes>
             <Route path="/">
               <Route index element={<Hero />} />
-              <Route path="plans" element={<Subscription />} />
+              <Route path="plans" element={<Plans />} />
               
               <Route path="paper" element={
                 <ProtectedRoute auth={true}>

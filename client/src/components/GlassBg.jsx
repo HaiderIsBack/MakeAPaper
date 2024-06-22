@@ -10,8 +10,8 @@ function GlassBg() {
     },{duration:8000,iterations:Infinity})
     document.onpointermove = (e) => {
       blobRef.current.animate({
-        top: (e.clientY - 70 / 2) + "px",
-        left: (e.clientX - 150 / 2) + "px"
+        top: (e.pageY - 70 / 2) + "px",
+        left: (e.pageX - 150 / 2) + "px"
       },{duration:800,fill:"forwards"});
     };
   },[]);

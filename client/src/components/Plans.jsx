@@ -1,4 +1,4 @@
-import './Subscription.css'
+import './Plans.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
   faCheckSquare,
@@ -7,11 +7,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
 
-function Subscription() {
+function Plans() {
 
   return (
     <>
-      <div className="subscription-container hero-container">
+      <div className="plans-container hero-container">
         <h2 className='my-5 text-left'>Plans</h2>
         <div className="row w-100 justify-content-center">
             <div className="col-lg-4 col-12 my-lg-0 my-5 w-100">
@@ -83,4 +83,4 @@ function Subscription() {
   )
 }
 
-export default Subscription
+export default Plans

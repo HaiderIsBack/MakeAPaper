@@ -4,10 +4,8 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
-  console.log(req.body)
   try {
     const {username, password} = req.body;
-    console.log(req.body)
 
     if(!username || !password){
       res.status(400).json({msg:"please fill out data first"})
@@ -44,7 +42,7 @@ const login = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({error: "Server Error"})
+    res.status(500).json({msg: "Server Error"})
   }
 }
 
@@ -53,18 +51,18 @@ const register = async (req, res) => {
     const {email, username, password} = req.body;
 
     if(!email || !username || !password){
-      res.status(400).json({msg:"please fill credentials first"})
+      res.status(400).json({error:"please fill credentials first"})
     }else{
       const isAlreadyExist = await Users.findOne({$or:[{username:username},{email: email}]});
       if(isAlreadyExist){
-        res.status(400).json({msg:"User with this username already exists"})
+        res.status(400).json({error:"User with this username already exists"})
       }else{
         const newUser = new Users({
           email: email,
           username: username
         })
         bcryptjs.hash(password, 10, (err, hashedPassword)=>{
-          newUser.set('password',hashedPassword)
+          newUser.set('password', hashedPassword)
           newUser.save()
         })
         return res.status(200).json({msg:"Account Created. Redirecting to LOGIN"});

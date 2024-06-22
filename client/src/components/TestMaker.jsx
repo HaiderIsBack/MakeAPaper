@@ -3,7 +3,6 @@ import { useEffect, useRef } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faAngleDown,
-    faAngleUp,
     faArrowRight,
     faCamera,
     faDownload,
@@ -11,8 +10,7 @@ import {
     faGear,
     faHeading,
     faInfoCircle,
-    faSchool,
-    faStar
+    faSchool
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
 import './TestMaker.css'
@@ -27,132 +25,7 @@ function TestMaker() {
     const [questions, setQuestions] = useState({});
     const [paperSettings, setPaperSettings] = useState({})
 
-    // const docs = [
-    //     {
-    //         "book" : "Network Administration CIT-324",
-    //         "chapters": [
-    //             {
-    //                 "name": "introduction",
-    //                 "questions": {
-    //                     "mcqs" : [
-    //                         {
-    //                             "question": "What is Router?",
-    //                             "options": [
-    //                                 "a device",
-    //                                 "a network",
-    //                                 "an enterprise",
-    //                                 "a server"
-    //                             ]
-    //                         },
-    //                         {
-    //                             "question": "What is Switch?",
-    //                             "options": [
-    //                                 "a device",
-    //                                 "a network",
-    //                                 "an enterprise",
-    //                                 "a server"
-    //                             ]
-    //                         },
-    //                         {
-    //                             "question": "What is Bridge?",
-    //                             "options": [
-    //                                 "a device",
-    //                                 "a network",
-    //                                 "an enterprise",
-    //                                 "a server"
-    //                             ]
-    //                         },
-    //                         {
-    //                             "question": "What is Modem?",
-    //                             "options": [
-    //                                 "a device",
-    //                                 "a network",
-    //                                 "an enterprise",
-    //                                 "a server"
-    //                             ]
-    //                         },
-    //                         {
-    //                             "question": "What is Hub?",
-    //                             "options": [
-    //                                 "a device",
-    //                                 "a network",
-    //                                 "an enterprise",
-    //                                 "a server"
-    //                             ]
-    //                         },
-    //                         {
-    //                             "question": "What is TMG Server?",
-    //                             "options": [
-    //                                 "a device",
-    //                                 "a network",
-    //                                 "an enterprise",
-    //                                 "a server"
-    //                             ]
-    //                         },
-    //                         {
-    //                             "question": "What is Apache Tomcat?",
-    //                             "options": [
-    //                                 "a device",
-    //                                 "a network",
-    //                                 "an enterprise",
-    //                                 "a server"
-    //                             ]
-    //                         }
-    //                     ],
-    //                     "short" : [
-    //                         "What is Network?",
-    //                         "Define IPv4.",
-    //                         "What is peer-to-peer network?",
-    //                         "Define Task Scheduling."
-    //                     ],
-    //                     "long" : [
-    //                         "Explain the basic network components and also describe each component?",
-    //                         "Write a client end basic settings?",
-    //                         "Write a short note on Hub, Switch and Router?"
-    //                     ]
-    //                 }
-    //             },
-    //             {
-    //                 "name": "microsoft windows client-end",
-    //                 "questions": {
-    //                     "mcqs" : [],
-    //                     "short" : [
-    //                         "What is Network?",
-    //                         "Define IPv4."
-    //                     ],
-    //                     "long" : []
-    //                 }
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         "book" : "Web Develpment with JAVA",
-    //         "chapters": [
-    //             {
-    //                 "name": "introduction",
-    //                 "questions": {
-    //                     "mcqs" : [],
-    //                     "short" : [
-    //                         "What is Web Application?",
-    //                         "Define HTTP."
-    //                     ],
-    //                     "long" : []
-    //                 }
-    //             },
-    //             {
-    //                 "name": "HTTP Basics",
-    //                 "questions": {
-    //                     "mcqs" : [],
-    //                     "short" : [
-    //                         "What is HTTP GET method?",
-    //                         "Define HTTP POST method."
-    //                     ],
-    //                     "long" : []
-    //                 }
-    //             }
-    //         ]
-    //     }
-    // ]
+    // Questions from Backend
     const [docs, setDocs] = useState([])
     const [chapters, setChapters] = useState([])
     const [chapterQuestions, setChapterQuestions] = useState([])
@@ -211,6 +84,8 @@ function TestMaker() {
                 .then(data => {
                     if(!data.msg){
                         setChapterQuestions(data);
+                    }else{
+                        alert(data.msg)
                     }
                 })
                 .catch(error => {
@@ -635,7 +510,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                 <h5>Candidate's Signature </h5>
                 <div style={{width: "100px",borderBottom: "2px solid black",marginLeft:"10px"}}></div>
             </div>
-            <h5>Total Marks : {settings.totalMarks}</h5>
+            { settings.totalMarks > 0 ? <h5>Total Marks : {settings.totalMarks}</h5> : null}
             
             <center><img style={{height: "100px"}} src={settings?.logo} alt="" /></center>
             <center><h3>{settings.name}</h3></center>
