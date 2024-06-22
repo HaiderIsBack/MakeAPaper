@@ -13,11 +13,11 @@ function Hero() {
   return (
     <>
       <div className="hero-container d-flex flex-column align-items-center">
-        <h1 className='my-3'>Let's Build a Bright Future</h1>
+        <h1 style={{marginTop: "100px"}}>Let's Build a Bright Future</h1>
         <p className="my-2">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
-        <button className='my-4'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
+        <button className='my-4 get-started'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
 
-        <div className="row w-100">
+        <div className="row w-100" style={{marginTop: "100px"}}>
             <div className="col-md-4 col-12">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
@@ -55,7 +55,48 @@ function Hero() {
               </div>
             </div>
         </div>
+
+        {/* First Banner */}
+        <div className="row banner" style={{marginTop: "100px"}}>
+          <div className="col-sm-6 col-12 align-self-center justify-self-center">
+            <img src="/svg/undraw_1.svg" alt="undraw" className="w-50" loading="lazy" />
+          </div>
+          <div className="col-sm-6 col-12 align-self-center">
+            <section>
+              <h2 className="text-left">BEST SERVICES</h2>
+              <p className="text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
+            </section>
+          </div>
+        </div>
+
+        {/* Second Banner */}
+        <div className="row banner p-2 py-5 shadow" style={{background: "var(--btn)", borderRadius: "7px"}}>
+          <div className="col-sm-6 col-12 align-self-center">
+            <section>
+              <h2 className="text-left">BEST SERVICES</h2>
+              <p className="text-left" style={{color: "#eee"}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
+            </section>
+          </div>
+          <div className="col-sm-6 col-12 align-self-center justify-self-center">
+            <img src="/svg/undraw_2.svg" alt="undraw" className="w-50" loading="lazy" />
+          </div>
+        </div>
+
+        {/* Third Banner */}
+        <div className="row banner">
+          <div className="col-sm-6 col-12 align-self-center justify-self-center">
+            <img src="/svg/undraw_3.svg" alt="undraw" className="w-50" loading="lazy" />
+          </div>
+          <div className="col-sm-6 col-12 align-self-center">
+            <section>
+              <h2 className="text-left" style={{fontWeight: "700"}}>BEST SERVICES</h2>
+              <p className="text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
+            </section>
+          </div>
+        </div>
       </div>
+
+      {/* News Letter */}
     </>
   )
 }
