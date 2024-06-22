@@ -10,6 +10,8 @@ import Plans from "./components/Plans";
 import TestMaker from "./components/TestMaker";
 import {Login, SignUp} from "./pages/Authentication";
 
+import { UserProvider } from "./UserContext";
+
 const ProtectedRoute = ({children, auth=false}) => {
   const isLoggedIn = localStorage.getItem("user:token") || false
   if(!isLoggedIn && auth){
@@ -31,7 +33,11 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/">
-              <Route index element={<Hero />} />
+              <Route index element={
+                <UserProvider>
+                  <Hero />
+                </UserProvider>
+              } />
               <Route path="plans" element={<Plans />} />
               
               <Route path="paper" element={
@@ -40,8 +46,18 @@ function App() {
                 </ProtectedRoute>
               } />
               
-              <Route path="signup" element={<SignUp />} />
-              <Route path="login" element={<Login />} />
+              <Route path="signup" element={
+                <ProtectedRoute auth={false}>
+                  <SignUp />
+                </ProtectedRoute>
+              } />
+              <Route path="login" element={
+                <ProtectedRoute auth={false}>
+                  <UserProvider>
+                    <Login />
+                  </UserProvider>
+                </ProtectedRoute>
+              } />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -5,7 +5,8 @@ import {
     faEye,
     faEyeSlash
   } from '@fortawesome/free-solid-svg-icons';
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import UserContext from '../UserContext';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -132,6 +133,8 @@ function SignUp() {
 function Login() {
   const navigate = useNavigate();
 
+  const { setUser } = useContext(UserContext)
+
   const [errorOccured,setErrorOccured] = useState(false)
   const [errorMessage,setErrorMessage] = useState("")
   const [successOccured,setSuccessOccured] = useState(false)
@@ -184,6 +187,7 @@ function Login() {
           generateError(data.msg, 5000)
           return
         }
+        setUser(data.user)
         localStorage.setItem("user:details", JSON.stringify(data.user))
         localStorage.setItem("user:token", data.token)
         generateSuccess("Login Successfull", 3000)
