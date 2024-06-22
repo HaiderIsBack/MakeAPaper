@@ -185,7 +185,7 @@ function Login() {
           return
         }
         localStorage.setItem("user:details", JSON.stringify(data.user))
-        localStorage.setItem("user:token", JSON.stringify(data.token))
+        localStorage.setItem("user:token", data.token)
         generateSuccess("Login Successfull", 3000)
         setTimeout(() => navigate("/"), 3000)
       })
