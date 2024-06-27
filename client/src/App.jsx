@@ -9,11 +9,12 @@ import Hero from "./components/Hero";
 import Plans from "./components/Plans";
 import TestMaker from "./components/TestMaker";
 import {Login, SignUp} from "./pages/Authentication";
-
-import { UserProvider } from "./UserContext";
+import { useContext } from "react";
+import UserContext from "./UserContext";
 
 const ProtectedRoute = ({children, auth=false}) => {
-  const isLoggedIn = localStorage.getItem("user:token") || false
+  const { user } = useContext(UserContext)
+  const isLoggedIn = user?.token || false
   if(!isLoggedIn && auth){
     return <Navigate to={"/login"} />;
   }else if(isLoggedIn && ["/login","/signup"].includes(window.location.pathname)){
@@ -34,9 +35,7 @@ function App() {
           <Routes>
             <Route path="/">
               <Route index element={
-                <UserProvider>
-                  <Hero />
-                </UserProvider>
+                <Hero />
               } />
               <Route path="plans" element={<Plans />} />
               
@@ -53,9 +52,7 @@ function App() {
               } />
               <Route path="login" element={
                 <ProtectedRoute auth={false}>
-                  <UserProvider>
-                    <Login />
-                  </UserProvider>
+                  <Login />
                 </ProtectedRoute>
               } />
             </Route>

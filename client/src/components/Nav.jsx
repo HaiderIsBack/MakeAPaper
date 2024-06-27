@@ -5,9 +5,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faBarsStaggered
   } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
+import UserContext from "../UserContext"
 
 function Nav() {
   const navigate = useNavigate();
+  const { user, logout } = useContext(UserContext)
   return (
     <>
       <div className="nav-container my-3 p-2 px-3">
@@ -24,7 +27,10 @@ function Nav() {
             </menu>
         </div>
         <div className="nav-account d-lg-block d-none">
-            <button onClick={()=>navigate("/signup")}>Sign Up</button>
+          {
+            user === null ? <button onClick={()=>navigate("/signup")}>Sign Up</button> : <button onClick={logout}>Log Out</button>
+          }
+            
         </div>
         <div className="nav-account d-lg-none d-block">
           <button><FontAwesomeIcon icon={faBarsStaggered} /></button>
