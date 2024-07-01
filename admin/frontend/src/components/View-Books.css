@@ -1,0 +1,38 @@
+.view-books{
+    width: 100%;
+    color: white;
+}
+
+.view-books thead{
+    background: var(--site-bg-primary);
+    border-top-right-radius: var(--border-radius);
+}
+
+.view-books thead tr th{
+    padding: 10px 0px;
+}
+
+.view-books thead tr th:first-child{
+    width: 50px;
+    text-align: center;
+}
+
+.view-books thead tr th:first-child{
+    border-top-left-radius: var(--border-radius);
+}
+
+.view-books thead tr th:last-child{
+    border-top-right-radius: var(--border-radius);
+}
+
+.view-books tbody tr:nth-child(even){
+   background: rgba(255,255,255,0.1); 
+}
+
+.view-books tbody tr td{
+    padding: 7px 0;
+}
+
+.view-books tbody tr td:first-child{
+    text-align: center;
+}
