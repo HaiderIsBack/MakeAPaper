@@ -10,6 +10,7 @@
 
 .view-books thead tr th{
     padding: 10px 0px;
+    color: var(--site-text-primary);
 }
 
 .view-books thead tr th:first-child{

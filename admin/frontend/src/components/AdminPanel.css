@@ -39,7 +39,6 @@
 
 .admin-panel .panel{
     width: 100%;
-    min-height: 600px;
     background: var(--site-accent);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);

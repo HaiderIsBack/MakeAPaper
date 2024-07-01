@@ -2,7 +2,7 @@ import "./View-Books.css";
 
 const GenerateEntry = ({book, index}) => {
     return (
-        <tr>
+        <tr key={index}>
             <td>{index + 1}</td>
             <td>{book.bookName}</td>
             <td>{book.author}</td>
