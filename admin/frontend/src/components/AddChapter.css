@@ -1,0 +1,87 @@
+
+.add-chapter .searchbox{
+    position: sticky;
+    top: 0%;
+}
+
+.add-chapter .input-group{
+    position: relative;
+}
+
+.add-chapter .input-group input{
+    background: var(--site-bg-secondary);
+    padding: 7px 15px;
+    padding-right: 30px;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-bottom: 1px solid var(--site-text-secondary);
+    width: 100%;
+    transition: border-bottom 0.1s ease-out;
+}
+
+.add-chapter .input-group input:focus{
+    border-bottom: 2px solid var(--site-text-primary);
+}
+
+.add-chapter .input-group label sup{
+    color: red;
+}
+
+.add-chapter .input-group svg{
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(-50%,-50%);
+}
+
+.add-chapter .search-results{
+    background: var(--site-bg-primary);
+    width: 100%;
+    padding: 1rem 7px;
+}
+
+.add-chapter section .input-group{
+    margin: 10px 0;
+}
+
+.add-chapter button{
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    background: var(--site-bg-secondary);
+    color: var(--site-text-secondary);
+    border: none;
+    margin: 20px 0;
+    padding: 10px 15px;
+    transition: 0.2s ease;
+}
+
+.add-chapter button:hover{
+    background: var(--site-text-secondary);
+    color: var(--site-bg-primary);
+}
+
+.add-chapter form .add-more{
+    border: 3px dashed var(--site-text-secondary);
+    text-transform: uppercase;
+}
+
+.add-chapter form .add-more:hover{
+    border: 3px dashed var(--site-bg-secondary);
+}
+
+.add-chapter form section .option-input-group{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.add-chapter form section .option-input-group input{
+    flex: 1;
+}
+
+.add-chapter ol{
+    margin-left: 1rem;
+    color: var(--site-text-secondary);
+}
