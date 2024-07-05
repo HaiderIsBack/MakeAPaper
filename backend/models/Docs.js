@@ -13,6 +13,9 @@ const docSchema = mongoose.Schema({
     },
     publisher: {
         type: String
+    },
+    modified: {
+        type: String
     }
 });
 

@@ -49,3 +49,35 @@
     background: var(--site-text-secondary);
     color: var(--site-bg-primary);
 }
+
+.add-book .alert{
+    background: var(--site-bg-primary);
+    border: 2px solid var(--site-text-secondary);
+    width: 300px;
+    margin: 7px 0;
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(0);
+    animation: fadeIn 0.3s forwards ease-out;
+}
+
+.add-book .alert strong{
+    color: red;
+    margin-right: 25px;
+}
+
+.add-book .alert.alert-success{
+    color: var(--site-text-secondary);
+}
+
+.add-book .alert.alert-success strong{
+    color: #18FF6D;
+}
+
+@keyframes fadeIn {
+    to{
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1);
+    }
+}

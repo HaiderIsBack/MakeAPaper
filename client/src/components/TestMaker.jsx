@@ -10,7 +10,8 @@ import {
     faGear,
     faHeading,
     faInfoCircle,
-    faSchool
+    faSchool,
+    faLock
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
 import './TestMaker.css'
@@ -155,7 +156,7 @@ function TestMaker() {
 
                     <div className="row">
                         <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "manual" ? "active-selection" : ""} onClick={()=>setQuestionSelectionType("manual")}>Manual</button></div>
-                        <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "random" ? "active-selection" : ""} disabled={subscriptionStatus ? false : true} onClick={()=>setQuestionSelectionType("random")}>Random</button></div>
+                        <div className="col-sm-6 col-12 my-sm-0 my-2"><button className={questionSelectionType === "random" ? "active-selection" : ""} disabled={subscriptionStatus ? false : true} onClick={()=>setQuestionSelectionType("random")}>{!subscriptionStatus ? <FontAwesomeIcon icon={faLock} /> : null} Random</button></div>
                     </div>
                     <br />
                     <h3 className="my-3 heading">Document Selection</h3>

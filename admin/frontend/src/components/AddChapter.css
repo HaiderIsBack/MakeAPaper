@@ -38,7 +38,6 @@
 .add-chapter .search-results{
     background: var(--site-bg-primary);
     width: 100%;
-    padding: 1rem 7px;
 }
 
 .add-chapter section .input-group{
@@ -84,4 +83,26 @@
 .add-chapter ol{
     margin-left: 1rem;
     color: var(--site-text-secondary);
+}
+
+.add-chapter .search-results .search-card{
+    padding: 0.9rem 0.6rem;
+    cursor: pointer;
+}
+
+.add-chapter .search-results .search-card > *{
+    margin: 0;
+}
+
+.add-chapter .search-results .search-card:nth-child(even){
+    background: rgb(from var(--site-text-secondary) r g b / .1);
+}
+
+.add-chapter .search-results .search-card p{
+    margin-left: 20px;
+    color: var(--site-text-secondary);
+}
+
+.add-chapter .search-results .search-card:hover{
+    background: rgb(from var(--site-text-secondary) r g b / .3);
 }
