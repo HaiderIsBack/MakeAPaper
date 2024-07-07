@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useContext } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faAngleDown,
@@ -14,9 +14,14 @@ import {
     faLock
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
-import './TestMaker.css'
+import './TestMaker.css';
+import UserContext from '../UserContext';
+import { useNavigate } from 'react-router-dom';
 
 function TestMaker() {
+    const { user, logout } = useContext(UserContext)
+    const navigate = useNavigate()
+
     const [questionSelectionType,setQuestionSelectionType] = useState("manual");
     const [currentBook, setCurrentBook] = useState({});
     const [currentChapterIndex, setCurrentChapterIndex] = useState(-1);
@@ -33,10 +38,17 @@ function TestMaker() {
 
     useEffect(()=>{
         const fetchBooks = () => {
-            fetch("/api/v1/books")
+            fetch("/api/v1/books", {
+                headers: {
+                    Authorization: `Authorization ${user.token}`
+                }
+            })
             .then((res)=>{
                 if(res.status === 200){
                     return res.json()
+                }else if(res.status === 401 || res.status === 403){
+                    logout();
+                    navigate("/login")
                 }
             })
             .then(data => {
@@ -54,10 +66,17 @@ function TestMaker() {
     useEffect(()=>{
         const fetchChapters = () => {
             if(currentBook.bookName && currentBook.author){
-                fetch(`/api/v1/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`)
+                fetch(`/api/v1/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`, {
+                    headers: {
+                        Authorization: `Authorization ${user.token}`
+                    }
+                })
                 .then((res)=>{
                     if(res.status === 200){
                         return res.json()
+                    }else if(res.status === 401 || res.status === 403){
+                        logout();
+                        navigate("/login")
                     }
                 })
                 .then(data => {
@@ -76,10 +95,17 @@ function TestMaker() {
     useEffect(()=>{
         const fetchQuestions = () => {
             if(currentChapterIndex >= 0){
-                fetch(`/api/v1/chapter?bookName=${currentBook.bookName}&author=${currentBook.author}&chapterIndex=${currentChapterIndex}`)
+                fetch(`/api/v1/chapter?bookName=${currentBook.bookName}&author=${currentBook.author}&chapterIndex=${currentChapterIndex}`, {
+                    headers: {
+                        Authorization: `Authorization ${user.token}`
+                    }
+                })
                 .then((res)=>{
                     if(res.status === 200){
                         return res.json()
+                    }else if(res.status === 401 || res.status === 403){
+                        logout();
+                        navigate("/login")
                     }
                 })
                 .then(data => {

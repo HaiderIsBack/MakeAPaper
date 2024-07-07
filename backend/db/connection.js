@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const uri = "mongodb+srv://haidershah:ArkhamKnight1342@cluster0.h2d6ilo.mongodb.net/makepaper?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGO_URI || null;
 
 const connect = () => {
     try{

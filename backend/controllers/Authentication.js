@@ -3,6 +3,8 @@ const Subscription = require("../models/Subscription");
 
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv")
+dotenv.config()
 
 const login = async (req, res) => {
   try {
@@ -24,7 +26,7 @@ const login = async (req, res) => {
             username: user.username
           }
           const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || "This_Is_JWT_App_Secret_@#£_"
-          jwt.sign(payload,JWT_SECRET_KEY,{expiresIn: 86400 /** 1 Day */},async (err, token)=>{
+          jwt.sign(payload, JWT_SECRET_KEY,{expiresIn: 86400 /** 1 Day */},async (err, token)=>{
             await Users.updateOne({_id:user._id},{
               $set: {token:token}
             })
@@ -32,15 +34,26 @@ const login = async (req, res) => {
             const updatedUser = await Users.findOne({_id: user._id})
             const userSubscription = await Subscription.findOne({_id: user._id})
 
-            console.log(userSubscription)
-            return res.status(200).json({
-              user:{
-                userId:user._id,
-                username: user.username,
-                email: user.email,
-              },
-              token: updatedUser.token
-            })
+            if(userSubscription){
+              return res.status(200).json({
+                user:{
+                  userId:user._id,
+                  username: user.username,
+                  email: user.email,
+                  subscription: userSubscription
+                },
+                token: updatedUser.token
+              })
+            }else{
+              return res.status(200).json({
+                user:{
+                  userId:user._id,
+                  username: user.username,
+                  email: user.email,
+                },
+                token: updatedUser.token
+              })
+            }
           })
         }
       }

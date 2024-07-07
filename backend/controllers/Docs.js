@@ -49,7 +49,7 @@ const createBook = async (req, res) => {
         const { bookData } = req.body;
         
         if(!bookData){
-            res.status(403).json({msg: "Bad Request"})
+            res.status(400).json({msg: "Bad Request"})
         }else{
             const book = await Docs.findOne({
                 book: bookData.name,
@@ -81,7 +81,7 @@ const getChapters = async (req, res) => {
         const { bookName, author } = req.query;
 
         if(!bookName || !author){
-            res.status(403).json({msg: "Bad Request"})
+            res.status(400).json({msg: "Bad Request"})
         }else{
             const book = await Docs.findOne({
                 book: bookName,
@@ -107,7 +107,7 @@ const getChapter = async (req, res) => {
         const { bookName, author, chapterIndex } = req.query
 
         if(!bookName || !author || !chapterIndex){
-            res.status(403).json({msg: "Bad Request"})
+            res.status(400).json({msg: "Bad Request"})
         }else{
             const book = await Docs.findOne({
                 book: bookName,
@@ -138,7 +138,7 @@ const insertChapter = async (req, res) => {
         const { bookName, author, publisher, chapter } = req.body;
 
         if(!bookName || !author || !publisher || !chapter){
-            res.status(403).json({msg: "Bad Request"});
+            res.status(400).json({msg: "Bad Request"});
         }else{
             const book = await Docs.findOne({
                 book: bookName,
