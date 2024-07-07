@@ -36,6 +36,8 @@ function TestMaker() {
     const [chapters, setChapters] = useState([])
     const [chapterQuestions, setChapterQuestions] = useState([])
 
+    const chaptersRef = useRef(null)
+
     useEffect(()=>{
         const fetchBooks = () => {
             fetch("/api/v1/books", {
@@ -81,6 +83,9 @@ function TestMaker() {
                 })
                 .then(data => {
                     if(!data.msg){
+                        setCurrentChapterIndex(-1)
+                        setChapterQuestions([])
+                        chaptersRef.current.selectedIndex = 0;
                         setChapters(data);
                     }
                 })
@@ -193,21 +198,21 @@ function TestMaker() {
                                 <option value="none">-- Select Book</option>
                                 {
                                     docs.map((doc,index) => {
-                                        return <option key={index} value={JSON.stringify(doc)}>{doc.bookName}</option>
+                                        return <option key={doc} value={JSON.stringify(doc)}>{doc.bookName}</option>
                                     })
                                 }
                             </select>
                             <span className='caret'><FontAwesomeIcon icon={faAngleDown} /></span>
                         </div>
                         <div className="col-sm-6 col-12 my-sm-0 my-2 position-relative">
-                            <select name="chapter" id="chapter" onChange={handleChapterChange} required>
+                            <select ref={chaptersRef} name="chapter" id="chapter" onChange={handleChapterChange} required>
                                 <option value="none">-- Select Chapter</option>
                                 {
                                     chapters.map((chapter, index) => {
                                         if(!subscriptionStatus && index == 0){
                                             return <option key={index} value={index}>{chapter}</option>
                                         }
-                                        return <option key={index} value={subscriptionStatus ? index : null} disabled={!subscriptionStatus ? true : false}>{chapter}</option>
+                                        return <option key={chapter} value={subscriptionStatus ? index : null} disabled={!subscriptionStatus ? true : false}>{chapter}</option>
                                     })
                                 }
                             </select>
