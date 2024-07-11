@@ -176,7 +176,9 @@ function Login() {
         method: "POST"
       })
       .then(res => {
+        console.log(res)
         if(res.status === 200 || res.status === 400){
+          console.log(res.json())
           return res.json()
         }else if(res.status === 500){
           generateError("Server Error: 500")
