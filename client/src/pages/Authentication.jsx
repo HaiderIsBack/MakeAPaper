@@ -101,7 +101,7 @@ function SignUp() {
   return (
     <>
       <div className="auth-container">
-        <div className="box">
+        <div className="auth-box">
             <h2 className='my-1'>SIGN UP</h2>
             <form ref={formRef} className='text-left d-flex flex-column'>
                 <label className='mt-3'>Username</label>
@@ -199,7 +199,7 @@ function Login() {
   return (
     <>
       <div className="auth-container">
-        <div className="box">
+        <div className="auth-box">
             <h2 className='my-5'>LOGIN</h2>
             <form ref={formRef} className='text-left d-flex flex-column'>
                 <label className='mt-3'>Username</label>

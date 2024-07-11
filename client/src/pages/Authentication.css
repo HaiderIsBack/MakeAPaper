@@ -4,7 +4,7 @@
     height: calc(100vh - 150px);
 }
 
-.auth-container .box{
+.auth-container .auth-box{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -14,7 +14,7 @@
     flex-direction: column;
 }
 
-.auth-container .box input{
+.auth-container .auth-box input{
     color: #fff;
     padding: 10px 10px;
     background: transparent;
@@ -23,7 +23,7 @@
     width: 300px;
 }
 
-.auth-container .box button{
+.auth-container .auth-box button{
     padding: 10px 10px;
     border-radius: 10px;
     background: var(--btn);
@@ -33,20 +33,20 @@
     border-top: 2px solid rgba(255,255,255,0.2);
 }
 
-.auth-container .box p{
+.auth-container .auth-box p{
     color: var(--light-text);
 }
 
-.auth-container .box p > a{
+.auth-container .auth-box p > a{
     color: #8E2DE2;
     cursor: pointer;
 }
 
-.auth-container .box .show-hide-password{
+.auth-container .auth-box .show-hide-password{
     position: relative;
 }
 
-.auth-container .box .show-hide-password-icon{
+.auth-container .auth-box .show-hide-password-icon{
     position: absolute;
     top: 50%;
     right: 4%;

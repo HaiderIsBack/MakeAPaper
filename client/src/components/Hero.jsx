@@ -7,12 +7,24 @@ import {
   faMoneyBill1Wave
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
+import { useContext } from "react";
+import UserContext from "../UserContext"
 
 function Hero() {
   const navigate = useNavigate();
   return (
     <>
       <div className="hero-container d-flex flex-column align-items-center">
+        <div className="boxes">
+          <div className="box"></div>
+          <div className="box"></div>
+          <div className="box"></div>
+          <div className="box"></div>
+          <div className="box"></div>
+          <div className="box"></div>
+          <div className="box"></div>
+          <div className="box"></div>
+        </div>
         <h1 style={{marginTop: "100px"}}>Let's Build a Bright Future</h1>
         <p className="my-2">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
         <button className='my-4 get-started'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
@@ -96,8 +108,60 @@ function Hero() {
         </div>
       </div>
 
-      {/* News Letter */}
+      {/* Quotes Marquee */}
+      <div className="quotes-marquee">
+        <div className="marquee">
+          <h1>Be Creative</h1>
+          <h1>Test your skills</h1>
+          <h1>Be Successfull</h1>
+          <h1>Be Strong</h1>
+          <h1>Be Creative</h1>
+          <h1>Test your skills</h1>
+          <h1>Be Successfull</h1>
+          <h1>Be Strong</h1>
+        </div>
+      </div>
+
+      {/* Suggest a Book */}
+      <SuggestBook />
     </>
+  )
+}
+
+const SuggestBook = () => {
+  const navigate = useNavigate()
+  const { user } = useContext(UserContext)
+
+  function sanitizeInput(input) {
+    return input.replace(/<script[^>]*>([\S\s]*?)<\/script>/gim, "").replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, "");
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(!user){
+      navigate("/login");
+    }else{
+      const suggestForm = e.target;
+      const bookName = sanitizeInput(suggestForm.bookName.value.trim())
+      const message = sanitizeInput(suggestForm.msg.value.trim())
+      const payload = {
+        bookName,
+        message
+      }
+      
+    }
+  }
+  return (
+    <div className="suggest-book-section">
+      <h1>Suggest us a Book</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="book-name" className="text-left">Book Name</label>
+        <input type="text" id="book-name" name="bookName" placeholder="e.g Artificial Intelligence" />
+        <label htmlFor="msg" className="text-left">Message for Admin</label>
+        <textarea name="msg" id="msg" placeholder="e.g I need questions from vice versa book from this [Author]"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   )
 }
 

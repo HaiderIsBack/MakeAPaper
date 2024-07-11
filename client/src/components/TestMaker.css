@@ -12,12 +12,6 @@
     .paper-content{
         page-break-inside: auto;
     }
-    /* .paper .section{
-        page-break-after: always;
-    }
-    .paper .no-break{
-        page-break-inside: avoid;
-    } */
 }
 
 .paper{
@@ -271,4 +265,41 @@ ol.custom-alphabet li::before {
     background: transparent;
     color: #fff;
     box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+}
+
+.test-maker-container .side-bar{
+    position: fixed;
+    top: 0%;
+    right: -100%;
+    transition: right 0.8s ease;
+}
+
+.test-maker-container .side-bar .toggle{
+    position: fixed;
+    bottom: calc(0% + 1rem);
+    right: calc(0% + 1rem);
+    z-index: 10;
+    background: #4A00E0;
+    color: #fff;
+    border-radius: 7px;
+    padding: var(--btn-padding);
+    border: 2px solid #fff;
+    outline: none;
+}
+
+.test-maker-container .side-bar.active{
+    right: 0%;
+}
+
+.test-maker-container .side-bar .toggle.active{
+    bottom: auto;
+    top: calc(0% + 1rem);
+    right: calc(0% + 1rem);
+    border: 2px solid #fff;
+}
+
+@media (max-width: 450px) {
+    .test-maker-container .side-bar{
+        width: 100%;
+    }
 }

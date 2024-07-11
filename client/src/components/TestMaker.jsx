@@ -11,7 +11,8 @@ import {
     faHeading,
     faInfoCircle,
     faSchool,
-    faLock
+    faLock,
+    faX
   } from '@fortawesome/free-solid-svg-icons';
 import { useReactToPrint } from 'react-to-print';
 import './TestMaker.css';
@@ -25,7 +26,10 @@ function TestMaker() {
     const [questionSelectionType,setQuestionSelectionType] = useState("manual");
     const [currentBook, setCurrentBook] = useState({});
     const [currentChapterIndex, setCurrentChapterIndex] = useState(-1);
-    const [subscriptionStatus, setSubscriptionStatus] = useState(false);
+    const [subscriptionStatus, setSubscriptionStatus] = useState(true);
+
+    // Toggle Sidebar
+    const [sidebarActive, setSidebarActive] = useState(false)
 
     // Final Questions to print
     const [questions, setQuestions] = useState({});
@@ -37,6 +41,8 @@ function TestMaker() {
     const [chapterQuestions, setChapterQuestions] = useState([])
 
     const chaptersRef = useRef(null)
+    const sidebarRef = useRef(null)
+    const sidebarBtnRef = useRef(null)
 
     useEffect(()=>{
         const fetchBooks = () => {
@@ -68,6 +74,7 @@ function TestMaker() {
     useEffect(()=>{
         const fetchChapters = () => {
             if(currentBook.bookName && currentBook.author){
+                setChapters([])
                 fetch(`/api/v1/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`, {
                     headers: {
                         Authorization: `Authorization ${user.token}`
@@ -83,15 +90,15 @@ function TestMaker() {
                 })
                 .then(data => {
                     if(!data.msg){
-                        setCurrentChapterIndex(-1)
-                        setChapterQuestions([])
-                        chaptersRef.current.selectedIndex = 0;
                         setChapters(data);
                     }
                 })
                 .catch(error => {
                     console.log(error)
                 })
+                setCurrentChapterIndex(-1)
+                setChapterQuestions([])
+                chaptersRef.current.selectedIndex = 0;
             }
         }
         fetchChapters()
@@ -177,11 +184,24 @@ function TestMaker() {
         await handlePrint()
     }
 
+    // Handle Sidebar Toggle
+    const handleSidebarToggle = () => {
+        sidebarActive ? 
+        sidebarBtnRef.current.classList.remove("active") : 
+        sidebarBtnRef.current.classList.add("active")
+
+        sidebarActive ? 
+        sidebarRef.current.classList.remove("active") : 
+        sidebarRef.current.classList.add("active")
+
+        setSidebarActive(prev => !prev)
+    }
+
     return (
         <>
         <div className="test-maker-container">
             <div className="row w-100">
-                <div className="col-md-8 col-12 paper-config d-flex flex-column">
+                <div className="col-lg-8 col-12 paper-config d-flex flex-column">
                     <ComponentToPrint ref={paperRef} questionList={questions} paperSettings={paperSettings} />
                     <h3 className='my-4 heading'>Question Selection Type</h3>
 
@@ -197,8 +217,8 @@ function TestMaker() {
                             <select name="book" onChange={handleBookChange} required>
                                 <option value="none">-- Select Book</option>
                                 {
-                                    docs.map((doc,index) => {
-                                        return <option key={doc} value={JSON.stringify(doc)}>{doc.bookName}</option>
+                                    docs.map((doc, index) => {
+                                        return <option key={index * 15} value={JSON.stringify(doc)}>{doc.bookName}</option>
                                     })
                                 }
                             </select>
@@ -210,9 +230,9 @@ function TestMaker() {
                                 {
                                     chapters.map((chapter, index) => {
                                         if(!subscriptionStatus && index == 0){
-                                            return <option key={index} value={index}>{chapter}</option>
+                                            return <option key={index * 7} value={index}>{chapter}</option>
                                         }
-                                        return <option key={chapter} value={subscriptionStatus ? index : null} disabled={!subscriptionStatus ? true : false}>{chapter}</option>
+                                        return <option key={index * 7} value={subscriptionStatus ? index : null} disabled={!subscriptionStatus ? true : false}>{chapter}</option>
                                     })
                                 }
                             </select>
@@ -231,7 +251,7 @@ function TestMaker() {
                         (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <RandomQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
                     }
                 </div>
-                <div className="col-md-4 d-md-block d-none">
+                <div className="col-lg-4 d-lg-block d-none">
                     <div className="paper-edit-panel">
                         <h5 className='text-left mb-5'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
                         <div className="w-100 bg-secondary rounded">
@@ -256,6 +276,34 @@ function TestMaker() {
                             <FontAwesomeIcon icon={faFileInvoice} />
                             <input type="number" placeholder='Total Marks' className='total-marks-input' ref={totalMarksRef} />
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className="side-bar d-lg-none d-block" ref={sidebarRef}>
+                <button className="toggle" ref={sidebarBtnRef} onClick={handleSidebarToggle}>{sidebarActive ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faGear} />}</button>
+                <div className="paper-edit-panel">
+                    <h5 className='text-left mb-5'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
+                    <div className="w-100 bg-secondary rounded">
+                        <img src="/images/dummy_school_logo.png" alt="" ref={logoRef} />
+                    </div>
+                    <div className="section my-4">
+                        <FontAwesomeIcon icon={faCamera} />
+                        <input type="file" className='paper-heading-input' accept='.png, .jpeg, .jpg' ref={instituteLogoRef} onChange={handleFileUpload} />
+                    </div>
+
+                    <div className="section my-4">
+                        <FontAwesomeIcon icon={faSchool} />
+                        <input type="text" placeholder='Institute Name' className='paper-heading-input' ref={instituteNameRef} />
+                    </div>
+
+                    <div className="section my-4">
+                        <FontAwesomeIcon icon={faHeading} />
+                        <input type="text" placeholder='Paper Heading' className='paper-heading-input' ref={paperHeadingRef} />
+                    </div>
+
+                    <div className="section my-4">
+                        <FontAwesomeIcon icon={faFileInvoice} />
+                        <input type="number" placeholder='Total Marks' className='total-marks-input' ref={totalMarksRef} />
                     </div>
                 </div>
             </div>

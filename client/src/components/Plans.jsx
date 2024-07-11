@@ -2,8 +2,8 @@ import './Plans.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
   faCheckSquare,
-  faArrowRight,
   faXmarkSquare,
+  faLock,
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
 
@@ -31,7 +31,7 @@ function Plans() {
                     <li><FontAwesomeIcon icon={faXmarkSquare} className='feature-excluded' /> <p>Board Paper Template</p></li>
                     <li><FontAwesomeIcon icon={faCheckSquare} className='feature-included' /> <p>Full Chapter</p></li>
                   </ul>
-                  <button className='mt-0'>Buy <FontAwesomeIcon icon={faArrowRight}/></button>
+                  <button className='mt-0'>Coming Soon... <FontAwesomeIcon icon={faLock}/></button>
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@ function Plans() {
                     <li><FontAwesomeIcon icon={faXmarkSquare} className='feature-excluded' /> <p>Board Paper Template</p></li>
                     <li><FontAwesomeIcon icon={faCheckSquare} className='feature-included' /> <p>Full Chapter</p></li>
                   </ul>
-                  <button className='mt-0'>Buy <FontAwesomeIcon icon={faArrowRight}/></button>
+                  <button className='mt-0'>Coming Soon <FontAwesomeIcon icon={faLock}/></button>
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@ function Plans() {
                     <li><FontAwesomeIcon icon={faCheckSquare} className='feature-included' /> <p>Board Paper Template</p></li>
                     <li><FontAwesomeIcon icon={faCheckSquare} className='feature-included' /> <p>Full Chapter</p></li>
                   </ul>
-                  <button className='mt-0'>Buy <FontAwesomeIcon icon={faArrowRight}/></button>
+                  <button className='mt-0'>Coming Soon <FontAwesomeIcon icon={faLock}/></button>
                 </div>
               </div>
             </div>
