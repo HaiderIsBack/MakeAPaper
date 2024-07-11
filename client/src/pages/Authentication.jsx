@@ -68,7 +68,7 @@ function SignUp() {
             email,
             password
           }
-          fetch("/api/v1/register",{
+          fetch("https://test-builder-iota.vercel.app/api/v1/register",{
             headers: {
               "Content-Type": "application/json"
             },
@@ -168,7 +168,7 @@ function Login() {
         username,
         password
       }
-      fetch("/api/v1/login",{
+      fetch("https://test-builder-iota.vercel.app/api/v1/login",{
         headers: {
           "Content-Type": "application/json"
         },
@@ -176,9 +176,7 @@ function Login() {
         method: "POST"
       })
       .then(res => {
-        console.log(res)
         if(res.status === 200 || res.status === 400){
-          console.log(res.json())
           return res.json()
         }else if(res.status === 500){
           generateError("Server Error: 500")
