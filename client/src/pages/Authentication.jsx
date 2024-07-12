@@ -68,7 +68,7 @@ function SignUp() {
             email,
             password
           }
-          fetch("https://test-builder-iota.vercel.app/api/v1/register",{
+          fetch(import.meta.env.VITE_SERVER_URL+"/register",{
             headers: {
               "Content-Type": "application/json"
             },
@@ -168,7 +168,7 @@ function Login() {
         username,
         password
       }
-      fetch("https://test-builder-iota.vercel.app/api/v1/login",{
+      fetch(import.meta.env.VITE_SERVER_URL+"/login",{
         headers: {
           "Content-Type": "application/json"
         },
