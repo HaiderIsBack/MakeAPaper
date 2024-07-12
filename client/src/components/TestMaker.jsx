@@ -46,7 +46,7 @@ function TestMaker() {
 
     useEffect(()=>{
         const fetchBooks = () => {
-            fetch("https://test-builder-iota.vercel.app/api/v1/books", {
+            fetch(import.meta.env.VITE_SERVER_URL+"/books", {
                 headers: {
                     Authorization: `Authorization ${user.token}`
                 }
@@ -75,7 +75,7 @@ function TestMaker() {
         const fetchChapters = () => {
             if(currentBook.bookName && currentBook.author){
                 setChapters([])
-                fetch(`https://test-builder-iota.vercel.app/api/v1/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`, {
+                fetch(import.meta.env.VITE_SERVER_URL+`/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`, {
                     headers: {
                         Authorization: `Authorization ${user.token}`
                     }
@@ -107,7 +107,7 @@ function TestMaker() {
     useEffect(()=>{
         const fetchQuestions = () => {
             if(currentChapterIndex >= 0){
-                fetch(`https://test-builder-iota.vercel.app/api/v1/chapter?bookName=${currentBook.bookName}&author=${currentBook.author}&chapterIndex=${currentChapterIndex}`, {
+                fetch(import.meta.env.VITE_SERVER_URL+`/chapter?bookName=${currentBook.bookName}&author=${currentBook.author}&chapterIndex=${currentChapterIndex}`, {
                     headers: {
                         Authorization: `Authorization ${user.token}`
                     }

@@ -1,0 +1,65 @@
+
+
+.documentation .status-tracker{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0.8rem 1rem;
+    position: sticky;
+    top: 0%;
+}
+
+.documentation .status-tracker .status{
+    display: flex;
+    align-items: center;
+}
+
+.documentation .status-tracker .status .status-target{
+    position: relative;
+    padding: auto 1rem;
+    height: 75px;
+    width: 50px;
+}
+
+.documentation .status-tracker .status .status-target span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: #ddd;
+}
+
+.documentation .status-tracker .status .status-target::before{
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 50%;
+    background: #ddd;
+}
+
+.documentation .status-tracker .status .status-target::after{
+    content: "";
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 50%;
+    background: #ddd;
+    z-index: -1;
+}
+
+.documentation .status-tracker .status .status-target.first:before,
+.documentation .status-tracker .status .status-target.last:after{
+    background: transparent !important;
+}
+
+.documentation section{
+    text-align: start;
+}

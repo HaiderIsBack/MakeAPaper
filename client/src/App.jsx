@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import GlassBg from "./components/GlassBg";
 import Hero from "./components/Hero";
 import Plans from "./components/Plans";
+import Documentation from "./pages/Documentation";
 import TestMaker from "./components/TestMaker";
 import {Login, SignUp} from "./pages/Authentication";
 import { useContext, useEffect } from "react";
@@ -71,6 +72,12 @@ function App() {
               <ProtectedRoute auth={false}>
                 <Login />
               </ProtectedRoute>
+            } />
+            <Route path="documentation" element={
+              <>
+                <Documentation />
+                <Footer />
+              </>
             } />
           </Route>
         </Routes>

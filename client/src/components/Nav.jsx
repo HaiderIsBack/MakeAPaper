@@ -21,7 +21,7 @@ function Nav() {
         <div className="nav-actions d-lg-flex d-none">
             <menu>
                 <li><button>Features</button></li>
-                <li><button>Documentation</button></li>
+                <li><button onClick={()=>navigate("/documentation")}>Documentation</button></li>
                 <li><button onClick={()=>navigate("/plans")}>Plan & Pricings</button></li>
                 <li><button>About Us</button></li>
             </menu>
