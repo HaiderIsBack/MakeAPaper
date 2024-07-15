@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="row py-3">
                 <div className="col-md-3 col-12 d-flex flex-column">
                     <div className="d-flex justify-content-between align-items-center px-4 mb-3">
-                        <img src="/images/MakePaper.png" alt="Test Builder" />
+                        <img src="/TestBuilder.png" alt="Test Builder" />
                         <h3 className="mb-0" style={{textWrap: "nowrap"}}>Test Builder</h3>
                     </div>
                     <a href="mailto:testbuilder.atomicsolutions@gmail.com" className="pl-2 my-1 text-secondary text-left"><FontAwesomeIcon icon={faEnvelope} className="mr-2" /> test***solutions@gmail.com</a>

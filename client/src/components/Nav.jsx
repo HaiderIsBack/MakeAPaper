@@ -15,7 +15,7 @@ function Nav() {
     <>
       <div className="nav-container my-3 p-2 px-3">
           <div className="nav-brand d-flex align-items-center" onClick={()=>navigate("/")}>
-              <img src="/images/MakePaper.png" alt="MakePaper" />
+              <img src="/TestBuilder.png" alt="Test Builder" />
               <h3 className='mb-0 d-sm-block d-none'>Test Builder</h3>
           </div>
         <div className="nav-actions d-lg-flex d-none">

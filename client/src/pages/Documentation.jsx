@@ -1,41 +1,132 @@
 import "./Documentation.css"
+import { useEffect, useRef } from "react"
+import { Link } from "react-router-dom"
+import { useInView } from "react-intersection-observer"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { 
+    faInfoCircle
+  } from '@fortawesome/free-solid-svg-icons';
 
 const Documentation = () => {
+    const st1Ref = useRef(null)
+    const st2Ref = useRef(null)
+    const st3Ref = useRef(null)
+    const st4Ref = useRef(null)
+    const st5Ref = useRef(null)
+    const st6Ref = useRef(null)
+
+    const [ t1Ref, t1InView ] = useInView({ threshold: 0 })
+    const [ t2Ref, t2InView ] = useInView({ threshold: 0 })
+    const [ t3Ref, t3InView ] = useInView({ threshold: 0 })
+    const [ t4Ref, t4InView ] = useInView({ threshold: 0 })
+    const [ t5Ref, t5InView ] = useInView({ threshold: 0 })
+    const [ t6Ref, t6InView ] = useInView({ threshold: 0 })
+
+
+    useEffect(()=>{
+        const statusPoints = [
+            st1Ref.current,
+            st2Ref.current,
+            st3Ref.current,
+            st4Ref.current,
+            st5Ref.current,
+            st6Ref.current
+        ]
+
+        // Adds active class when invoked
+        const addActives = (index) => {
+            for(var j=0;j<index;j++){
+                if(j == index - 1){
+                    statusPoints[j].classList.add("last-active")
+                }
+                statusPoints[j].classList.add("active")
+            }
+        }
+
+        const removeActives = () => {
+            for(var j=0;j<6;j++){
+                statusPoints[j].classList.contains("last-active") ? statusPoints[j].classList.remove("last-active") : null
+                statusPoints[j].classList.remove("active")
+            }
+        }
+        // Removes all active classes
+        removeActives()
+        
+        if(t6InView){
+            addActives(6)
+        }else if(t5InView){
+            addActives(5)
+        }else if(t4InView){
+            addActives(4)
+        }else if(t3InView){
+            addActives(3)
+        }else if(t2InView){
+            addActives(2)
+        }else if(t1InView){
+            addActives(1)
+        }
+    },[t1InView, t2InView, t3InView, t4InView, t5InView, t6InView])
+
     return (<>
         <div className="documentation">
             <div className="row">
                 <div className="col-3">
                     <div className="status-tracker">
-                        <div className="status">
+                        <div className="status" ref={st1Ref}>
                             <div className="status-target first" id="t-0"><span></span></div>
-                            <h6 className="mb-0">Getting started</h6>
+                            <h6 className="mb-0"><a href="#getting-started">Getting started</a></h6>
                         </div>
-                        <div className="status">
+                        <div className="status" ref={st2Ref}>
                             <div className="status-target" id="t-1"><span></span></div>
-                            <h6 className="mb-0">Pricing</h6>
+                            <h6 className="mb-0"><a href="#pricing">Pricing</a></h6>
                         </div>
-                        <div className="status">
+                        <div className="status" ref={st3Ref}>
                             <div className="status-target" id="t-2"><span></span></div>
-                            <h6 className="mb-0">Selection of document</h6>
+                            <h6 className="mb-0"><a href="#selection-of-document">Selection of document</a></h6>
                         </div>
-                        <div className="status">
+                        <div className="status" ref={st4Ref}>
                             <div className="status-target" id="t-3"><span></span></div>
-                            <h6 className="mb-0">Paper settings</h6>
+                            <h6 className="mb-0"><a href="#paper-settings">Paper settings</a></h6>
                         </div>
-                        <div className="status">
+                        <div className="status" ref={st5Ref}>
                             <div className="status-target" id="t-4"><span></span></div>
-                            <h6 className="mb-0">Question selection</h6>
+                            <h6 className="mb-0"><a href="#question-selection">Question selection</a></h6>
                         </div>
-                        <div className="status">
+                        <div className="status" ref={st6Ref}>
                             <div className="status-target last" id="t-5"><span></span></div>
-                            <h6 className="mb-0">Printing the document</h6>
+                            <h6 className="mb-0"><a href="#printing-the-document">Printing the document</a></h6>
                         </div>
                     </div>
                 </div>
                 <div className="col-9">
                     <section>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem, ad.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium aspernatur magnam exercitationem, ipsum sequi, perspiciatis, repellat necessitatibus soluta repellendus doloribus reprehenderit atque excepturi esse neque vel magni! Debitis, quam error ut inventore ad porro magni assumenda sunt iure atque, fugit culpa repudiandae officiis at blanditiis facere earum dolorum sapiente. Rerum maxime vero eligendi, tempora nemo in maiores culpa commodi debitis repudiandae numquam pariatur modi ab aliquam, repellat doloremque deleniti mollitia blanditiis corrupti accusantium voluptas vitae atque cumque? Amet voluptatem omnis sit autem itaque cumque aut nesciunt vero tenetur. Ducimus hic qui iusto quia quisquam? Dolorem libero magni asperiores provident aliquid et repellat voluptas, sunt corporis, quis hic fuga delectus autem cumque doloribus nobis sint illum quod quia eveniet quidem ab ratione blanditiis? Consequuntur voluptatibus, quaerat odio iste, possimus quod accusamus eum minus minima, iusto perferendis inventore qui sunt sint! Ab pariatur reiciendis ut in laudantium accusamus magnam, alias perspiciatis modi suscipit accusantium consequatur commodi maiores provident vitae dignissimos molestias ea quibusdam dolores tenetur non voluptatum earum? Numquam esse repudiandae similique beatae obcaecati, maxime deserunt eius in, consequuntur, dignissimos laborum doloribus! Sunt numquam blanditiis vitae exercitationem ullam. Cum cumque quia alias nostrum, voluptatibus impedit iure rerum, in harum delectus porro mollitia temporibus excepturi natus necessitatibus facere veniam dolor a, sit odit! Corrupti ipsa quibusdam quisquam eligendi. Fuga blanditiis sed nisi perferendis veritatis inventore, earum tempora ipsum numquam illum velit expedita temporibus odio cumque, animi natus, similique porro modi! Quas dolore quos eum itaque voluptates, debitis, cupiditate magnam cumque illo odio voluptatem asperiores eaque velit exercitationem deleniti hic perspiciatis modi sint aut earum. Odio quos, eius consequatur iste vero eligendi aspernatur in ipsum possimus eos nostrum vel eveniet nesciunt. Alias pariatur vel distinctio eveniet perferendis sint tempore doloribus molestias aperiam quaerat obcaecati ut explicabo itaque sed ipsum minima, deleniti ea nemo? Repudiandae est voluptates ducimus aut, exercitationem magnam dolor asperiores alias recusandae non laborum adipisci, pariatur dolore explicabo nostrum saepe cupiditate eos modi a obcaecati architecto reiciendis, perspiciatis beatae dolorum. Dolore quasi non accusamus veritatis itaque ab? Distinctio, reiciendis, ea eum adipisci, dolores alias odio vero ullam quisquam voluptatibus atque unde quam dolorem magnam velit est temporibus ipsam culpa similique omnis hic voluptate dolor fugiat? Dolorem recusandae quis debitis repellat tenetur qui numquam provident, quam, inventore laboriosam amet perferendis. Voluptas facilis numquam asperiores maiores, dolorem recusandae animi. Voluptatibus, earum mollitia dolorem esse aliquam debitis quidem harum, atque quod porro eaque consectetur ex.
+                        {/* Getting Started Section */}
+                        <h2 ref={t1Ref} id="getting-started" className="my-5">Getting Started</h2>
+                        <article>
+                            <p>In order to use our services, you need to be <Link to={"/login"}>logged in</Link> then you can click on the [Get Started] button.</p>
+                            <center>
+                                <img src="/images/getting-started.png" alt="Getting Started" className="w-75 my-3" loading="lazy" />
+                            </center>
+                            <p>After you are navigated to the user Dashboard, you can create a new Test or Edit and use previously created Tests.</p>
+                            <br />
+                            <p>If your desired book is not available on this site, you can suggest us the book name, author and publisher name <Link to={"/?id=suggest-book"}>here</Link></p>. The Admin will process your request within a week or so
+                            <div className="alert w-75 my-3">
+                                <strong><FontAwesomeIcon icon={faInfoCircle} /> Note</strong>
+                                <p className="mb-0 mt-2">Subscribtion system is still in development. As soon as it becomes available, Users will then have to subscribe for our services and their previous Saved Tests will be removed (those created within the free trial period)</p>
+                            </div>
+                            <p>The upcoming subscription system will rely on EasyPaisa and JazzCash making it easier for the user's to make payments.</p>
+                        </article>
+                        {/* Pricing Section */}
+                        <h2 ref={t2Ref} id="pricing" className="my-5">Pricing</h2>
+                        <div style={{marginBottom: "100vh"}}></div>
+                        <h2 ref={t3Ref} id="selection-of-document">Selection of document</h2>
+                        <div style={{marginBottom: "100vh"}}></div>
+                        <h2 ref={t4Ref} id="paper-settings">Paper Settings</h2>
+                        <div style={{marginBottom: "100vh"}}></div>
+                        <h2 ref={t5Ref} id="question-selection">Question Selection</h2>
+                        <div style={{marginBottom: "100vh"}}></div>
+                        <h2 ref={t6Ref} id="printing-the-document">Printing the document</h2>
+                        <div style={{marginTop: "100vh"}}></div>
                     </section>
                 </div>
             </div>

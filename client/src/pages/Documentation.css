@@ -30,6 +30,7 @@
     height: 0.8rem;
     border-radius: 50%;
     background: #ddd;
+    transition: background 0.4s;
 }
 
 .documentation .status-tracker .status .status-target::before{
@@ -41,6 +42,7 @@
     width: 5px;
     height: 50%;
     background: #ddd;
+    transition: background 0.4s;
 }
 
 .documentation .status-tracker .status .status-target::after{
@@ -52,6 +54,7 @@
     width: 5px;
     height: 50%;
     background: #ddd;
+    transition: background 0.4s;
     z-index: -1;
 }
 
@@ -62,4 +65,44 @@
 
 .documentation section{
     text-align: start;
+}
+
+.documentation section h2{
+    padding-left: 1rem;
+    border-left: 7px solid #8E2DE2;
+}
+
+.documentation section article img{
+    border-radius: 7px;
+    border-top: 2px solid rgba(255,255,255,0.1);
+}
+
+.documentation section article .alert{
+    background: transparent;
+}
+
+.documentation .status h6 a{
+    color: #999;
+    text-decoration: none;
+    transition: color 0.4s;
+}
+
+.documentation .status.active .status-target span,
+.documentation .status.active .status-target::before,
+.documentation .status.active .status-target::after{
+    background: #8E2DE2 !important;
+}
+
+.documentation .status.last-active h6 a{
+    color: #fff !important;
+}
+
+.documentation section article p{
+    margin-bottom: 0;
+    color: #ddd;
+}
+
+.documentation section article .alert{
+    border: 2px solid var(--primary);
+    color: var(--primary);
 }

@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema({
     required:true,
     unique:true
   },
+  savedHistory: {
+    type: Array
+  },
   token:{
     type:String
   }

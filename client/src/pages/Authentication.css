@@ -54,7 +54,7 @@
     cursor: pointer;
 }
 
-.alert{
+.auth-container .alert{
     color: red !important;
     background: transparent;
     border: 2px solid red;
@@ -62,7 +62,7 @@
     border-radius: 7px;
 }
 
-.alert.alert-success{
+.auth-container .alert.alert-success{
     color: var(--success) !important;
     border: 2px solid var(--success);
 }

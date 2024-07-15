@@ -7,11 +7,23 @@ import {
   faMoneyBill1Wave
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "../UserContext"
 
 function Hero() {
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id")
+    if(id){
+      const element = document.getElementById(id)
+      if(element){
+        element.focus()
+      }
+    }
+  },[])
+  
   return (
     <>
       <div className="hero-container d-flex flex-column align-items-center">
@@ -152,7 +164,7 @@ const SuggestBook = () => {
     }
   }
   return (
-    <div className="suggest-book-section">
+    <div className="suggest-book-section" id="suggest-book" tabIndex={-1}>
       <h1>Suggest us a Book</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="book-name" className="text-left">Book Name</label>
