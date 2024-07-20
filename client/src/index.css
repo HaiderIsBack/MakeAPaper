@@ -4,19 +4,21 @@
   padding: 0 !important;
 }
 
-*{
+*,html{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root{
+  --accent1: #8E2DE2;
+  --accent2: #4A00E0;
+  --accent-gradient: linear-gradient(45deg, #8E2DE2, #4A00E0);
+
   --bg: #111;
-
-  --btn: linear-gradient(45deg, #8E2DE2, #4A00E0);
   --btn-padding: 15px 25px;
-
   --light-text: #999;
+  --easing: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 body{
@@ -24,6 +26,10 @@ body{
   color: #fff;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
+}
+
+h1,h2,h3,h4,h5,h6{
+  cursor: default;
 }
 
 ::-webkit-scrollbar{

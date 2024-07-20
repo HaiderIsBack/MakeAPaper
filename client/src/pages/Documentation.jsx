@@ -1,11 +1,12 @@
 import "./Documentation.css"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { useInView } from "react-intersection-observer"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faInfoCircle
   } from '@fortawesome/free-solid-svg-icons';
+  import Zoop from "../components/Zoop";
 
 const Documentation = () => {
     const st1Ref = useRef(null)
@@ -22,6 +23,16 @@ const Documentation = () => {
     const [ t5Ref, t5InView ] = useInView({ threshold: 0 })
     const [ t6Ref, t6InView ] = useInView({ threshold: 0 })
 
+    const [lastTrackedItem, setLastTrackedItem] = useState(1)
+
+    useEffect(()=>{
+        if(t6InView){ setLastTrackedItem(6)}
+        else if(t5InView){ setLastTrackedItem(5) }
+        else if(t4InView){ setLastTrackedItem(4) }
+        else if(t3InView){ setLastTrackedItem(3) }
+        else if(t2InView){ setLastTrackedItem(2) }
+        else if(t1InView){ setLastTrackedItem(1) }
+    },[t1InView, t2InView, t3InView, t4InView, t5InView, t6InView])
 
     useEffect(()=>{
         const statusPoints = [
@@ -32,7 +43,7 @@ const Documentation = () => {
             st5Ref.current,
             st6Ref.current
         ]
-
+    
         // Adds active class when invoked
         const addActives = (index) => {
             for(var j=0;j<index;j++){
@@ -42,30 +53,18 @@ const Documentation = () => {
                 statusPoints[j].classList.add("active")
             }
         }
-
+    
+        // Removes all active classes
         const removeActives = () => {
-            for(var j=0;j<6;j++){
+            for(var j=0;j<statusPoints.length;j++){
                 statusPoints[j].classList.contains("last-active") ? statusPoints[j].classList.remove("last-active") : null
                 statusPoints[j].classList.remove("active")
             }
         }
-        // Removes all active classes
+
         removeActives()
-        
-        if(t6InView){
-            addActives(6)
-        }else if(t5InView){
-            addActives(5)
-        }else if(t4InView){
-            addActives(4)
-        }else if(t3InView){
-            addActives(3)
-        }else if(t2InView){
-            addActives(2)
-        }else if(t1InView){
-            addActives(1)
-        }
-    },[t1InView, t2InView, t3InView, t4InView, t5InView, t6InView])
+        addActives(lastTrackedItem)
+    },[lastTrackedItem])
 
     return (<>
         <div className="documentation">
@@ -101,7 +100,7 @@ const Documentation = () => {
                 <div className="col-9">
                     <section>
                         {/* Getting Started Section */}
-                        <h2 ref={t1Ref} id="getting-started" className="my-5">Getting Started</h2>
+                        <h2 ref={t1Ref} id="getting-started" className="my-5 highlighted-heading"><Zoop>Getting Started</Zoop></h2>
                         <article>
                             <p>In order to use our services, you need to be <Link to={"/login"}>logged in</Link> then you can click on the [Get Started] button.</p>
                             <center>
@@ -117,15 +116,117 @@ const Documentation = () => {
                             <p>The upcoming subscription system will rely on EasyPaisa and JazzCash making it easier for the user's to make payments.</p>
                         </article>
                         {/* Pricing Section */}
-                        <h2 ref={t2Ref} id="pricing" className="my-5">Pricing</h2>
+                        <h2 ref={t2Ref} id="pricing" className="my-5 highlighted-heading"><Zoop>Pricing</Zoop></h2>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Basic Plan</p>
+                        <p className="my-3">Price: PKR 500/month</p>
+                        <h6 className="my-4">Features:</h6>
+                        <ul className="pl-3">
+                            <li>Create up to 5 tests per month</li>
+                            <li>100 test takers per month</li>
+                            <li>Basic test templates</li>
+                            <li>Standard reporting and analytics</li>
+                            <li>Email support</li>
+                        </ul>
+                        <p className="my-4 mb-5">The Basic Plan is perfect for individuals or small educational setups looking to create and manage a limited number of tests with essential features.</p>
+
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Economic Plan</p>
+                        <p className="my-3">Price: PKR 1500/month</p>
+                        <h6 className="my-4">Features:</h6>
+                        <ul className="pl-3">
+                            <li>Create up to 20 tests per month</li>
+                            <li>500 test takers per month</li>
+                            <li>Advanced test templates</li>
+                            <li>Detailed reporting and analytics</li>
+                            <li>Priority email support</li>
+                            <li>Custom branding for tests</li>
+                        </ul>
+                        <p className="my-4 mb-5">The Economic Plan is ideal for medium-sized educational institutions or organizations that require more comprehensive testing capabilities and enhanced support.</p>
+
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Business Plan</p>
+                        <p className="my-3">Price: PKR 3000/month</p>
+                        <h6 className="my-4">Features:</h6>
+                        <ul className="pl-3">
+                            <li>Unlimited test creation</li>
+                            <li>Unlimited test takers</li>
+                            <li>Custom test templates</li>
+                            <li>Advanced reporting and analytics with in-depth insights</li>
+                            <li>Priority email and phone support</li>
+                            <li>Custom branding and white-labeling options</li>
+                        </ul>
+                        <p className="my-4 mb-5">The Business Plan is designed for large institutions, corporations, and professional educators who need extensive features, customization, and top-tier support.</p>
+
+                        <center className="mt-5 mb-4">
+                            <h3>Pricings Comparison</h3>
+                        </center>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Basic Plan (PKR 500)</th>
+                                    <th>Economic Plan (PKR 1,500)</th>
+                                    <th>Business Plan (PKR 3,000)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Test Creation Limit</td>
+                                    <td>5/month</td>
+                                    <td>20/month</td>
+                                    <td>Unlimited</td>
+                                </tr>
+                                <tr>
+                                    <td>Test Takers Limit</td>
+                                    <td>100/month</td>
+                                    <td>500/month</td>
+                                    <td>Unlimited</td>
+                                </tr>
+                                <tr>
+                                    <td>Test Templates</td>
+                                    <td>Basic</td>
+                                    <td>Advanced</td>
+                                    <td>Custom</td>
+                                </tr>
+                                <tr>
+                                    <td>Reporting & Analytics</td>
+                                    <td>Standard</td>
+                                    <td>Detailed</td>
+                                    <td>Advanced</td>
+                                </tr>
+                                <tr>
+                                    <td>Support	Email</td>
+                                    <td>Email</td>
+                                    <td>Priority Email</td>
+                                    <td>Priority Email & Phone</td>
+                                </tr>
+                                <tr>
+                                    <td>Custom Branding</td>
+                                    <td>No</td>
+                                    <td>Yes</td>
+                                    <td>Yes, with White-labeling</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2 ref={t3Ref} id="selection-of-document" className="my-5 highlighted-heading"><Zoop>Selection of document</Zoop></h2>
+                        <h5>Troubleshooting</h5>
+                        <p className="my-4">If you encounter issues during the document selection process, try the following:</p>
+                        <ul className="ml-3">
+                            <li className="my-2">Refresh the Page: Sometimes refreshing the page can resolve minor glitches.</li>
+                            <li className="my-2">Login Issue: If the problem still persists re-login and try again.</li>
+                            <li className="my-2">Contact Support: If the problem persists, contact customer support for assistance.</li>
+                        </ul>
+
+                        <h2 ref={t4Ref} id="paper-settings" className="my-5 highlighted-heading"><Zoop>Paper Settings</Zoop></h2>
+                        <p>Configure simple paper settings and adjust the test features.</p>
+                        <center>
+                            <img src="/images/paper-settings.png" alt="Getting Started" className="h-50 w-25 my-3" loading="lazy" />
+                        </center>
+                        <p>Default settings are applied</p>
                         <div style={{marginBottom: "100vh"}}></div>
-                        <h2 ref={t3Ref} id="selection-of-document">Selection of document</h2>
+                        <h2 ref={t5Ref} id="question-selection" className="my-5 highlighted-heading"><Zoop>Question Selection</Zoop></h2>
                         <div style={{marginBottom: "100vh"}}></div>
-                        <h2 ref={t4Ref} id="paper-settings">Paper Settings</h2>
-                        <div style={{marginBottom: "100vh"}}></div>
-                        <h2 ref={t5Ref} id="question-selection">Question Selection</h2>
-                        <div style={{marginBottom: "100vh"}}></div>
-                        <h2 ref={t6Ref} id="printing-the-document">Printing the document</h2>
+                        <h2 ref={t6Ref} id="printing-the-document" className="my-5 highlighted-heading"><Zoop>Printing the document</Zoop></h2>
                         <div style={{marginTop: "100vh"}}></div>
                     </section>
                 </div>

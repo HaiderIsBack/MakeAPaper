@@ -52,11 +52,11 @@
     85%{
         transform: scale(1) rotate(105deg);
         opacity: 0.1;
-        border: 2px solid #8E2DE2;
+        border: 2px solid var(--accent1);
     }
     99%{
         opacity: 0;
-        border: 2px solid #8E2DE2;
+        border: 2px solid var(--accent1);
     }
 }
 
@@ -70,7 +70,7 @@
     border: none;
     border-top: 2px solid rgba(255,255,255,0.2);
     border-radius: 7px;
-    background: var(--btn);
+    background: var(--accent-gradient);
     padding: var(--btn-padding);
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     display: flex;
@@ -90,8 +90,8 @@
     position: relative;
     border: 2px solid #8d2de221;
     overflow: hidden;
-    display: grid;
-    place-items: center;
+    /* display: grid;
+    place-items: center; */
     transition: scale 0.4s;
 }
 
@@ -103,8 +103,8 @@
     transform: rotate(20deg);
     width: 75px;
     height: 120%;
-    background: #8E2DE2;
-    box-shadow: 0 0 20px #8E2DE2;
+    background: var(--accent1);
+    box-shadow: 0 0 20px var(--accent1);
 }
 
 .hero-container .card-container:hover::after{
@@ -193,6 +193,7 @@
     text-wrap: nowrap;
     transition: 0.4s;
     position: relative;
+    user-select: none;
 }
 
 .quotes-marquee h1::before{
@@ -252,6 +253,7 @@
 
 .suggest-book-section input,
 .suggest-book-section textarea{
+    width: min(100%, 600px);
     background: #111;
     color: #fff;
     padding: 10px 15px;
@@ -266,7 +268,7 @@
 }
 
 .suggest-book-section button{
-    background: var(--btn);
+    background: var(--accent-gradient);
     padding: var(--btn-padding);
     border-radius: 7px;
     color: #fff;
@@ -307,5 +309,14 @@
 @media (max-width: 620px){
     .suggest-book-section form{
         width: 100%;
+    }
+    .quotes-marquee h1{
+        font-size: 65px;
+    }
+    .hero-container .card-container{
+        margin: 20px 0;
+    }
+    .suggest-book-section form{
+        padding: 0 1rem;
     }
 }

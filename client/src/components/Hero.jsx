@@ -9,6 +9,7 @@ import {
 import './Hero.css'
 import { useContext, useEffect } from "react";
 import UserContext from "../UserContext"
+import Zoop from "./Zoop";
 
 function Hero() {
   const navigate = useNavigate();
@@ -37,8 +38,8 @@ function Hero() {
           <div className="box"></div>
           <div className="box"></div>
         </div>
-        <h1 style={{marginTop: "100px"}}>Let's Build a Bright Future</h1>
-        <p className="my-2">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
+        <h1 style={{marginTop: "100px"}}><Zoop>Let's Build a Bright Future</Zoop></h1>
+        <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
         <button className='my-4 get-started'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
 
         <div className="row w-100" style={{marginTop: "100px"}}>
@@ -94,7 +95,7 @@ function Hero() {
         </div>
 
         {/* Second Banner */}
-        <div className="row banner p-2 py-5 shadow" style={{background: "var(--btn)", borderRadius: "7px"}}>
+        <div className="row banner p-2 py-5 shadow" style={{background: "var(--accent-gradient)", borderRadius: "7px"}}>
           <div className="col-sm-6 col-12 align-self-center">
             <section>
               <h2 className="text-left">BEST SERVICES</h2>
@@ -165,7 +166,7 @@ const SuggestBook = () => {
   }
   return (
     <div className="suggest-book-section" id="suggest-book" tabIndex={-1}>
-      <h1>Suggest us a Book</h1>
+      <h1><Zoop>Suggest us a Book</Zoop></h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="book-name" className="text-left">Book Name</label>
         <input type="text" id="book-name" name="bookName" placeholder="e.g Artificial Intelligence" />

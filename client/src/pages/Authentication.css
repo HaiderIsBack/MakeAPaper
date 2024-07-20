@@ -26,7 +26,7 @@
 .auth-container .auth-box button{
     padding: 10px 10px;
     border-radius: 10px;
-    background: var(--btn);
+    background: var(--accent-gradient);
     color: #fff;
     outline: none;
     border: none;
@@ -38,7 +38,7 @@
 }
 
 .auth-container .auth-box p > a{
-    color: #8E2DE2;
+    color: var(--accent1);
     cursor: pointer;
 }
 

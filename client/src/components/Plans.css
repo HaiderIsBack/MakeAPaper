@@ -1,5 +1,5 @@
 .plans-container h2{
-    border-left: 7px solid #8E2DE2;
+    border-left: 7px solid var(--accent1);
     padding-left: 20px;
 }
 
@@ -39,6 +39,7 @@
     position: absolute;
     left: 10%;
     top: -5%;
+    text-align: center;
 }
 
 @media (max-width: 990px) {

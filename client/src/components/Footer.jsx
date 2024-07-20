@@ -25,7 +25,7 @@ const Footer = () => {
                 <div className="col-md-3 col-12 bg-primary"></div>
                 <div className="col-md-3 col-12 bg-danger"></div>
             </div>
-            <div className="w-100 text-light py-2" style={{background: "#111"}}>
+            <div className="w-100 text-light py-2 text-center" style={{background: "#111"}}>
                 <h6 className="mb-0">Copyright Reserved @ Test Builder {new Date().getFullYear()}</h6>
             </div>
         </div>

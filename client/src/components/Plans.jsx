@@ -6,13 +6,14 @@ import {
   faLock,
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
+import Zoop from './Zoop';
 
 function Plans() {
 
   return (
     <>
       <div className="plans-container hero-container">
-        <h2 className='my-5 text-left'>Plans</h2>
+        <h2 className='my-5 text-left'><Zoop>Plans</Zoop></h2>
         <div className="row w-100 justify-content-center">
             <div className="col-lg-4 col-12 my-lg-0 my-5 w-100">
               <div className="card-container">

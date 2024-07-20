@@ -67,9 +67,9 @@
     text-align: start;
 }
 
-.documentation section h2{
+.documentation section .highlighted-heading{
     padding-left: 1rem;
-    border-left: 7px solid #8E2DE2;
+    border-left: 7px solid var(--accent1);
 }
 
 .documentation section article img{
@@ -90,14 +90,14 @@
 .documentation .status.active .status-target span,
 .documentation .status.active .status-target::before,
 .documentation .status.active .status-target::after{
-    background: #8E2DE2 !important;
+    animation: glowUp 0.7s forwards ease-in-out;
 }
 
 .documentation .status.last-active h6 a{
     color: #fff !important;
 }
 
-.documentation section article p{
+.documentation section p{
     margin-bottom: 0;
     color: #ddd;
 }
@@ -105,4 +105,61 @@
 .documentation section article .alert{
     border: 2px solid var(--primary);
     color: var(--primary);
+}
+
+.documentation section table{
+    width: 100%;
+    cursor: default;
+}
+
+.documentation section table thead{
+    background: var(--accent-gradient);
+    color: #fff;
+}
+
+.documentation section table thead th:first-child{
+    border-top-left-radius: 7px;
+}
+
+.documentation section table thead th:last-child{
+    border-top-right-radius: 7px;
+}
+
+.documentation section table thead th{
+    text-align: center;
+    padding: 0.6rem 0;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    font-weight: 400;
+}
+
+.documentation section table tbody tr{
+    transition: background 0.2s var(--easing), transform 0.3s ease-in;
+}
+
+.documentation section table tbody td{
+    padding: 0.6rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.documentation section table thead th:last-child,
+.documentation section table tbody td:last-child{
+    border-right: none;
+}
+
+.documentation section table tbody tr:nth-child(even){
+    background: rgba(255,255,255,0.05);
+}
+
+.documentation section table tbody tr:hover{
+    background: rgba(255,255,255,0.15);
+    transform: scale(1.01);
+}
+
+@keyframes glowUp {
+    from{
+        background: #fff;
+    }
+    to{
+        background: var(--accent1);
+    }
 }

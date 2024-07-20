@@ -4,16 +4,20 @@ import './GlassBg.css'
 function GlassBg() {
   const blobRef = useRef(null);
 
+  const handlePointerMove = (e) => {
+    blobRef.current.animate({
+      top: (e.pageY - 70 / 2) + "px",
+      left: (e.pageX - 150 / 2) + "px"
+    },{duration:800,fill:"forwards"});
+  }
+
   useEffect(()=>{
     blobRef.current.animate({
       transform: ["rotate(0deg) scale(1)","rotate(180deg) scale(1.3)","rotate(360deg) scale(1)"]
     },{duration:8000,iterations:Infinity})
-    document.onpointermove = (e) => {
-      blobRef.current.animate({
-        top: (e.pageY - 70 / 2) + "px",
-        left: (e.pageX - 150 / 2) + "px"
-      },{duration:800,fill:"forwards"});
-    };
+    
+    document.addEventListener("pointermove", handlePointerMove)
+    return () => document.removeEventListener("pointermove", handlePointerMove)
   },[]);
   return (
     <>
