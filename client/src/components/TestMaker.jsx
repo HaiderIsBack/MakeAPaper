@@ -41,6 +41,9 @@ function TestMaker() {
     const [chapters, setChapters] = useState([])
     const [chapterQuestions, setChapterQuestions] = useState([])
 
+    // Toggle Handling
+    const [smallScreen, setSmallScreen] = useState(false)
+
     const chaptersRef = useRef(null)
     const sidebarRef = useRef(null)
     const sidebarBtnRef = useRef(null)
@@ -136,6 +139,20 @@ function TestMaker() {
         fetchQuestions()
     },[currentChapterIndex])
 
+    // Toggle Handling
+    useEffect(()=>{
+        const resize = () => {
+            if(window.innerWidth < 860){
+                setSmallScreen(true)
+            }else{
+                setSmallScreen(false)
+            }
+        }
+        resize()
+        window.addEventListener("resize", resize)
+        return () => window.removeEventListener("resize", resize)
+    },[])
+
     const paperRef = useRef();
     const logoRef = useRef();
 
@@ -176,6 +193,7 @@ function TestMaker() {
             "totalMarks": totalMarksRef.current.value || "0",
             "paperHeading": paperHeadingRef.current.value
         }
+        
         setPaperSettings(settings);
     }
 
@@ -252,7 +270,7 @@ function TestMaker() {
                         (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <RandomQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
                     }
                 </div>
-                <div className="col-lg-4 d-lg-block d-none">
+                {!smallScreen && <div className="col-lg-4 d-lg-block d-none">
                     <div className="paper-edit-panel">
                         <h5 className='text-left mb-5'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
                         <div className="w-100 bg-secondary rounded">
@@ -278,9 +296,9 @@ function TestMaker() {
                             <input type="number" placeholder='Total Marks' className='total-marks-input' ref={totalMarksRef} />
                         </div>
                     </div>
-                </div>
+                </div>}
             </div>
-            <div className="side-bar d-lg-none d-block" ref={sidebarRef}>
+            {smallScreen && <div className="side-bar d-lg-none d-block" ref={sidebarRef}>
                 <button className="toggle" ref={sidebarBtnRef} onClick={handleSidebarToggle}>{sidebarActive ? <FontAwesomeIcon icon={faX} /> : <FontAwesomeIcon icon={faGear} />}</button>
                 <div className="paper-edit-panel">
                     <h5 className='text-left mb-5'><FontAwesomeIcon icon={faGear} className='mr-2' /> Paper Settings</h5>
@@ -307,7 +325,7 @@ function TestMaker() {
                         <input type="number" placeholder='Total Marks' className='total-marks-input' ref={totalMarksRef} />
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
         </>
     )
