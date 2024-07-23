@@ -18,6 +18,7 @@ import { useReactToPrint } from 'react-to-print';
 import './TestMaker.css';
 import UserContext from '../UserContext';
 import { useNavigate } from 'react-router-dom';
+import Transition from './Transition';
 
 function TestMaker() {
     const { user, logout } = useContext(UserContext)
@@ -201,7 +202,7 @@ function TestMaker() {
         <>
         <div className="test-maker-container">
             <div className="row w-100">
-                <div className="col-lg-8 col-12 paper-config d-flex flex-column">
+                <div className="col-lg-8 col-12 pl-4 paper-config d-flex flex-column">
                     <ComponentToPrint ref={paperRef} questionList={questions} paperSettings={paperSettings} />
                     <h3 className='my-4 heading'>Question Selection Type</h3>
 
@@ -662,4 +663,4 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
     </>;
 });
 
-export default TestMaker;
+export default Transition(TestMaker);

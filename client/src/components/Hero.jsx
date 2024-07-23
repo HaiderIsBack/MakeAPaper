@@ -10,6 +10,8 @@ import './Hero.css'
 import { useContext, useEffect } from "react";
 import UserContext from "../UserContext"
 import Zoop from "./Zoop";
+import Transition from "./Transition";
+
 
 function Hero() {
   const navigate = useNavigate();
@@ -28,22 +30,12 @@ function Hero() {
   return (
     <>
       <div className="hero-container d-flex flex-column align-items-center">
-        <div className="boxes">
-          <div className="box"></div>
-          <div className="box"></div>
-          <div className="box"></div>
-          <div className="box"></div>
-          <div className="box"></div>
-          <div className="box"></div>
-          <div className="box"></div>
-          <div className="box"></div>
-        </div>
-        <h1 style={{marginTop: "100px"}}><Zoop>Let's Build a Bright Future</Zoop></h1>
+        <h1 style={{marginTop: "100px", fontWeight: "bolder"}}><Zoop>Let's Build a Bright Future</Zoop></h1>
         <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
         <button className='my-4 get-started'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
 
-        <div className="row w-100" style={{marginTop: "100px"}}>
-            <div className="col-md-4 col-12">
+        <div className="row px-5" style={{marginTop: "100px"}}>
+            <div className="col-lg-4 col-12">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -55,7 +47,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 col-12">
+            <div className="col-lg-4 col-12">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -67,7 +59,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 col-12">
+            <div className="col-lg-4 col-12">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -178,4 +170,4 @@ const SuggestBook = () => {
   )
 }
 
-export default Hero
+export default Transition(Hero)

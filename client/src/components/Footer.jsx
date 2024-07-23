@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="footer w-100 mt-5 pt-2">
             <div className="row py-3">
                 <div className="col-md-3 col-12 d-flex flex-column">
-                    <div className="d-flex justify-content-between align-items-center px-4 mb-3">
+                    <div className="d-flex align-items-center px-4 mb-3">
                         <img src="/TestBuilder.png" alt="Test Builder" />
                         <h3 className="mb-0" style={{textWrap: "nowrap"}}>Test Builder</h3>
                     </div>

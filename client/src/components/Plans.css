@@ -28,6 +28,10 @@
     color: crimson;
 }
 
+.plans-container .most-popular{
+    overflow: hidden;
+}
+
 .plans-container .most-popular::before{
     content: "Popular";
     background: linear-gradient(45deg, limegreen, lime);

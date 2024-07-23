@@ -6,7 +6,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faInfoCircle
   } from '@fortawesome/free-solid-svg-icons';
-  import Zoop from "../components/Zoop";
+import Zoop from "../components/Zoop";
+import Transition from "../components/Transition";
 
 const Documentation = () => {
     const st1Ref = useRef(null)
@@ -104,7 +105,7 @@ const Documentation = () => {
                         <article>
                             <p>In order to use our services, you need to be <Link to={"/login"}>logged in</Link> then you can click on the [Get Started] button.</p>
                             <center>
-                                <img src="/images/getting-started.png" alt="Getting Started" className="w-75 my-3" loading="lazy" />
+                                <img src="/images/getting-started.png" alt="Getting Started" className="w-75 my-3 rounded" loading="lazy" />
                             </center>
                             <p>After you are navigated to the user Dashboard, you can create a new Test or Edit and use previously created Tests.</p>
                             <br />
@@ -209,6 +210,17 @@ const Documentation = () => {
                         </table>
 
                         <h2 ref={t3Ref} id="selection-of-document" className="my-5 highlighted-heading"><Zoop>Selection of document</Zoop></h2>
+                        <center>
+                            <img src="/images/document-selection.png" alt="Document Selection" className="w-75 my-3 rounded" loading="lazy" />
+                        </center>
+                        <p className="my-3">You can select a Book as shown below. Once you select a book the Chapter wil be available corresponding to the book.</p>
+                        <center>
+                            <img src="/images/document-selection-book.png" alt="Document Selection Book" className="w-75 my-3 rounded" loading="lazy" />
+                        </center>
+                        <p className="my-3">After selecting the book you can now choose the chapter you want to print. </p>
+                        <center>
+                            <img src="/images/document-selection-chapter.png" alt="Document Selection Chapter" className="w-75 my-3 rounded" loading="lazy" />
+                        </center>
                         <h5>Troubleshooting</h5>
                         <p className="my-4">If you encounter issues during the document selection process, try the following:</p>
                         <ul className="ml-3">
@@ -220,11 +232,26 @@ const Documentation = () => {
                         <h2 ref={t4Ref} id="paper-settings" className="my-5 highlighted-heading"><Zoop>Paper Settings</Zoop></h2>
                         <p>Configure simple paper settings and adjust the test features.</p>
                         <center>
-                            <img src="/images/paper-settings.png" alt="Getting Started" className="h-50 w-25 my-3" loading="lazy" />
+                            <img src="/images/paper-settings.png" alt="Paper Settings" className="h-50 w-25 my-3" loading="lazy" />
                         </center>
-                        <p>Default settings are applied</p>
-                        <div style={{marginBottom: "100vh"}}></div>
+                        <p>Default settings are applied when the user doesn't changes any settings. </p>
+        
                         <h2 ref={t5Ref} id="question-selection" className="my-5 highlighted-heading"><Zoop>Question Selection</Zoop></h2>
+                        <p className="mb-3">One of the core features of this Test Builder site are the Question Selection Options: Manual and Random(Automatic).</p>
+                        <center>
+                            <img src="/images/question-selection.png" alt="Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />
+                        </center>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Manual Question Selection</p>
+                        <p className="mt-4">In manual question selection, you can select the questions by any order and those questions will be printed according to that specific order.</p>
+                        <center>
+                            <img src="/images/manual-question-selection.png" alt="Manual Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />
+                        </center>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Random Question Selection</p>
+                        <p className="mt-4">In random question selection, you can select the questions by simply inputting number of questions and the rest is handled by the system.</p>
+                        <center>
+                            <img src="/images/random-question-selection.png" alt="Manual Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />
+                        </center>
+
                         <div style={{marginBottom: "100vh"}}></div>
                         <h2 ref={t6Ref} id="printing-the-document" className="my-5 highlighted-heading"><Zoop>Printing the document</Zoop></h2>
                         <div style={{marginTop: "100vh"}}></div>
@@ -235,4 +262,4 @@ const Documentation = () => {
     </>)
 }
 
-export default Documentation
+export default Transition(Documentation)
