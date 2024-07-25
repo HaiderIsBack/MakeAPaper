@@ -30,12 +30,12 @@ function Hero() {
   return (
     <>
       <div className="hero-container d-flex flex-column align-items-center">
-        <h1 style={{marginTop: "100px", fontWeight: "bolder"}}><Zoop>Let's Build a Bright Future</Zoop></h1>
+        <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
         <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
         <button className='my-4 get-started'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
 
-        <div className="row px-5" style={{marginTop: "100px"}}>
-            <div className="col-lg-4 col-12">
+        <div className="row px-2" style={{marginTop: "100px"}}>
+            <div className="col-lg-4 col-12 my-3">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -47,7 +47,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-12">
+            <div className="col-lg-4 col-12 my-3">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -59,7 +59,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-12">
+            <div className="col-lg-4 col-12 my-3">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -158,7 +158,7 @@ const SuggestBook = () => {
   }
   return (
     <div className="suggest-book-section" id="suggest-book" tabIndex={-1}>
-      <h1><Zoop>Suggest us a Book</Zoop></h1>
+      <h1 className="hero-heading"><Zoop>Suggest us a Book</Zoop></h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="book-name" className="text-left">Book Name</label>
         <input type="text" id="book-name" name="bookName" placeholder="e.g Artificial Intelligence" />

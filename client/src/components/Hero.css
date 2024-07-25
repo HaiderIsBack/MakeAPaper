@@ -1,3 +1,8 @@
+.hero-heading{
+    margin-top: 100px;
+    font-weight: bolder;
+}
+
 .hero-container p{
     color: var(--light-text);
 }
@@ -70,7 +75,7 @@
     height: 100%;
     background: rgba(0,0,0,1);
     z-index: 10;
-    padding: 20px 20px;
+    padding: 40px 20px;
 }
 
 .hero-container .card-content .card-icon{
@@ -246,6 +251,9 @@
 }
 
 @media (max-width: 620px){
+    .hero-heading{
+        font-size: 1.7rem;
+    }
     .suggest-book-section form{
         width: 100%;
     }

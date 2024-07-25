@@ -163,3 +163,41 @@
         background: var(--accent1);
     }
 }
+
+@media (max-width: 992px) {
+    .documentation section .highlighted-heading{
+        font-size: x-large;
+    }
+    .documentation section p,
+    .documentation section li{
+        font-size: medium;
+    }
+    .documentation section{
+        padding: 1rem;
+    }
+    .documentation section article .alert{
+        width: 100% !important;
+    }
+    .documentation img{
+        width: 100%;
+        height: auto;
+    }
+    .documentation .table-wrapper{
+        overflow-x: auto;
+    }
+    .documentation table{
+        width: 600px;
+        border-collapse: collapse;
+    }
+}
+
+@media (max-width: 650px) {
+    .documentation section p,
+    .documentation section li{
+        font-size: small;
+    }
+    .documentation img{
+        width: 100% !important;
+        height: auto !important;
+    }
+}

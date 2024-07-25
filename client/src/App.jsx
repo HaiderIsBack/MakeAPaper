@@ -63,7 +63,12 @@ function App() {
             </>
           }
         />
-        <Route path="/plans" element={<Plans />} />
+        <Route path="/plans" element={
+          <>
+            <Plans />
+            <Footer />
+          </>
+        } />
 
         <Route
           path="/paper"
@@ -95,7 +100,7 @@ function App() {
           element={
             <>
               <Documentation />
-              <Footer />
+              {/* <Footer /> */}
             </>
           }
         />

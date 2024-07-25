@@ -70,7 +70,7 @@ const Documentation = () => {
     return (<>
         <div className="documentation">
             <div className="row">
-                <div className="col-3">
+                <div className="col-lg-3 d-lg-block d-none">
                     <div className="status-tracker">
                         <div className="status" ref={st1Ref}>
                             <div className="status-target first" id="t-0"><span></span></div>
@@ -98,7 +98,7 @@ const Documentation = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-9">
+                <div className="col-lg-9 col-12">
                     <section>
                         {/* Getting Started Section */}
                         <h2 ref={t1Ref} id="getting-started" className="my-5 highlighted-heading"><Zoop>Getting Started</Zoop></h2>
@@ -109,7 +109,9 @@ const Documentation = () => {
                             </center>
                             <p>After you are navigated to the user Dashboard, you can create a new Test or Edit and use previously created Tests.</p>
                             <br />
-                            <p>If your desired book is not available on this site, you can suggest us the book name, author and publisher name <Link to={"/?id=suggest-book"}>here</Link></p>. The Admin will process your request within a week or so
+                            <p>If your desired book is not available on this site, you can suggest us the book name, author and publisher name <Link to={"/?id=suggest-book"}>here</Link>.</p> 
+                            <br />
+                            <p>The Admin will process your request within a week or so.</p>
                             <div className="alert w-75 my-3">
                                 <strong><FontAwesomeIcon icon={faInfoCircle} /> Note</strong>
                                 <p className="mb-0 mt-2">Subscribtion system is still in development. As soon as it becomes available, Users will then have to subscribe for our services and their previous Saved Tests will be removed (those created within the free trial period)</p>
@@ -160,54 +162,56 @@ const Documentation = () => {
                             <h3>Pricings Comparison</h3>
                         </center>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Feature</th>
-                                    <th>Basic Plan (PKR 500)</th>
-                                    <th>Economic Plan (PKR 1,500)</th>
-                                    <th>Business Plan (PKR 3,000)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Test Creation Limit</td>
-                                    <td>5/month</td>
-                                    <td>20/month</td>
-                                    <td>Unlimited</td>
-                                </tr>
-                                <tr>
-                                    <td>Test Takers Limit</td>
-                                    <td>100/month</td>
-                                    <td>500/month</td>
-                                    <td>Unlimited</td>
-                                </tr>
-                                <tr>
-                                    <td>Test Templates</td>
-                                    <td>Basic</td>
-                                    <td>Advanced</td>
-                                    <td>Custom</td>
-                                </tr>
-                                <tr>
-                                    <td>Reporting & Analytics</td>
-                                    <td>Standard</td>
-                                    <td>Detailed</td>
-                                    <td>Advanced</td>
-                                </tr>
-                                <tr>
-                                    <td>Support	Email</td>
-                                    <td>Email</td>
-                                    <td>Priority Email</td>
-                                    <td>Priority Email & Phone</td>
-                                </tr>
-                                <tr>
-                                    <td>Custom Branding</td>
-                                    <td>No</td>
-                                    <td>Yes</td>
-                                    <td>Yes, with White-labeling</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div className="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Basic Plan (PKR 500)</th>
+                                        <th>Economic Plan (PKR 1,500)</th>
+                                        <th>Business Plan (PKR 3,000)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Test Creation Limit</td>
+                                        <td>5/month</td>
+                                        <td>20/month</td>
+                                        <td>Unlimited</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Test Takers Limit</td>
+                                        <td>100/month</td>
+                                        <td>500/month</td>
+                                        <td>Unlimited</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Test Templates</td>
+                                        <td>Basic</td>
+                                        <td>Advanced</td>
+                                        <td>Custom</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reporting & Analytics</td>
+                                        <td>Standard</td>
+                                        <td>Detailed</td>
+                                        <td>Advanced</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Support	Email</td>
+                                        <td>Email</td>
+                                        <td>Priority Email</td>
+                                        <td>Priority Email & Phone</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Custom Branding</td>
+                                        <td>No</td>
+                                        <td>Yes</td>
+                                        <td>Yes, with White-labeling</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <h2 ref={t3Ref} id="selection-of-document" className="my-5 highlighted-heading"><Zoop>Selection of document</Zoop></h2>
                         <center>
@@ -249,12 +253,14 @@ const Documentation = () => {
                         <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Random Question Selection</p>
                         <p className="mt-4">In random question selection, you can select the questions by simply inputting number of questions and the rest is handled by the system.</p>
                         <center>
-                            <img src="/images/random-question-selection.png" alt="Manual Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />
+                            <img src="/images/random-question-selection.png" alt="Random Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />
                         </center>
 
-                        <div style={{marginBottom: "100vh"}}></div>
                         <h2 ref={t6Ref} id="printing-the-document" className="my-5 highlighted-heading"><Zoop>Printing the document</Zoop></h2>
-                        <div style={{marginTop: "100vh"}}></div>
+                        <p>Printing the test is very simple just click on the [Download] button and then your document will be ready to get Saved or Printed.</p>
+                        <center>
+                            <img src="/images/printing-the-document.png" alt="Printing The Document" className="h-50 w-50 my-3 mb-4 rounded" loading="lazy" />
+                        </center>
                     </section>
                 </div>
             </div>
