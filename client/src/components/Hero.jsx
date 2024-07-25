@@ -7,11 +7,15 @@ import {
   faMoneyBill1Wave
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
-import { useContext, useEffect } from "react";
-import UserContext from "../UserContext"
+import { useContext, useEffect, Suspense, useRef } from "react";
+import UserContext from "../UserContext";
+
 import Zoop from "./Zoop";
 import Transition from "./Transition";
 
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Environment, OrbitControls } from '@react-three/drei';
+import Pencil from "../meshes/Pencil";
 
 function Hero() {
   const navigate = useNavigate();
@@ -73,6 +77,9 @@ function Hero() {
             </div>
         </div>
 
+        {/* Canvas */}
+        {/* <ThreeDScene /> */}
+
         {/* First Banner */}
         <div className="row banner" style={{marginTop: "100px"}}>
           <div className="col-sm-6 col-12 align-self-center justify-self-center">
@@ -128,7 +135,9 @@ function Hero() {
       </div>
 
       {/* Suggest a Book */}
-      <SuggestBook />
+      <div className="canvas-wrapper">
+        <SuggestBook />
+      </div>
     </>
   )
 }
@@ -168,6 +177,18 @@ const SuggestBook = () => {
       </form>
     </div>
   )
+}
+
+const ThreeDScene = () => {
+  
+  return (
+  <Canvas className="main-canvas">
+    <OrbitControls />
+    <Suspense fallback={null}>
+      <Environment files={"/buikslotermeerplein_2k.hdr"} />
+      <Pencil position={[-5,5,0]} rotation={[0,5,0]} />
+    </Suspense>
+  </Canvas>)
 }
 
 export default Transition(Hero)

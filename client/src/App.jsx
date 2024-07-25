@@ -16,6 +16,7 @@ import SignUp  from "./pages/SignUp";
 import Footer from "./components/Footer";
 
 import { AnimatePresence } from "framer-motion";
+import useLenis from "./components/useLenis";
 
 const ProtectedRoute = ({ children, auth = false }) => {
   const { user } = useContext(UserContext);
@@ -42,6 +43,7 @@ const ScrollToTop = () => {
 };
 
 function App() {
+  useLenis();
   const location = useLocation();
   return (
     <>
