@@ -7,13 +7,13 @@ import {
   faMoneyBill1Wave
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
-import { useContext, useEffect, Suspense, useRef } from "react";
+import { useContext, useEffect, Suspense } from "react";
 import UserContext from "../UserContext";
 
 import Zoop from "./Zoop";
 import Transition from "./Transition";
 
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import Pencil from "../meshes/Pencil";
 
