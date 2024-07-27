@@ -39,7 +39,7 @@ function Nav() {
           }
             
         </div>
-        <div className="nav-account  d-block">
+        <div className="nav-account d-lg-none d-block">
           <button onClick={()=>setIsActive(true)}><FontAwesomeIcon icon={faBarsStaggered} /></button>
           <Sidebar state={isActive} setState={setIsActive} />
         </div>
