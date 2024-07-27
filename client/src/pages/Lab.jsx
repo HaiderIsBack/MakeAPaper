@@ -3,6 +3,8 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useContext } from "react"
 import UserContext from "../UserContext"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 const navItems = [
     {href: "/lab", itemName: "Dashboard"},
@@ -31,7 +33,7 @@ const Lab = () => {
                     }
                 </menu>
             </div>
-            <div className="panel-content col-md-9 col-12 p-0">
+            <div className="panel-content col-md-9 col-12">
                 <Outlet />
             </div>
         </div>
@@ -40,16 +42,9 @@ const Lab = () => {
 
 export const Dashboard = () => {
     return (<>
-        <div className="dashboard-analytics">
-            <div className="column bg-success p-0">
-
-            </div>
-            <div className="column bg-primary p-0">
-
-            </div>
-            <div className="column bg-secondary p-0">
-
-            </div>
+        <div className="dashboard">
+            <h3>Create new test</h3>
+            <button className="create-test">Create new <FontAwesomeIcon icon={faPlus} /></button>
         </div>
     </>)
 }

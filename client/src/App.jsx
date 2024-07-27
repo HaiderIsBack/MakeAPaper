@@ -51,7 +51,7 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {/* <GlassBg /> */}
+      <GlassBg />
 
       {/* Navbar */}
       <Nav />

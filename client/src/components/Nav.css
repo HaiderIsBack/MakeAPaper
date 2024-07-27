@@ -58,3 +58,32 @@
     background: #fff;
     color: #111;
 }
+
+.nav-sidebar{
+    position: fixed;
+    top: 0%;
+    width: 300px;
+    height: 100vh;
+    background: var(--accent-gradient);
+    z-index: 20;
+    padding: 20px;
+}
+
+.nav-sidebar .nav-close{
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nav-sidebar menu{
+    list-style-type: none;
+}
+
+.nav-sidebar menu li{
+    margin: 1rem 0;
+}
+
+.nav-sidebar menu li button{
+    border: none;
+    box-shadow: none;
+}

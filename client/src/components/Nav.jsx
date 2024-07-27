@@ -5,13 +5,19 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faBarsStaggered,
     faFlask,
+    faX,
   } from '@fortawesome/free-solid-svg-icons';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import UserContext from "../UserContext"
+
+import {motion} from "framer-motion"
 
 function Nav() {
   const navigate = useNavigate();
   const { user, logout } = useContext(UserContext)
+
+  const [isActive, setIsActive] = useState(false)
+
   return (
     <>
       <div className="nav-container my-3 p-2 px-3">
@@ -33,11 +39,27 @@ function Nav() {
           }
             
         </div>
-        <div className="nav-account d-lg-none d-block">
-          <button><FontAwesomeIcon icon={faBarsStaggered} /></button>
+        <div className="nav-account  d-block">
+          <button onClick={()=>setIsActive(true)}><FontAwesomeIcon icon={faBarsStaggered} /></button>
+          <Sidebar state={isActive} setState={setIsActive} />
         </div>
       </div>
     </>
+  )
+}
+
+const Sidebar = ({state, setState}) => {
+  return (
+    <motion.div className="nav-sidebar" animate={{right: state ? 0 : "-300px", transition: {ease: [0.76, 0, 0.24, 1], duration: 0.8}}}>
+      <div className='text-right nav-close' onClick={()=>setState(false)}><FontAwesomeIcon icon={faX} /></div>
+
+      <menu>
+          {/* <li><button>Features</button></li> */}
+          <li><button onClick={()=>navigate("/documentation")}>Documentation</button></li>
+          <li><button onClick={()=>navigate("/plans")}>Plan & Pricings</button></li>
+          <li><button>About Us</button></li>
+      </menu>
+    </motion.div>
   )
 }
 
