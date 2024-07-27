@@ -74,7 +74,7 @@ function Login() {
     <>
       <div className="auth-container">
         <div className="auth-box">
-            <h2 className='my-5'>LOGIN</h2>
+            <h2 className='my-5 text-center'>LOGIN</h2>
             <form ref={formRef} className='text-left d-flex flex-column'>
                 <label className='mt-3'>Username</label>
                 <input type="text" name="username" />

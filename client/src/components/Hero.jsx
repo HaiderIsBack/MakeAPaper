@@ -38,7 +38,7 @@ function Hero() {
         <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
         <button className='my-4 get-started'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
 
-        <div className="row px-2" style={{marginTop: "100px"}}>
+        <div className="row" style={{marginTop: "100px"}}>
             <div className="col-lg-4 col-12 my-3">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
@@ -46,7 +46,7 @@ function Hero() {
                     <FontAwesomeIcon className="fa-3x" icon={faMicrochip} />
                   </div>
                   <h4 className="my-2">Blazing Fast</h4>
-                  <p className="my-2">Create Papers instantly with our Test Maker Solution</p>
+                  <p className="my-2 text-center">Create Papers instantly with our Test Maker Solution</p>
                   <button>Learn More <FontAwesomeIcon icon={faArrowRight}/></button>
                 </div>
               </div>
@@ -58,7 +58,7 @@ function Hero() {
                     <FontAwesomeIcon className="fa-3x" icon={faUser} />
                   </div>
                   <h4 className="my-2">User Friendly</h4>
-                  <p className="my-2">Easy-to-Use with lots of features to fulfill your needs</p>
+                  <p className="my-2 text-center">Easy-to-Use with lots of features to fulfill your needs</p>
                   <button onClick={()=>navigate("/paper")}>Demo <FontAwesomeIcon icon={faArrowRight}/></button>
                 </div>
               </div>
@@ -70,7 +70,7 @@ function Hero() {
                     <FontAwesomeIcon className="fa-3x" icon={faMoneyBill1Wave} />
                   </div>
                   <h4 className="my-2">Cost-Effective</h4>
-                  <p className="my-2">Start using our services with the lowest prices</p>
+                  <p className="my-2 text-center">Start using our services with the lowest prices</p>
                   <button onClick={()=>navigate("/plans")}>See Plans <FontAwesomeIcon icon={faArrowRight}/></button>
                 </div>
               </div>
@@ -82,38 +82,38 @@ function Hero() {
 
         {/* First Banner */}
         <div className="row banner" style={{marginTop: "100px"}}>
-          <div className="col-sm-6 col-12 align-self-center justify-self-center">
+          <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
             <img src="/svg/undraw_1.svg" alt="undraw" className="w-50" loading="lazy" />
           </div>
-          <div className="col-sm-6 col-12 align-self-center">
+          <div className="col-sm-6 col-12 my-3 align-self-center">
             <section>
-              <h2 className="text-left">BEST SERVICES</h2>
-              <p className="text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
+              <h2 className="text-left">DASHBOARD</h2>
+              <p className="text-left">Easy tracking of tests and drafts and many more options to customize your experience. Management of Account and stay up-to-date with the latest news from the admin.</p>
             </section>
           </div>
         </div>
 
         {/* Second Banner */}
-        <div className="row banner p-2 py-5 shadow" style={{background: "var(--accent-gradient)", borderRadius: "7px"}}>
-          <div className="col-sm-6 col-12 align-self-center">
+        <div className="row banner py-5 shadow" style={{background: "var(--accent-gradient)", borderRadius: "7px"}}>
+          <div className="col-sm-6 col-12 my-3 align-self-center">
             <section>
-              <h2 className="text-left">BEST SERVICES</h2>
-              <p className="text-left" style={{color: "#eee"}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
+              <h2 className="text-left">CUSTOMIZATION</h2>
+              <p className="text-left" style={{color: "#eee"}}>Adjust question types, difficulty levels. Add or remove questions, set time limits, and configure the layout to suit your needs, ensuring a unique and effective testing experience.</p>
             </section>
           </div>
-          <div className="col-sm-6 col-12 align-self-center justify-self-center">
+          <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
             <img src="/svg/undraw_2.svg" alt="undraw" className="w-50" loading="lazy" />
           </div>
         </div>
 
         {/* Third Banner */}
         <div className="row banner">
-          <div className="col-sm-6 col-12 align-self-center justify-self-center">
+          <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
             <img src="/svg/undraw_3.svg" alt="undraw" className="w-50" loading="lazy" />
           </div>
-          <div className="col-sm-6 col-12 align-self-center">
+          <div className="col-sm-6 col-12 my-3 align-self-center">
             <section>
-              <h2 className="text-left" style={{fontWeight: "700"}}>BEST SERVICES</h2>
+              <h2 className="text-left" style={{fontWeight: "700"}}>INTERNATIONAL PRODUCT</h2>
               <p className="text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
             </section>
           </div>
@@ -183,10 +183,9 @@ const ThreeDScene = () => {
   
   return (
   <Canvas className="main-canvas">
-    <OrbitControls />
     <Suspense fallback={null}>
       <Environment files={"/buikslotermeerplein_2k.hdr"} />
-      <Pencil position={[-5,5,0]} rotation={[0,5,0]} />
+      <Pencil position={[0,-6,5]} />
     </Suspense>
   </Canvas>)
 }

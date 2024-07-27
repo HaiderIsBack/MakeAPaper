@@ -20,7 +20,7 @@ function Plans() {
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
-                    <h3>Basic</h3>
+                    <h3 className="m-0">Basic</h3>
                   </div>
                   <h4 className="my-2">Rs. 500/month</h4>
                   <ul>
@@ -41,7 +41,7 @@ function Plans() {
               <div className="card-container">
                 <div className="card-content most-popular d-flex flex-column align-items-center">
                   <div className="card-icon">
-                    <h3>Economic</h3>
+                    <h3 className="m-0">Economic</h3>
                   </div>
                   <h4 className="my-2">Rs. 1500/month</h4>
                   <ul>
@@ -62,7 +62,7 @@ function Plans() {
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
-                    <h3>Business</h3>
+                    <h3 className="m-0">Business</h3>
                   </div>
                   <h4 className="my-2">Rs. 3000/month</h4>
                   <ul>

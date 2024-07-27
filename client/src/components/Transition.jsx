@@ -19,7 +19,8 @@ const routes = {
     "/signup": "SignUp",
     "/documentation": "Documentation",
     "/about": "About",
-    "/paper": "Test Maker"
+    "/paper": "Test Maker",
+    "/lab": "Lab"
 }
 
 const anim = (variants) => {
@@ -60,10 +61,12 @@ function Curve() {
                 ease: [0.22,1,0.36,1]
             },
             transitionEnd: {
-                top: "47.5%"
+                top: "47.5%",
+                display: "none"
             }
         },
         exit:{
+            display: "block",
             opacity: 1,
             top: "40%",
             transition: {

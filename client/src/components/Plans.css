@@ -33,7 +33,7 @@
 }
 
 .plans-container .most-popular::before{
-    content: "Popular";
+    content: "BEST";
     background: linear-gradient(45deg, limegreen, lime);
     color: black;
     padding: 7px 0;
@@ -44,6 +44,7 @@
     left: 10%;
     top: -5%;
     text-align: center;
+    letter-spacing: 3px;
 }
 
 @media (max-width: 990px) {

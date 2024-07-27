@@ -102,7 +102,7 @@ function SignUp() {
     <>
       <div className="auth-container">
         <div className="auth-box">
-            <h2 className='my-1'>SIGN UP</h2>
+            <h2 className='my-1 text-center'>SIGN UP</h2>
             <form ref={formRef} className='text-left d-flex flex-column'>
                 <label className='mt-3'>Username</label>
                 <input type="text" name="username" />

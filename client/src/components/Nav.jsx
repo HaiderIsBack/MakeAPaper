@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
-    faBarsStaggered
+    faBarsStaggered,
+    faFlask,
   } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import UserContext from "../UserContext"
@@ -28,7 +29,7 @@ function Nav() {
         </div>
         <div className="nav-account d-lg-block d-none">
           {
-            user === null ? <button onClick={()=>navigate("/signup")}>Sign Up</button> : <button onClick={logout}>Log Out</button>
+            user === null ? <button onClick={()=>navigate("/signup")}>Sign Up</button> : <button onClick={()=>navigate("/lab")}>My Lab <FontAwesomeIcon icon={faFlask} className='mx-2' /></button>
           }
             
         </div>

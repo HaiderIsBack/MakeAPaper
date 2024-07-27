@@ -11,8 +11,12 @@ import Hero from "./components/Hero";
 import Plans from "./components/Plans";
 import Documentation from "./pages/Documentation";
 import TestMaker from "./components/TestMaker";
+import { Dashboard,UserTests,Account,News } from "./pages/Lab"
+import Lab from "./pages/Lab"
+
 import Login from "./pages/Login";
 import SignUp  from "./pages/SignUp";
+
 import Footer from "./components/Footer";
 
 import { AnimatePresence } from "framer-motion";
@@ -47,7 +51,7 @@ function App() {
   const location = useLocation();
   return (
     <>
-      <GlassBg />
+      {/* <GlassBg /> */}
 
       {/* Navbar */}
       <Nav />
@@ -61,16 +65,28 @@ function App() {
           index
           element={<>
             <Hero />
-            <Footer />
+            {/* <Footer /> */}
             </>
           }
         />
         <Route path="/plans" element={
           <>
             <Plans />
-            <Footer />
+            {/* <Footer /> */}
           </>
         } />
+
+        <Route
+          path="/lab"
+          element={
+            <Lab />
+          }
+        >
+          <Route index element={<ProtectedRoute auth={true}><Dashboard /></ProtectedRoute>} />
+          <Route path="tests" element={<ProtectedRoute auth={true}><UserTests /></ProtectedRoute>} />
+          <Route path="account" element={<ProtectedRoute auth={true}><Account /></ProtectedRoute>} />
+          <Route path="news" element={<ProtectedRoute auth={true}><News /></ProtectedRoute>} />
+        </Route>
 
         <Route
           path="/paper"
