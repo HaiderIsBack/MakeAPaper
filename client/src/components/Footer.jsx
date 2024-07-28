@@ -9,7 +9,7 @@ import {
 const Footer = () => {
     return (<>
         <div className="footer mt-5 pt-2">
-            <div className="row py-3">
+            <div className="row w-100 py-3">
                 <div className="col-md-3 col-12 d-flex flex-column">
                     <div className="d-flex align-items-center px-4 mb-3">
                         <img src="/TestBuilder.png" alt="Test Builder" />

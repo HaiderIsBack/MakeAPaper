@@ -41,14 +41,14 @@ function Nav() {
         </div>
         <div className="nav-account d-lg-none d-block">
           <button onClick={()=>setIsActive(true)}><FontAwesomeIcon icon={faBarsStaggered} /></button>
-          <Sidebar state={isActive} setState={setIsActive} />
+          <Sidebar state={isActive} setState={setIsActive} navigate={navigate} />
         </div>
       </div>
     </>
   )
 }
 
-const Sidebar = ({state, setState}) => {
+const Sidebar = ({state, setState, navigate}) => {
   return (
     <motion.div className="nav-sidebar" animate={{right: state ? 0 : "-300px", transition: {ease: [0.76, 0, 0.24, 1], duration: 0.8}}}>
       <div className='text-right nav-close' onClick={()=>setState(false)}><FontAwesomeIcon icon={faX} /></div>

@@ -25,7 +25,10 @@ body{
   background: var(--bg);
   color: #fff;
   font-family: "Poppins", sans-serif;
-  overflow-x: hidden;
+}
+
+html,body{
+  overflow-x: hidden !important;
 }
 
 h1,h2,h3,h4,h5,h6{

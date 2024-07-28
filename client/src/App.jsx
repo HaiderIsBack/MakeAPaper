@@ -20,17 +20,19 @@ import SignUp  from "./pages/SignUp";
 import Footer from "./components/Footer";
 
 import { AnimatePresence } from "framer-motion";
-import useLenis from "./components/useLenis";
 
 const ProtectedRoute = ({ children, auth = false }) => {
   const { user } = useContext(UserContext);
   const isLoggedIn = user?.token || false;
   if (!isLoggedIn && auth) {
-    return <Navigate to={"/login"} />;
-  } else if (
+    const state = {prevLoc: window.location.pathname}
+    return <Navigate to={"/login"} state={state} />;
+  }
+  else if (
     isLoggedIn &&
     ["/login", "/signup"].includes(window.location.pathname)
   ) {
+    console.log('why')
     return <Navigate to={"/"} />;
   }
   return children;
@@ -47,7 +49,6 @@ const ScrollToTop = () => {
 };
 
 function App() {
-  useLenis();
   const location = useLocation();
   return (
     <>
@@ -65,14 +66,12 @@ function App() {
           index
           element={<>
             <Hero />
-            {/* <Footer /> */}
             </>
           }
         />
         <Route path="/plans" element={
           <>
             <Plans />
-            {/* <Footer /> */}
           </>
         } />
 
@@ -118,12 +117,13 @@ function App() {
           element={
             <>
               <Documentation />
-              {/* <Footer /> */}
             </>
           }
         />
       </Routes>
       </AnimatePresence>
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

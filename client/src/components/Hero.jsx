@@ -36,7 +36,7 @@ function Hero() {
       <div className="hero-container d-flex flex-column align-items-center">
         <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
         <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
-        <button className='my-4 get-started'>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
+        <button className='my-4 get-started' onClick={()=>navigate("/lab/tests")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
 
         <div className="row" style={{marginTop: "100px"}}>
             <div className="col-lg-4 col-12 my-3">
