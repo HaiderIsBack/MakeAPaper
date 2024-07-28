@@ -3,6 +3,68 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.footer .info-links :where(a,address){
+    color: #777 !important;
+    padding: 0.3rem 0;
+}
+
 .footer img{
     width: 50px;
+}
+
+.footer .pages-links ul{
+    list-style-type: none;
+}
+
+.footer .pages-links ul li{
+    border-bottom: 2px dashed #777;
+    padding: 0.8rem 0;
+}
+
+.footer .pages-links ul li a{
+    text-decoration: none;
+    color: #777;
+    transition: color 0.4s;
+}
+
+.footer .pages-links ul li a:hover{
+    color: #fff;
+}
+
+.footer .social-links ul{
+    list-style-type: none;
+    display: flex;
+}
+
+.footer .social-links ul li{
+    flex: 1;
+}
+
+.footer .social-links a{
+    font-size: 30px;
+    color: #777;
+    transition: color 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+.footer .social-links ul li:nth-of-type(1) a:hover{
+    color: royalblue;
+}
+
+.footer .social-links ul li:nth-of-type(2) a:hover{
+    color: royalblue;
+}
+
+.footer .social-links ul li:nth-of-type(3) a:hover{
+    color: #fff;
+}
+
+.footer .social-links ul li:nth-of-type(4) a:hover{
+    color: crimson;
+}
+
+.lower-footer span{
+    font-weight: 800;
+    background-image: var(--accent-gradient);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
