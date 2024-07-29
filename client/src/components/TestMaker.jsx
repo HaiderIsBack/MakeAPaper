@@ -28,6 +28,7 @@ function TestMaker() {
     const [currentBook, setCurrentBook] = useState({});
     const [currentChapterIndex, setCurrentChapterIndex] = useState(-1);
     const [subscriptionStatus, setSubscriptionStatus] = useState(true);
+    const [isMCQSInline, setIsMCQSInline] = useState(false)
 
     // Toggle Sidebar
     const [sidebarActive, setSidebarActive] = useState(false)
@@ -191,7 +192,8 @@ function TestMaker() {
             "logo": logoRef.current.src,
             "name": instituteNameRef.current.value,
             "totalMarks": totalMarksRef.current.value || "0",
-            "paperHeading": paperHeadingRef.current.value
+            "paperHeading": paperHeadingRef.current.value,
+            "isMCQSInline": isMCQSInline
         }
         
         setPaperSettings(settings);
@@ -258,17 +260,19 @@ function TestMaker() {
                             <span className='caret'><FontAwesomeIcon icon={faAngleDown} /></span>
                         </div>
                     </div>
-                    {
-                        questionSelectionType === "manual" &&
-                        (Object.keys(currentBook).length !== 0 && currentBook.constructor === Object) && 
-                        (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <ManualQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
+                    <div className="position-relative">
+                        {
+                            questionSelectionType === "manual" &&
+                            (Object.keys(currentBook).length !== 0 && currentBook.constructor === Object) && 
+                            (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <ManualQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
 
-                    }
-                    {
-                        questionSelectionType === "random" &&
-                        (Object.keys(currentBook).length !== 0 && currentBook.constructor === Object) && 
-                        (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <RandomQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
-                    }
+                        }
+                        {
+                            questionSelectionType === "random" &&
+                            (Object.keys(currentBook).length !== 0 && currentBook.constructor === Object) && 
+                            (Object.keys(chapterQuestions).length !== 0 && chapterQuestions.constructor === Object) ? <RandomQuestionSelection questionsToPrint={questionsToPrint} bookName={currentBook.bookName} chapterName={chapterQuestions.name} questions={chapterQuestions.questions} /> : null
+                        }
+                    </div>
                 </div>
                 {!smallScreen && <div className="col-lg-4 d-lg-block d-none">
                     <div className="paper-edit-panel">
@@ -294,6 +298,15 @@ function TestMaker() {
                         <div className="section my-4">
                             <FontAwesomeIcon icon={faFileInvoice} />
                             <input type="number" placeholder='Total Marks' className='total-marks-input' ref={totalMarksRef} />
+                        </div>
+
+                        <div className="section my-4 align-items-center">
+                            <FontAwesomeIcon icon={faArrowRight} />
+                            <h6 className='mb-0'>Inline MCQS</h6>
+                            <label className="custom-checkbox">
+                                <input type="checkbox" onChange={()=>setIsMCQSInline(prev=>!prev)} hidden />
+                                <span className="checkmark mt-1"></span>
+                            </label>
                         </div>
                     </div>
                 </div>}
@@ -323,6 +336,15 @@ function TestMaker() {
                     <div className="section my-4">
                         <FontAwesomeIcon icon={faFileInvoice} />
                         <input type="number" placeholder='Total Marks' className='total-marks-input' ref={totalMarksRef} />
+                    </div>
+
+                    <div className="section my-4 align-items-center">
+                        <FontAwesomeIcon icon={faArrowRight} />
+                        <h6 className='mb-0'>Inline MCQS</h6>
+                        <label className="custom-checkbox">
+                            <input type="checkbox" onChange={()=>setIsMCQSInline(prev=>!prev)} hidden />
+                            <span className="checkmark mt-1"></span>
+                        </label>
                     </div>
                 </div>
             </div>}
@@ -594,6 +616,10 @@ const RandomQuestionSelection = ({ questionsToPrint, bookName, chapterName, ques
     </>);
 }
 
+const inlineStyleOptions = {
+    display: "flex",
+    gap: "20px"
+}
 
 // Component to Print
 const ComponentToPrint = React.forwardRef((props, ref) => {
@@ -626,8 +652,8 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                         {
                             props?.questionList?.mcqs?.map((mcqs, index) => {
                                 return (<li key={index}>
-                                        <h4>{mcqs.question}</h4>
-                                        <ol className='custom-alphabet'>
+                                        <h5 className='mt-2'>{mcqs.question}</h5>
+                                        <ol className='custom-alphabet' style={settings?.isMCQSInline ? inlineStyleOptions : null}>
                                             {mcqs.options.map((option,ind)=>{
                                                 return (<li key={ind}>{option}</li>)
                                             })}

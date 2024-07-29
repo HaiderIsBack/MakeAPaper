@@ -38,6 +38,8 @@
 
 .footer .social-links ul li{
     flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .footer .social-links a{

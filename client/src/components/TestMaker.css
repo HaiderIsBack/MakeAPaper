@@ -1,7 +1,6 @@
 .test-maker-container{
     width: 100%;
-    height: 100vh;
-    height: 100svh;
+    min-height: 100vh;
 }
 
 @media print{
@@ -26,7 +25,6 @@
 
 .paper-content{
     width: 100%;
-    
     border: 2px solid #111;
     padding: 15px 15px;
 }
@@ -219,7 +217,7 @@
   }
   
   /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
+ input:checked ~ .checkmark:after {
     display: block;
   }
 

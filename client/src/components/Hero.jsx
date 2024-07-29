@@ -17,7 +17,10 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import Pencil from "../meshes/Pencil";
 
+import useLenis from "./useLenis"
+
 function Hero() {
+  useLenis()
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -38,8 +41,8 @@ function Hero() {
         <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
         <button className='my-4 get-started' onClick={()=>navigate("/lab/tests")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
 
-        <div className="row" style={{marginTop: "100px"}}>
-            <div className="col-lg-4 col-12 my-3">
+        <div className="row hero-cards" style={{marginTop: "100px"}}>
+            <div className="col-lg-4 col-12 my-3 hero-cols">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -51,7 +54,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-12 my-3">
+            <div className="col-lg-4 col-12 my-3 hero-cols">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -63,7 +66,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-12 my-3">
+            <div className="col-lg-4 col-12 my-3 hero-cols">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">

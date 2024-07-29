@@ -260,9 +260,18 @@ canvas{
     }
 }
 
+@media (max-width: 478px) {
+    .hero-container .card-container{
+        width: 85% !important;
+    }
+}
+
 @media (max-width: 620px){
     .hero-heading{
         font-size: 1.7rem;
+    }
+    .hero-container .card-container{
+        width: 300px;
     }
     .suggest-book-section form{
         width: 100%;
@@ -275,5 +284,15 @@ canvas{
     }
     .suggest-book-section form{
         padding: 0 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-container .card-container{
+        width: 400px;
+    }
+    .hero-container .hero-cards .hero-cols{
+        display: flex;
+        justify-content: center;
     }
 }

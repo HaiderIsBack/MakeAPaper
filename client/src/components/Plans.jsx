@@ -15,8 +15,8 @@ function Plans() {
     <>
       <div className="plans-container hero-container">
         <h2 className='my-5 text-left'><Zoop>Plans</Zoop></h2>
-        <div className="row justify-content-center px-2">
-            <div className="col-lg-4 col-12 my-lg-0 my-3 w-100">
+        <div className="row hero-cards justify-content-center px-2">
+            <div className="col-lg-4 col-12 my-lg-0 my-3 hero-cols">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -37,7 +37,7 @@ function Plans() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-12 my-lg-0 my-3">
+            <div className="col-lg-4 col-12 my-lg-0 my-3 hero-cols">
               <div className="card-container">
                 <div className="card-content most-popular d-flex flex-column align-items-center">
                   <div className="card-icon">
@@ -58,7 +58,7 @@ function Plans() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-4 col-12 my-lg-0 my-3">
+            <div className="col-lg-4 col-12 my-lg-0 my-3 hero-cols">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
                   <div className="card-icon">
