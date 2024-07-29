@@ -11,7 +11,6 @@ import Transition from "../components/Transition";
 import useLenis from "../components/useLenis"
 
 const Documentation = () => {
-    useLenis()
 
     const st1Ref = useRef(null)
     const st2Ref = useRef(null)
@@ -74,7 +73,7 @@ const Documentation = () => {
         <div className="documentation">
             <div className="row">
                 <div className="col-lg-3 d-lg-block d-none">
-                    <div className="status-tracker">
+                    <div className="status-tracker" style={{position: "sticky",top:"0"}}>
                         <div className="status" ref={st1Ref}>
                             <div className="status-target first" id="t-0"><span></span></div>
                             <h6 className="mb-0"><a href="#getting-started">Getting started</a></h6>
