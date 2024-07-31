@@ -18,6 +18,7 @@ import { Environment, OrbitControls } from '@react-three/drei';
 import Pencil from "../meshes/Pencil";
 
 import useLenis from "./useLenis"
+import ZoomTransition from "./ZoomTransition";
 
 function Hero() {
   useLenis()
@@ -83,8 +84,10 @@ function Hero() {
         {/* Canvas */}
         {/* <ThreeDScene /> */}
 
+        <ZoomTransition />
+
         {/* First Banner */}
-        <div className="row banner" style={{marginTop: "100px"}}>
+        {/* <div className="row banner" style={{marginTop: "100px"}}>
           <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
             <img src="/svg/undraw_1.svg" alt="undraw" className="w-50" loading="lazy" />
           </div>
@@ -94,10 +97,10 @@ function Hero() {
               <p className="text-left">Easy tracking of tests and drafts and many more options to customize your experience. Management of Account and stay up-to-date with the latest news from the admin.</p>
             </section>
           </div>
-        </div>
+        </div> */}
 
         {/* Second Banner */}
-        <div className="row banner py-5 shadow" style={{background: "var(--accent-gradient)", borderRadius: "7px"}}>
+        {/* <div className="row banner py-5 shadow" style={{background: "var(--accent-gradient)", borderRadius: "7px"}}>
           <div className="col-sm-6 col-12 my-3 align-self-center">
             <section>
               <h2 className="text-left">CUSTOMIZATION</h2>
@@ -107,10 +110,10 @@ function Hero() {
           <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
             <img src="/svg/undraw_2.svg" alt="undraw" className="w-50" loading="lazy" />
           </div>
-        </div>
+        </div> */}
 
         {/* Third Banner */}
-        <div className="row banner">
+        {/* <div className="row banner">
           <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
             <img src="/svg/undraw_3.svg" alt="undraw" className="w-50" loading="lazy" />
           </div>
@@ -120,7 +123,7 @@ function Hero() {
               <p className="text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
             </section>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Quotes Marquee */}
