@@ -20,6 +20,7 @@ import SignUp  from "./pages/SignUp";
 import Footer from "./components/Footer";
 
 import { AnimatePresence } from "framer-motion";
+import PrivacyPolicy from "./pages/Privacy Policy";
 
 const ProtectedRoute = ({ children, auth = false }) => {
   const { user } = useContext(UserContext);
@@ -117,6 +118,15 @@ function App() {
           element={
             <>
               <Documentation />
+            </>
+          }
+        />
+
+        <Route
+          path="/privacy-policy"
+          element={
+            <>
+              <PrivacyPolicy />
             </>
           }
         />

@@ -19,3 +19,9 @@
     color: #fff;
     font-size: 46px;
 }
+
+@media (max-width: 668px) {
+    .curve .routes{
+        font-size: 23px;
+    }
+}

@@ -70,12 +70,39 @@
 }
 
 .nav-sidebar .nav-close{
-    font-size: 2rem;
-    color: #fff;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    z-index: 35;
+    float: right;
+    margin-right: 1rem;
     cursor: pointer;
 }
 
+.nav-sidebar .nav-close::before{
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    width: 5px;
+    height: 100%;
+    background: #fff;
+    transform: rotate(45deg);
+}
+
+.nav-sidebar .nav-close::after{
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    width: 5px;
+    height: 100%;
+    background: #fff;
+    transform: rotate(-45deg);
+}
+
 .nav-sidebar menu{
+    margin-top: 2rem;
     list-style-type: none;
 }
 

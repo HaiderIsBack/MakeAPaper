@@ -48,14 +48,28 @@ function Nav() {
   )
 }
 
+const anim = (variants) => {
+  return {
+      initial: "initial",
+      animate: "enter",
+      exit: "exit",
+      variants
+  }
+}
+
 const Sidebar = ({state, setState, navigate}) => {
   return (
-    <motion.div className="nav-sidebar" animate={{right: state ? 0 : "-300px", transition: {ease: [0.76, 0, 0.24, 1], duration: 0.8}}}>
-      <div className='text-right nav-close' onClick={()=>setState(false)}><FontAwesomeIcon icon={faX} /></div>
-
+    <motion.div className="nav-sidebar" animate={{right: state ? 0 : "calc(0% - 300px)", transition: {ease: [0.76, 0, 0.24, 1], duration: 0.8}}}>
+      <div className="nav-close" onClick={()=>setState(false)} />
+      <div className="nav-brand d-flex align-items-center mt-5" onClick={()=>navigate("/")}>
+          <img src="/TestBuilder.png" alt="Test Builder" style={{padding: "0.2rem", borderRadius: "50%", background: "white"}} />
+          <h3 className='mb-0 d-sm-block d-none'>Test Builder</h3>
+      </div>
       <menu>
           {/* <li><button>Features</button></li> */}
-          <li><button onClick={()=>navigate("/documentation")}>Documentation</button></li>
+          <li>
+            <button onClick={()=>navigate("/documentation")}>Documentation</button>
+          </li>
           <li><button onClick={()=>navigate("/plans")}>Plan & Pricings</button></li>
           <li><button>About Us</button></li>
       </menu>
