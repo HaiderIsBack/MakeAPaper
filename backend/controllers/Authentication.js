@@ -75,7 +75,7 @@ const register = async (req, res) => {
     }else{
       const isAlreadyExist = await Users.findOne({$or:[{username:username},{email: email}]});
       if(isAlreadyExist){
-        res.status(200).json({success: false, msg:"User with this username already exists"})
+        res.status(200).json({success: false, msg:"User with this username or email already exists"})
       }else{
         const newUser = new Users({
           email: email,

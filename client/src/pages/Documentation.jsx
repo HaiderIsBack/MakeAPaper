@@ -11,6 +11,7 @@ import Transition from "../components/Transition";
 import useLenis from "../components/useLenis"
 
 const Documentation = () => {
+    useLenis()
 
     const st1Ref = useRef(null)
     const st2Ref = useRef(null)

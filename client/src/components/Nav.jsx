@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faBarsStaggered,
-    faFlask,
-    faX,
+    faFlask
   } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useState } from 'react';
 import UserContext from "../UserContext"
@@ -46,15 +45,6 @@ function Nav() {
       </div>
     </>
   )
-}
-
-const anim = (variants) => {
-  return {
-      initial: "initial",
-      animate: "enter",
-      exit: "exit",
-      variants
-  }
 }
 
 const Sidebar = ({state, setState, navigate}) => {

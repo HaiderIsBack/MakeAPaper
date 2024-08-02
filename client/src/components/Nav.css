@@ -1,5 +1,5 @@
 .nav-container{
-    background: #222;
+    background: var(--bg);
     width: 100%;
     display: flex;
     justify-content: space-between;

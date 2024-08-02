@@ -21,7 +21,7 @@ const getBooks = async (req, res) => {
         }
 
         if(books.length < 1){
-            res.status(200).json({msg: "There are no books at the moment"})
+            res.status(200).json({success: false, msg: "There are no books at the moment"})
         }else{
             var bookDataArray = [];
 
@@ -29,17 +29,17 @@ const getBooks = async (req, res) => {
                 searchedBooks.forEach(book => {
                     bookDataArray = [...bookDataArray, {bookName: book.book, author: book.author, publisher: book.publisher, modified: book.modified}]
                 });
-                return res.status(200).json(bookDataArray);
+                return res.status(200).json({success: true, books: bookDataArray});
             }else{
                 books.forEach(book => {
                     bookDataArray = [...bookDataArray, {bookName: book.book, author: book.author, publisher: book.publisher, modified: book.modified}]
                 });
-                return res.status(200).json(bookDataArray);
+                return res.status(200).json({success: true, books: bookDataArray});
             }
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({msg: "Error has Occured"})
+        res.status(500).json({success: false, msg: "Error has Occured"})
     }
 }
 
@@ -81,7 +81,7 @@ const getChapters = async (req, res) => {
         const { bookName, author } = req.query;
 
         if(!bookName || !author){
-            res.status(400).json({msg: "Bad Request"})
+            res.status(200).json({success: false, msg: "Please send required fields"})
         }else{
             const book = await Docs.findOne({
                 book: bookName,
@@ -89,15 +89,15 @@ const getChapters = async (req, res) => {
             });
 
             if(book.chapters.length < 1){
-                res.status(200).json({msg: "More Chapters are coming soon"})
+                res.status(200).json({success: false, msg: "More Chapters are coming soon"})
             }else{
                 const chapters = book.chapters.map(chapter => chapter.name)
-                res.status(200).json(chapters);
+                res.status(200).json({success: true, chapters});
             }
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({msg: "Error has Occured"})
+        res.status(500).json({success: false, msg: "Error has Occured"})
     }
 }
 
@@ -107,7 +107,7 @@ const getChapter = async (req, res) => {
         const { bookName, author, chapterIndex } = req.query
 
         if(!bookName || !author || !chapterIndex){
-            res.status(400).json({msg: "Bad Request"})
+            res.status(200).json({success: false, msg: "Please send required fields"})
         }else{
             const book = await Docs.findOne({
                 book: bookName,
@@ -115,20 +115,20 @@ const getChapter = async (req, res) => {
             });
 
             if(!book){
-                res.status(404).json({msg: "Book not found"})
+                res.status(200).json({success: false, msg: "Book not found"})
             }else{
                 const chapter = book.chapters[chapterIndex]
 
                 if(!chapter){
-                    res.status(404).json({msg: "Chapter not found"})
+                    res.status(200).json({success: false, msg: "Chapter not found"})
                 }else{
-                    res.status(200).json(chapter);
+                    res.status(200).json({success: true, chapter});
                 }
             }
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({msg: "Error has Occured"})
+        res.status(500).json({success: false, msg: "Error has Occured"})
     }
 }
 

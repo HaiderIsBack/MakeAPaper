@@ -32,6 +32,7 @@ function Login() {
       generateError("please complete the Form")
       return;
     }else{
+      // Preparing for Server Request
       const payload = {
         username,
         password
@@ -47,33 +48,6 @@ function Login() {
         generateError(response.data.msg, 5000)
         return
       }
-
-      // fetch(import.meta.env.VITE_SERVER_URL+"/login",{
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify(payload),
-      //   method: "POST"
-      // })
-      // .then(res => {
-      //   if(res.status === 200 || res.status === 400){
-      //     return res.json()
-      //   }else if(res.status === 500){
-      //     generateError("Server Error: 500")
-      //   }
-      // })
-      // .then(data => {
-      //   if(data.msg){
-      //     generateError(data.msg, 5000)
-      //     return
-      //   }
-      //   setUser(data)
-      //   const prevRoute = state?.prevLoc ? state.prevLoc : "/"
-      //   navigate(prevRoute)
-      // })
-      // .catch(error => {
-      //   console.log(error)
-      // });
     }
   }
   return (

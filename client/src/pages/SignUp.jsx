@@ -11,7 +11,7 @@ import Transition from '../components/Transition';
 
 function SignUp() {
   const navigate = useNavigate();
-  
+
   const [showPassword,setShowPassword] = useState(false);
   const [showConfirmPassword,setShowConfirmPassword] = useState(false);
   const [errorOccured,setErrorOccured] = useState(false)
@@ -65,6 +65,7 @@ function SignUp() {
           generateError("password length must be greater than 8 Characters");
           return;
         }else{
+          // Preparing for Server Request
           const payload = {
             username,
             email,
@@ -80,32 +81,6 @@ function SignUp() {
             generateError(response.data.msg, 5000)
             return
           }
-          // fetch(import.meta.env.VITE_SERVER_URL+"/register",{
-          //   headers: {
-          //     "Content-Type": "application/json"
-          //   },
-          //   body: JSON.stringify(payload),
-          //   method: "POST"
-          // })
-          // .then(async (res) => {
-          //   if(res.status === 200 || res.status === 400){
-          //     return res.json()
-          //   }else if(res.status === 500){
-          //     generateError("Server Error: 500")
-          //   }
-          // })
-          // .then(data => {
-          //   if(data.error){
-          //     generateError(data.error, 5000)
-          //     return
-          //   }
-          //   generateSuccess(data.msg, 5000)
-          //   setTimeout(() => navigate("/login"), 5000)
-          // })
-          // .catch(error => {
-          //   console.log(error)
-          //   generateError("error",12000);
-          // });
         }
       }
     }

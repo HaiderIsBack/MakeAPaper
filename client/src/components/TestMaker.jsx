@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useEffect, useRef, useContext } from 'react';
+import axios from "axios"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faAngleDown,
@@ -49,94 +50,80 @@ function TestMaker() {
     const sidebarRef = useRef(null)
     const sidebarBtnRef = useRef(null)
 
-    useEffect(()=>{
-        const fetchBooks = () => {
-            fetch(import.meta.env.VITE_SERVER_URL+"/books", {
+    const fetchBooks = useCallback(async () => {
+        const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/books", {
+            headers: {
+                Authorization: `Authorization ${user.token}`
+            }
+        })
+
+        if(response.status == 401 || response.status == 403){
+            logout()
+            navigate("/login")
+        }else if(response.status == 200){
+            if(response.data.success){
+                setDocs(response.data.books)
+            }
+        }
+    }, []);
+
+    const fetchChapters = useCallback(async () => {
+        if(currentBook.bookName && currentBook.author){
+            setChapters([])
+
+            const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`, {
                 headers: {
                     Authorization: `Authorization ${user.token}`
                 }
             })
-            .then((res)=>{
-                if(res.status === 200){
-                    return res.json()
-                }else if(res.status === 401 || res.status === 403){
-                    logout();
-                    navigate("/login")
+
+            if(response.status == 401 || response.status == 403){
+                logout()
+                navigate("/login")
+            }else if(response.status == 200){
+                if(response.data.success){
+                    setChapters(response.data.chapters)
+                }else{
+                    alert(response.data.msg)
                 }
-            })
-            .then(data => {
-                if(!data.msg){
-                    setDocs(data);
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
+            }
+
+            setCurrentChapterIndex(-1)
+            setChapterQuestions([])
+            chaptersRef.current.selectedIndex = 0;
         }
+    }, []);
+
+    const fetchQuestions = useCallback(async () => {
+        if(currentChapterIndex >= 0){
+            const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/chapter?bookName=${currentBook.bookName}&author=${currentBook.author}&chapterIndex=${currentChapterIndex}`, {
+                headers: {
+                    Authorization: `Authorization ${user.token}`
+                }
+            })
+
+            if(response.status == 401 || response.status == 403){
+                logout()
+                navigate("/login")
+            }else if(response.status == 200){
+                if(response.data.success){
+                    setChapterQuestions(response.data.chapter);
+                }else{
+                    alert(response.data.msg)
+                }
+            }
+        }
+    }, []);
+
+    useEffect(()=>{
         fetchBooks()
     }, [])
 
     useEffect(()=>{
-        const fetchChapters = () => {
-            if(currentBook.bookName && currentBook.author){
-                setChapters([])
-                fetch(import.meta.env.VITE_SERVER_URL+`/chapters?bookName=${currentBook.bookName}&author=${currentBook.author}`, {
-                    headers: {
-                        Authorization: `Authorization ${user.token}`
-                    }
-                })
-                .then((res)=>{
-                    if(res.status === 200){
-                        return res.json()
-                    }else if(res.status === 401 || res.status === 403){
-                        logout();
-                        navigate("/login")
-                    }
-                })
-                .then(data => {
-                    if(!data.msg){
-                        setChapters(data);
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-                setCurrentChapterIndex(-1)
-                setChapterQuestions([])
-                chaptersRef.current.selectedIndex = 0;
-            }
-        }
         fetchChapters()
     },[currentBook])
 
     useEffect(()=>{
-        const fetchQuestions = () => {
-            if(currentChapterIndex >= 0){
-                fetch(import.meta.env.VITE_SERVER_URL+`/chapter?bookName=${currentBook.bookName}&author=${currentBook.author}&chapterIndex=${currentChapterIndex}`, {
-                    headers: {
-                        Authorization: `Authorization ${user.token}`
-                    }
-                })
-                .then((res)=>{
-                    if(res.status === 200){
-                        return res.json()
-                    }else if(res.status === 401 || res.status === 403){
-                        logout();
-                        navigate("/login")
-                    }
-                })
-                .then(data => {
-                    if(!data.msg){
-                        setChapterQuestions(data);
-                    }else{
-                        alert(data.msg)
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-            }
-        }
         fetchQuestions()
     },[currentChapterIndex])
 
