@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import UserContext from "./UserContext";
 
@@ -21,6 +21,7 @@ import Footer from "./components/Footer";
 
 import { AnimatePresence } from "framer-motion";
 import PrivacyPolicy from "./pages/Privacy Policy";
+import axios from "axios";
 
 const ProtectedRoute = ({ children, auth = false }) => {
   const { user } = useContext(UserContext);
@@ -33,7 +34,6 @@ const ProtectedRoute = ({ children, auth = false }) => {
     isLoggedIn &&
     ["/login", "/signup"].includes(window.location.pathname)
   ) {
-    console.log('why')
     return <Navigate to={"/"} />;
   }
   return children;
@@ -51,6 +51,17 @@ const ScrollToTop = () => {
 
 function App() {
   const location = useLocation();
+  const { user, logout } = useContext(UserContext);
+  useLayoutEffect(async ()=>{
+    const response = await axios.head(import.meta.env.VITE_SERVER_URL+"/validate", {
+      headers: {
+        Authorization: `Authorization ${user.token}`
+      }
+    })
+    if(response.status == 401 || response.status == 403){
+      logout()
+    }
+  }, [])
   return (
     <>
       <GlassBg />

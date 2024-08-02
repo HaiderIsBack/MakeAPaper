@@ -189,7 +189,7 @@ function TestMaker() {
     const questionsToPrint = async (questionList) => {
         await setQuestions(questionList)
         await getPaperSettings()
-        await handlePrint()
+        handlePrint()
     }
 
     // Handle Sidebar Toggle
