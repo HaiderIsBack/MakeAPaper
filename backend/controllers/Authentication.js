@@ -11,15 +11,15 @@ const login = async (req, res) => {
     const {username, password} = req.body;
 
     if(!username || !password){
-      res.status(400).json({msg:"please fill out data first"})
+      res.status(200).json({success: false, msg:"please fill out data first"})
     }else{
       const user = await Users.findOne({$or:[{username:username},{email: username}]})
       if(!user){
-        res.status(400).json({msg:"User with this username does not exist"})
+        res.status(200).json({success: false, msg:"User with this username does not exist"})
       }else{
         const validateUser = await bcryptjs.compare(password, user.password)
         if(!validateUser){
-          res.status(400).json({msg:"User's password is incorrect"})
+          res.status(200).json({success: false, msg:"User's password is incorrect"})
         }else{
           const payload = {
             userId: user._id,
@@ -36,6 +36,7 @@ const login = async (req, res) => {
 
             if(userSubscription){
               return res.status(200).json({
+                success: true,
                 user:{
                   userId:user._id,
                   username: user.username,
@@ -46,6 +47,7 @@ const login = async (req, res) => {
               })
             }else{
               return res.status(200).json({
+                success: true,
                 user:{
                   userId:user._id,
                   username: user.username,
@@ -60,7 +62,7 @@ const login = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({msg: "Server Error"})
+    res.status(500).json({success: false, msg: "Server Error"})
   }
 }
 
@@ -69,11 +71,11 @@ const register = async (req, res) => {
     const {email, username, password} = req.body;
 
     if(!email || !username || !password){
-      res.status(400).json({error:"please fill credentials first"})
+      res.status(200).json({success: false, msg:"please fill credentials first"})
     }else{
       const isAlreadyExist = await Users.findOne({$or:[{username:username},{email: email}]});
       if(isAlreadyExist){
-        res.status(400).json({error:"User with this username already exists"})
+        res.status(200).json({success: false, msg:"User with this username already exists"})
       }else{
         const newUser = new Users({
           email: email,
@@ -83,12 +85,12 @@ const register = async (req, res) => {
           newUser.set('password', hashedPassword)
           newUser.save()
         })
-        return res.status(200).json({msg:"Account Created. Redirecting to LOGIN"});
+        return res.status(200).json({success: true, msg:"Account Created. Redirecting to LOGIN"});
       }
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({error: "Server Error"})
+    res.status(500).json({success: false, msg: "Server Error"})
   }
 }
 

@@ -13,10 +13,6 @@ import UserContext from "../UserContext";
 import Zoop from "./Zoop";
 import Transition from "./Transition";
 
-import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls } from '@react-three/drei';
-import Pencil from "../meshes/Pencil";
-
 import useLenis from "./useLenis"
 import ZoomTransition from "./ZoomTransition";
 
@@ -80,9 +76,6 @@ function Hero() {
               </div>
             </div>
         </div>
-
-        {/* Canvas */}
-        {/* <ThreeDScene /> */}
 
         <ZoomTransition />
 
@@ -183,17 +176,6 @@ const SuggestBook = () => {
       </form>
     </div>
   )
-}
-
-const ThreeDScene = () => {
-  
-  return (
-  <Canvas className="main-canvas">
-    <Suspense fallback={null}>
-      <Environment files={"/buikslotermeerplein_2k.hdr"} />
-      <Pencil position={[0,-6,5]} />
-    </Suspense>
-  </Canvas>)
 }
 
 export default Transition(Hero)

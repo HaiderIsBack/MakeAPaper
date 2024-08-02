@@ -57,10 +57,11 @@ function App() {
 
       {/* Navbar */}
       <Nav />
+      
       {/* Scroll to top */}
       <ScrollToTop />
-      {/* Routes */}
 
+      {/* Routes */}
       <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route
