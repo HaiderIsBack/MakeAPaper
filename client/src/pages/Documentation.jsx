@@ -123,7 +123,7 @@ const Documentation = () => {
                         </article>
                         {/* Pricing Section */}
                         <h2 ref={t2Ref} id="pricing" className="my-5 highlighted-heading"><Zoop>Pricing</Zoop></h2>
-                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Basic Plan</p>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)", color: "#fff"}}>Basic Plan</p>
                         <p className="my-3">Price: PKR 500/month</p>
                         <h6 className="my-4">Features:</h6>
                         <ul className="pl-3">
@@ -135,7 +135,7 @@ const Documentation = () => {
                         </ul>
                         <p className="my-4 mb-5">The Basic Plan is perfect for individuals or small educational setups looking to create and manage a limited number of tests with essential features.</p>
 
-                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Economic Plan</p>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)", color: "#fff"}}>Economic Plan</p>
                         <p className="my-3">Price: PKR 1500/month</p>
                         <h6 className="my-4">Features:</h6>
                         <ul className="pl-3">
@@ -148,7 +148,7 @@ const Documentation = () => {
                         </ul>
                         <p className="my-4 mb-5">The Economic Plan is ideal for medium-sized educational institutions or organizations that require more comprehensive testing capabilities and enhanced support.</p>
 
-                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Business Plan</p>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)", color: "#fff"}}>Business Plan</p>
                         <p className="my-3">Price: PKR 3000/month</p>
                         <h6 className="my-4">Features:</h6>
                         <ul className="pl-3">
@@ -248,12 +248,12 @@ const Documentation = () => {
                         <center>
                             <img src="/images/question-selection.png" alt="Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />
                         </center>
-                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Manual Question Selection</p>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)", color: "#fff"}}>Manual Question Selection</p>
                         <p className="mt-4">In manual question selection, you can select the questions by any order and those questions will be printed according to that specific order.</p>
                         <center>
                             <img src="/images/manual-question-selection.png" alt="Manual Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />
                         </center>
-                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)"}}>Random Question Selection</p>
+                        <p className="d-inline p-2 px-3 rounded" style={{background: "var(--accent-gradient)", color: "#fff"}}>Random Question Selection</p>
                         <p className="mt-4">In random question selection, you can select the questions by simply inputting number of questions and the rest is handled by the system.</p>
                         <center>
                             <img src="/images/random-question-selection.png" alt="Random Question Selection" className="w-75 my-3 mb-4 rounded" loading="lazy" />

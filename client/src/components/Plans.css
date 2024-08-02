@@ -1,6 +1,7 @@
 .plans-container h2{
     border-left: 7px solid var(--accent1);
     padding-left: 20px;
+    color: var(--text);
 }
 
 .plans-container ul{

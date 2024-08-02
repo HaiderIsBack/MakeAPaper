@@ -65,11 +65,13 @@
 
 .documentation section{
     text-align: start;
+    color: var(--text);
 }
 
 .documentation section .highlighted-heading{
     padding-left: 1rem;
     border-left: 7px solid var(--accent1);
+    color: var(--text);
 }
 
 .documentation section article img{
@@ -94,12 +96,12 @@
 }
 
 .documentation .status.last-active h6 a{
-    color: #fff !important;
+    color: var(--text) !important;
 }
 
 .documentation section p{
     margin-bottom: 0;
-    color: #ddd;
+    color: rgba(from var(--text) r g b / 0.9);
 }
 
 .documentation section article .alert{
@@ -147,11 +149,11 @@
 }
 
 .documentation section table tbody tr:nth-child(even){
-    background: rgba(255,255,255,0.05);
+    background: rgba(from var(--text) r g b / 0.05);
 }
 
 .documentation section table tbody tr:hover{
-    background: rgba(255,255,255,0.15);
+    background: rgba(from var(--text) r g b / 0.15);
     transform: scale(1.01);
 }
 

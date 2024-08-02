@@ -54,7 +54,7 @@ function App() {
   const location = useLocation();
   const { user, logout } = useContext(UserContext);
   useLayoutEffect(()=>{
-    if(isTokenExpired(user.token)){
+    if(isTokenExpired(user?.token)){
       logout()
     }
   }, [])

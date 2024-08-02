@@ -16,6 +16,7 @@
   --accent-gradient: linear-gradient(45deg, #8E2DE2, #4A00E0);
 
   --bg: #111;
+  --text: #fff;
   --btn-padding: 15px 25px;
   --light-text: #999;
   --easing: cubic-bezier(0.87, 0, 0.13, 1);
@@ -23,6 +24,7 @@
 
 .light-mode{
   --bg: #eee;
+  --text: #111;
 }
 
 body{

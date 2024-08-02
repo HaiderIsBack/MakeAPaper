@@ -18,6 +18,10 @@
     width: 70px;
 }
 
+.nav-brand h3{
+    color: var(--text);
+}
+
 .nav-actions menu{
     display: flex;
     justify-content: center;
@@ -35,7 +39,7 @@
 }
 
 .nav-actions menu button:hover{
-    color: #fff;
+    color: var(--text);
     cursor: pointer;
 }
 
@@ -46,10 +50,10 @@
 .nav-account button{
     height: 100%;
     padding: var(--btn-padding);
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(from var(--text) r g b / 0.5);
     border-radius: 7px;
     background: transparent;
-    color: #fff;
+    color: var(--text);
     box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
     transition: background 0.4s, color 0.4s;
 }
@@ -67,6 +71,11 @@
     background: var(--accent-gradient);
     z-index: 20;
     padding: 20px;
+}
+
+.nav-sidebar h3,
+.nav-sidebar button{
+    color: #fff;
 }
 
 .nav-sidebar .nav-close{

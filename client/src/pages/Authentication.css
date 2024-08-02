@@ -2,6 +2,7 @@
 .auth-container{
     position: relative;
     height: calc(100vh - 150px);
+    color: var(--text);
 }
 
 .auth-container .auth-box{
@@ -15,7 +16,7 @@
 }
 
 .auth-container .auth-box input{
-    color: #fff;
+    color: var(--text);
     padding: 10px 10px;
     background: transparent;
     border-radius: 10px;
