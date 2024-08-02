@@ -8,7 +8,6 @@ const bodyParser = require("body-parser")
 const { loginRouter, registerRouter } = require("./routes/Authentication");
 const docsRouter = require("./routes/Docs");
 const paymentRoute = require("./routes/Payment");
-const validateRouter = require("./routes/Validate")
 const AuthRequest = require("./middleware/Authenticate");
 
 //Config
@@ -29,7 +28,6 @@ app.use(API_PREFIX,  registerRouter);
 // Authentication Middleware
 app.use(AuthRequest)
 
-app.use(API_PREFIX, validateRouter)
 app.use(API_PREFIX,  docsRouter);
 // app.use(API_PREFIX,  paymentRoute);
 

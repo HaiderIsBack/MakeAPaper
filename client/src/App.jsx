@@ -21,7 +21,8 @@ import Footer from "./components/Footer";
 
 import { AnimatePresence } from "framer-motion";
 import PrivacyPolicy from "./pages/Privacy Policy";
-import axios from "axios";
+
+import isTokenExpired from "./utils/auth";
 
 const ProtectedRoute = ({ children, auth = false }) => {
   const { user } = useContext(UserContext);
@@ -52,13 +53,8 @@ const ScrollToTop = () => {
 function App() {
   const location = useLocation();
   const { user, logout } = useContext(UserContext);
-  useLayoutEffect(async ()=>{
-    const response = await axios.head(import.meta.env.VITE_SERVER_URL+"/validate", {
-      headers: {
-        Authorization: `Authorization ${user.token}`
-      }
-    })
-    if(response.status == 401 || response.status == 403){
+  useLayoutEffect(()=>{
+    if(isTokenExpired(user.token)){
       logout()
     }
   }, [])
