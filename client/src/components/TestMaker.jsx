@@ -56,7 +56,7 @@ function TestMaker() {
                 Authorization: `Authorization ${user.token}`
             }
         })
-
+        
         if(response.status == 401 || response.status == 403){
             logout()
             navigate("/login")
@@ -76,7 +76,7 @@ function TestMaker() {
                     Authorization: `Authorization ${user.token}`
                 }
             })
-
+            
             if(response.status == 401 || response.status == 403){
                 logout()
                 navigate("/login")
@@ -92,7 +92,7 @@ function TestMaker() {
             setChapterQuestions([])
             chaptersRef.current.selectedIndex = 0;
         }
-    }, []);
+    }, [currentBook]);
 
     const fetchQuestions = useCallback(async () => {
         if(currentChapterIndex >= 0){
@@ -101,7 +101,7 @@ function TestMaker() {
                     Authorization: `Authorization ${user.token}`
                 }
             })
-
+            
             if(response.status == 401 || response.status == 403){
                 logout()
                 navigate("/login")
@@ -113,7 +113,7 @@ function TestMaker() {
                 }
             }
         }
-    }, []);
+    }, [currentChapterIndex]);
 
     useEffect(()=>{
         fetchBooks()
