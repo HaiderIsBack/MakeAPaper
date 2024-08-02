@@ -61,14 +61,14 @@ function Curve() {
                 ease: [0.22,1,0.36,1]
             },
             transitionEnd: {
-                top: "47.5%",
+                top: "57.5%",
                 display: "none"
             }
         },
         exit:{
             display: "block",
             opacity: 1,
-            top: "40%",
+            top: "50%",
             transition: {
                 duration: 0.75,
                 delay: 0.3,
