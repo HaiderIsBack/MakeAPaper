@@ -32,7 +32,7 @@ const AddBook = () => {
     }
 
     return (
-        <>
+        <div className="add-book-container">
             <form onSubmit={handleSubmit} className="add-book">
                 <h3 className="my-4">New Book</h3>
                 <div className="input-group">
@@ -60,7 +60,7 @@ const AddBook = () => {
 
                 <button type="submit">Create Book</button>
             </form>
-        </>
+        </div>
     )
 }
 

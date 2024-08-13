@@ -9,6 +9,7 @@ const { loginRouter, registerRouter } = require("./routes/Authentication");
 const docsRouter = require("./routes/Docs");
 const paymentRoute = require("./routes/Payment");
 const AuthRequest = require("./middleware/Authenticate");
+const recaptchaRouter = require("./routes/ReCaptcha")
 
 //Config
 const PORT = process.env.PORT || 8080;
@@ -20,6 +21,9 @@ const API_PREFIX = "/api/v1";
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+// ReCAPTCHA Verification
+app.use(API_PREFIX, recaptchaRouter);
 
 //Utilizing Routes
 app.use(API_PREFIX,  loginRouter);
