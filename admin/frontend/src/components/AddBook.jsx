@@ -17,7 +17,7 @@ const AddBook = () => {
             }
         }
 
-        const response = await axios.post("/api/v1/book", payload)
+        const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/book", payload)
         if(response.status === 200){
             if(response.data.msg){
                 setError(response.data.msg)

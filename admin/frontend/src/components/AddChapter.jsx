@@ -35,10 +35,9 @@ const AddChapter = () => {
                 }
             }
         }
-        const response = await axios.post("/api/v1/chapter",payload)
+        const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/chapter",payload)
         if(response.status === 200){
             alert("success")
-            
         }
     }
     return (

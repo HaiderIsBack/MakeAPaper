@@ -19,7 +19,7 @@ const ViewBooks = () => {
 
     useEffect(()=>{
         const fetchBooks = async () => {
-            const response = await axios.get("/api/v1/books");
+            const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/books");
             if(response.status === 200){
                 if(response.data.msg){
                     alert(response.data.msg)
