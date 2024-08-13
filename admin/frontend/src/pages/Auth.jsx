@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const Login = () => {
-  const [captchaToken, setCaptchaToken] = useState(null);
   const recaptchaRef = useRef()
 
   const onChange = (token) => {
@@ -13,8 +12,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const token = await recaptchaRef.current.executeAsync();
+    recaptchaRef.current.reset();
     
-    if (!captchaToken) {
+    if (!token) {
         alert("Please complete the CAPTCHA");
         return;
     }
@@ -25,7 +27,7 @@ const Login = () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ token: captchaToken })
+        body: JSON.stringify({ token: token })
     });
 
     const data = await response.json();
@@ -95,7 +97,7 @@ const Login = () => {
         <div className="content">
           <h2>LOGIN</h2>
 
-          <div className="form">
+          <form className="form" onSubmit={handleSubmit}>
             <div className="inputBox">
               <input type="text" required /> <i>Username</i>
             </div>
@@ -115,7 +117,7 @@ const Login = () => {
             <div className="inputBox">
               <input type="submit" value="Login" />
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>
