@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { 
     faBarsStaggered,
-    faFlask
+    faFlask,
+    faMoon,
+    faSun
   } from '@fortawesome/free-solid-svg-icons';
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import UserContext from "../UserContext"
 
 import {motion} from "framer-motion"
@@ -32,11 +34,11 @@ function Nav() {
                 <li><button>About Us</button></li>
             </menu>
         </div>
+        <ThemeChangeButton />
         <div className="nav-account d-lg-block d-none">
           {
             user === null ? <button onClick={()=>navigate("/signup")}>Sign Up</button> : <button onClick={()=>navigate("/lab")}>My Lab <FontAwesomeIcon icon={faFlask} className='mx-2' /></button>
           }
-            
         </div>
         <div className="nav-account d-lg-none d-block">
           <button onClick={()=>setIsActive(true)}><FontAwesomeIcon icon={faBarsStaggered} /></button>
@@ -64,6 +66,29 @@ const Sidebar = ({state, setState, navigate}) => {
           <li><button>About Us</button></li>
       </menu>
     </motion.div>
+  )
+}
+
+const ThemeChangeButton = () => {
+  const [darkMode, setDarkMode] = useState(true)
+  const toggleBtnRef = useRef(null);
+
+  const handleToggle = () => {
+    const body = document.getElementsByTagName("body")[0];
+    if(darkMode){
+      body.classList.remove("light-mode")
+      toggleBtnRef.current.classList.add("active")
+    }else{
+      body.classList.add("light-mode")
+      toggleBtnRef.current.classList.remove("active")
+    }
+    setDarkMode(prev => !prev);
+  }
+
+  return (
+    <button className='theme-toggle-btn' onClick={handleToggle} ref={toggleBtnRef}>
+      <span><FontAwesomeIcon icon={!darkMode ? faSun : faMoon} /></span>
+    </button>
   )
 }
 
