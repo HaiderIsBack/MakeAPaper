@@ -7,17 +7,15 @@ import {
   faMoneyBill1Wave
 } from '@fortawesome/free-solid-svg-icons';
 import './Hero.css'
-import { useContext, useEffect, Suspense } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "../UserContext";
 
 import Zoop from "./Zoop";
 import Transition from "./Transition";
 
-import useLenis from "./useLenis"
 import ZoomTransition from "./ZoomTransition";
 
 function Hero() {
-  useLenis()
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -34,11 +32,17 @@ function Hero() {
   return (
     <>
       <div className="hero-container d-flex flex-column align-items-center">
-        <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
-        <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
-        <button className='my-4 get-started' onClick={()=>navigate("/lab/tests")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
+        <main>
+          <span hidden>
+            Illustration by <a href="https://icons8.com/illustrations/author/ZQDZn9ZZj5aQ">Violetta Barsuk</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+          </span>
+          <img src="/images/hero/florid-student.gif" alt="" />
+          <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
+          <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
+          <button className='my-4 get-started' onClick={()=>navigate("/lab/tests")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
+        </main>
 
-        <div className="row hero-cards" style={{marginTop: "100px"}}>
+        {/* <div className="row hero-cards" style={{marginTop: "100px"}}>
             <div className="col-lg-4 col-12 my-3 hero-cols">
               <div className="card-container">
                 <div className="card-content d-flex flex-column align-items-center">
@@ -75,7 +79,7 @@ function Hero() {
                 </div>
               </div>
             </div>
-        </div>
+        </div> */}
 
         <ZoomTransition />
 
@@ -135,6 +139,12 @@ function Hero() {
 
       {/* Suggest a Book */}
       <div className="canvas-wrapper">
+        <center>
+          <img src="/images/hero/juicy-girl.gif" alt="" />
+        </center>
+        <span hidden>
+          Illustration by <a href="https://icons8.com/illustrations/author/mNCLibjicqSz">Julia K</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+        </span>
         <SuggestBook />
       </div>
     </>

@@ -21,7 +21,7 @@ function Nav() {
 
   return (
     <>
-      <div className="nav-container my-3 p-2 px-3">
+      <div className="nav-container my-3 px-3">
           <div className="nav-brand d-flex align-items-center" onClick={()=>navigate("/")}>
               <img src="/TestBuilder.png" alt="Test Builder" />
               <h3 className='mb-0 d-sm-block d-none'>Test Builder</h3>

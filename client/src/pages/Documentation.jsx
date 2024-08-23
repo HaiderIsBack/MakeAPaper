@@ -8,11 +8,8 @@ import {
   } from '@fortawesome/free-solid-svg-icons';
 import Zoop from "../components/Zoop";
 import Transition from "../components/Transition";
-import useLenis from "../components/useLenis"
 
 const Documentation = () => {
-    useLenis()
-
     const st1Ref = useRef(null)
     const st2Ref = useRef(null)
     const st3Ref = useRef(null)
