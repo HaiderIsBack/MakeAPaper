@@ -39,7 +39,7 @@ function Hero() {
           <img src="/images/hero/florid-student.gif" alt="" />
           <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
           <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
-          <button className='my-4 get-started' onClick={()=>navigate("/lab/tests")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
+          <button className='my-4 get-started' onClick={()=>navigate("/paper")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
         </main>
 
         {/* <div className="row hero-cards" style={{marginTop: "100px"}}>
