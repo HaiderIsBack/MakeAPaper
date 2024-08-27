@@ -36,91 +36,15 @@ function Hero() {
           <span hidden>
             Illustration by <a href="https://icons8.com/illustrations/author/ZQDZn9ZZj5aQ">Violetta Barsuk</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
           </span>
-          <img src="/images/hero/florid-student.gif" alt="" />
+          <img src="/images/hero/florid-student.gif" className="animated-gif" alt="" />
           <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
           <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
           <button className='my-4 get-started' onClick={()=>navigate("/paper")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
         </main>
 
-        {/* <div className="row hero-cards" style={{marginTop: "100px"}}>
-            <div className="col-lg-4 col-12 my-3 hero-cols">
-              <div className="card-container">
-                <div className="card-content d-flex flex-column align-items-center">
-                  <div className="card-icon">
-                    <FontAwesomeIcon className="fa-3x" icon={faMicrochip} />
-                  </div>
-                  <h4 className="my-2">Blazing Fast</h4>
-                  <p className="my-2 text-center">Create Papers instantly with our Test Maker Solution</p>
-                  <button>Learn More <FontAwesomeIcon icon={faArrowRight}/></button>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-12 my-3 hero-cols">
-              <div className="card-container">
-                <div className="card-content d-flex flex-column align-items-center">
-                  <div className="card-icon">
-                    <FontAwesomeIcon className="fa-3x" icon={faUser} />
-                  </div>
-                  <h4 className="my-2">User Friendly</h4>
-                  <p className="my-2 text-center">Easy-to-Use with lots of features to fulfill your needs</p>
-                  <button onClick={()=>navigate("/paper")}>Demo <FontAwesomeIcon icon={faArrowRight}/></button>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-12 my-3 hero-cols">
-              <div className="card-container">
-                <div className="card-content d-flex flex-column align-items-center">
-                  <div className="card-icon">
-                    <FontAwesomeIcon className="fa-3x" icon={faMoneyBill1Wave} />
-                  </div>
-                  <h4 className="my-2">Cost-Effective</h4>
-                  <p className="my-2 text-center">Start using our services with the lowest prices</p>
-                  <button onClick={()=>navigate("/plans")}>See Plans <FontAwesomeIcon icon={faArrowRight}/></button>
-                </div>
-              </div>
-            </div>
-        </div> */}
+        {/* Cards here */}
 
         <ZoomTransition />
-
-        {/* First Banner */}
-        {/* <div className="row banner" style={{marginTop: "100px"}}>
-          <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
-            <img src="/svg/undraw_1.svg" alt="undraw" className="w-50" loading="lazy" />
-          </div>
-          <div className="col-sm-6 col-12 my-3 align-self-center">
-            <section>
-              <h2 className="text-left">DASHBOARD</h2>
-              <p className="text-left">Easy tracking of tests and drafts and many more options to customize your experience. Management of Account and stay up-to-date with the latest news from the admin.</p>
-            </section>
-          </div>
-        </div> */}
-
-        {/* Second Banner */}
-        {/* <div className="row banner py-5 shadow" style={{background: "var(--accent-gradient)", borderRadius: "7px"}}>
-          <div className="col-sm-6 col-12 my-3 align-self-center">
-            <section>
-              <h2 className="text-left">CUSTOMIZATION</h2>
-              <p className="text-left" style={{color: "#eee"}}>Adjust question types, difficulty levels. Add or remove questions, set time limits, and configure the layout to suit your needs, ensuring a unique and effective testing experience.</p>
-            </section>
-          </div>
-          <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
-            <img src="/svg/undraw_2.svg" alt="undraw" className="w-50" loading="lazy" />
-          </div>
-        </div> */}
-
-        {/* Third Banner */}
-        {/* <div className="row banner">
-          <div className="col-sm-6 col-12 my-3 d-flex align-items-center justify-content-center">
-            <img src="/svg/undraw_3.svg" alt="undraw" className="w-50" loading="lazy" />
-          </div>
-          <div className="col-sm-6 col-12 my-3 align-self-center">
-            <section>
-              <h2 className="text-left" style={{fontWeight: "700"}}>INTERNATIONAL PRODUCT</h2>
-              <p className="text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam laborum illum tempora excepturi cumque vel accusantium. Explicabo dolor quae sunt!</p>
-            </section>
-          </div>
-        </div> */}
       </div>
 
       {/* Quotes Marquee */}
@@ -139,8 +63,8 @@ function Hero() {
 
       {/* Suggest a Book */}
       <div className="canvas-wrapper">
-        <center>
-          <img src="/images/hero/juicy-girl.gif" alt="" />
+        <center className="w-100">
+          <img src="/images/hero/juicy-girl.gif" className="animated-gif" alt="" />
         </center>
         <span hidden>
           Illustration by <a href="https://icons8.com/illustrations/author/mNCLibjicqSz">Julia K</a> from <a href="https://icons8.com/illustrations">Ouch!</a>

@@ -13,6 +13,10 @@
     color: var(--text);
 }
 
+.animated-gif{
+    width: 400px;
+}
+
 .hero-container main p{
     color: var(--light-text);
 }
@@ -247,15 +251,19 @@
     }
 }
 
-@media (max-width: 478px) {
+@media (max-width: 992px) {
     .hero-container .card-container{
-        width: 85% !important;
+        width: 400px;
+    }
+    .hero-container .hero-cards .hero-cols{
+        display: flex;
+        justify-content: center;
     }
 }
 
 @media (max-width: 620px){
-    .hero-container main img{
-        width: 90%;
+    .animated-gif{
+        width: 85%;
     }
     .hero-heading{
         font-size: 1.7rem;
@@ -277,12 +285,15 @@
     }
 }
 
-@media (max-width: 992px) {
-    .hero-container .card-container{
-        width: 400px;
+@media (max-width: 478px) {
+    .hero-heading{
+        font-size: 1.45rem;
     }
-    .hero-container .hero-cards .hero-cols{
-        display: flex;
-        justify-content: center;
+
+    .hero-container main p{
+        font-size: 0.8rem;
+    }
+    .hero-container .card-container{
+        width: 85% !important;
     }
 }
