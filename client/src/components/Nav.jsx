@@ -76,10 +76,10 @@ const ThemeChangeButton = () => {
   const handleToggle = () => {
     const body = document.getElementsByTagName("body")[0];
     if(darkMode){
-      body.classList.remove("light-mode")
+      body.classList.add("light-mode")
       toggleBtnRef.current.classList.add("active")
     }else{
-      body.classList.add("light-mode")
+      body.classList.remove("light-mode")
       toggleBtnRef.current.classList.remove("active")
     }
     setDarkMode(prev => !prev);

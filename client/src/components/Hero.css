@@ -91,6 +91,10 @@
     background: linear-gradient(transparent,rgba(from var(--text) r g b  / 0.2));
     transition: box-shadow 0.4s;
     color: var(--text);
+    padding: 1rem 20px;
+    border-radius: 7px;
+    border: none;
+    border-top: 2px solid rgba(255,255,255,0.2);
 }
 
 .hero-container .card-content button:hover{
