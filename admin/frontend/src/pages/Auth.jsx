@@ -4,13 +4,16 @@ import { useRef, useState } from "react";
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const Login = () => {
-  const recaptchaRef = useRef();
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+
+  const handleRecaptchaValidation = (token) => {
+    setRecaptchaToken(token);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = await recaptchaRef.current.executeAsync();
-    recaptchaRef.current.reset();
+    const token = recaptchaToken;
     
     if (!token) {
         alert("Please complete the CAPTCHA");
@@ -105,8 +108,7 @@ const Login = () => {
             <div className="inputBox">
               <ReCAPTCHA
                   sitekey={import.meta.env.VITE_SITE_KEY}
-                  size="invisible"
-                  ref={recaptchaRef}
+                  onChange={handleRecaptchaValidation}
               />
             </div>
 
