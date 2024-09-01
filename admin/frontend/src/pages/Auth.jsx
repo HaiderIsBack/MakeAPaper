@@ -107,7 +107,8 @@ const Login = () => {
 
             <div className="inputBox">
               <ReCAPTCHA
-                  sitekey={import.meta.env.VITE_SITE_KEY}
+                  // sitekey={import.meta.env.VITE_SITE_KEY}
+                  sitekey="6LfZ8jMqAAAAAI2hp1WXusp4JVIVPgjTImVaCiVo"
                   onChange={handleRecaptchaValidation}
               />
             </div>
