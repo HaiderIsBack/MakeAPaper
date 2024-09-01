@@ -24,7 +24,8 @@ const Login = () => {
     const response = await fetch('https://test-builder-iota.vercel.app/api/v1/submit', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': "*"
         },
         body: JSON.stringify({ token: token })
     });
@@ -107,8 +108,7 @@ const Login = () => {
 
             <div className="inputBox">
               <ReCAPTCHA
-                  // sitekey={import.meta.env.VITE_SITE_KEY}
-                  sitekey="6LfZ8jMqAAAAAI2hp1WXusp4JVIVPgjTImVaCiVo"
+                  sitekey={import.meta.env.VITE_SITE_KEY}
                   onChange={handleRecaptchaValidation}
               />
             </div>
