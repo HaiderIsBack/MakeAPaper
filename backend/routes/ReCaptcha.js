@@ -10,10 +10,14 @@ const recaptchaController = async (req, res) => {
     }
 
     const secretKey = process.env.SECRET_KEY;
-    const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
-
+    
     try {
-        const response = await axios.post(verificationURL);
+        const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
+            params: {
+                secret: secretKey,
+                response: token,
+            },
+        });
         const data = response.data;
 
         if (data.success && data.score >= 0.5) {
