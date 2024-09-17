@@ -33,14 +33,20 @@ function Hero() {
     <>
       <div className="hero-container d-flex flex-column align-items-center">
         <main>
-          <span hidden>
-            Illustration by <a href="https://icons8.com/illustrations/author/ZQDZn9ZZj5aQ">Violetta Barsuk</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
-          </span>
-          <img src="/images/hero/florid-student.gif" className="animated-gif" alt="" />
-          <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
-          <p className="my-2 text-center">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
-          <button className='my-4 get-started' onClick={()=>navigate("/paper")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
-        </main>
+          <div className="row">
+            <div className="col-8 align-self-center">
+              <h1 className="hero-heading"><Zoop>Let's Build a Bright Future</Zoop></h1>
+              <p className="my-2">Create Test Papers with our powerful, simple <br /> and cost-effective solution</p>
+              <button className='my-4 get-started' onClick={()=>navigate("/paper")}>Get Started <FontAwesomeIcon icon={faArrowRight}/></button>
+            </div>
+            <div className="col-4">
+              <span hidden>
+                Illustration by <a href="https://icons8.com/illustrations/author/ZQDZn9ZZj5aQ">Violetta Barsuk</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+              </span>
+              <img src="/images/hero/florid-student.gif" className="animated-gif" alt="" loading="lazy" />
+            </div>
+          </div>
+          </main>
 
         {/* Cards here */}
 
@@ -64,7 +70,7 @@ function Hero() {
       {/* Suggest a Book */}
       <div className="canvas-wrapper">
         <center className="w-100">
-          <img src="/images/hero/juicy-girl.gif" className="animated-gif" alt="" />
+          <img src="/images/hero/juicy-girl.gif" className="animated-gif" alt="" loading="lazy" />
         </center>
         <span hidden>
           Illustration by <a href="https://icons8.com/illustrations/author/mNCLibjicqSz">Julia K</a> from <a href="https://icons8.com/illustrations">Ouch!</a>

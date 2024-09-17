@@ -24,8 +24,7 @@ const Login = () => {
     const response = await fetch('https://test-builder-iota.vercel.app/api/v1/submit', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': "*"
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ token: token })
     });
