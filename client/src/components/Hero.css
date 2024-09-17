@@ -97,6 +97,12 @@
     border-top: 2px solid rgba(255,255,255,0.2);
 }
 
+/* Light Mode Configuration */
+body.light-mode .hero-container .card-content button{
+    background: var(--accent-gradient);
+    color: #fff;
+}
+
 .hero-container .card-content button:hover{
     animation: glow 1s infinite ease-in-out;
 }

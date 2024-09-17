@@ -1,20 +1,27 @@
 import './Authentication.css'
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useRef, useContext } from 'react';
+import BarLoader from "react-spinners/BarLoader";
 import UserContext from '../UserContext';
 import Transition from '../components/Transition';
 import axios from 'axios';
 
+const overrideCSS = {
+  display: "block",
+  margin: "0 auto",
+};
+
 function Login() {
   const navigate = useNavigate();
-  const { state } = useLocation()
+  const { state } = useLocation();
 
-  const { setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext);
 
-  const [errorOccured,setErrorOccured] = useState(false)
-  const [errorMessage,setErrorMessage] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [errorOccured,setErrorOccured] = useState(false);
+  const [errorMessage,setErrorMessage] = useState("");
 
-  const formRef = useRef(null)
+  const formRef = useRef(null);
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -38,6 +45,7 @@ function Login() {
         password
       }
 
+      setLoading(true);
       const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/login", payload)
 
       if(response.data.success){
@@ -48,6 +56,7 @@ function Login() {
         generateError(response.data.msg, 5000)
         return
       }
+      setLoading(false);
     }
   }
   return (
@@ -64,7 +73,18 @@ function Login() {
                 <p className='my-2'>Don't have an Account? <a onClick={()=>navigate("/signup")}>Create</a> One</p>
                 {errorOccured ? <p className="alert alert-danger" style={{maxWidth: "300px"}}><strong>Error!</strong> {errorMessage}</p> : null}
                 
-                <button onClick={handleLogin} className='btn mt-3'>Login</button>
+                <button onClick={handleLogin} className='btn mt-3' disabled={loading}>
+                  {
+                  loading ? <BarLoader
+                      color={"white"}
+                      loading={loading}
+                      size={50}
+                      cssOverride={overrideCSS}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                    /> : "Login"
+                  }
+                </button>
             </form>
         </div>
       </div>
