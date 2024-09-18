@@ -20,22 +20,7 @@ const Login = () => {
         return;
     }
 
-    // Send the token to the backend for verification
-    const response = await fetch('https://test-builder-iota.vercel.app/api/v1/submit', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ token: token })
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-        alert("CAPTCHA verified and form submitted");
-    } else {
-        alert("CAPTCHA verification failed");
-    }
+    
   };
   return (
     <section className="auth-back">
@@ -113,7 +98,7 @@ const Login = () => {
             </div>
 
             <div className="inputBox">
-              <input type="submit" value="Login" />
+              <input type="submit" value="Login" disabled={!recaptchaToken} />
             </div>
           </form>
         </div>
