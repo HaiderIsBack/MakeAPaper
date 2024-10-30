@@ -7,7 +7,7 @@ import Dashboard from "./components/Dashboard";
 import ViewBooks from "./components/View-Books";
 import AddBook from "./components/AddBook";
 import AddChapter from "./components/AddChapter";
-import Login from "./pages/Auth";
+import Login, { Login2 } from "./pages/Auth";
 
 const ProtectedRoute = ({children, auth=false}) => {
   // const { user } = useContext(UserContext)
@@ -25,9 +25,14 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/login" element={<ProtectedRoute auth={false}>
-            <Login />
-          </ProtectedRoute>} />
+          <Route exact path="/login" element={
+            <ProtectedRoute auth={false}>
+            <Login2 />
+            </ProtectedRoute>} />
+          {/* <Route exact path="/signup" element={
+            <ProtectedRoute auth={false}>
+            <SignUp2 />
+            </ProtectedRoute>} /> */}
           <Route path="/" element={<AdminPanel />}>
             <Route index element={<Dashboard />} />
             <Route path="view-books" element={<ViewBooks />} />

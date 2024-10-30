@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import UserContext from "../context/UserContext";
 import "./View-Books.css";
 
 const GenerateEntry = ({book, index}) => {
@@ -15,16 +16,22 @@ const GenerateEntry = ({book, index}) => {
 }
 
 const ViewBooks = () => {
-    const [books, setBooks] = useState([])
+    const [books, setBooks] = useState([]);
+    
+    const { user } = useContext(UserContext);
 
     useEffect(()=>{
         const fetchBooks = async () => {
-            const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/books");
+            const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/books",{
+                headers: {
+                    Authorization: `Authorization ${user.token}`
+                }
+            });
             if(response.status === 200){
-                if(response.data.msg){
-                    alert(response.data.msg)
+                if(response.data.success){
+                    setBooks(response.data.books)
                 }else{
-                    setBooks(response.data)
+                    alert(response.data.success);
                 }
             }
         }

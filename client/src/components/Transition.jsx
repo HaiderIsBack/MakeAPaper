@@ -80,9 +80,9 @@ function Curve() {
     return (
     <>
       <div className='curve'>
+        {dimensions.width > 0 && <SVG {...dimensions} />}
         <motion.p {...anim(text)} className='routes'>{routes[location.pathname]}</motion.p>
         <div className='background' style={{background: "linear-gradient(45deg,#4A00E0,#8E2DE2)",opacity: dimensions.width > 0 ? '0' : '1'}}></div>
-        {dimensions.width > 0 && <SVG {...dimensions} />}
       </div>
     </>)
 }

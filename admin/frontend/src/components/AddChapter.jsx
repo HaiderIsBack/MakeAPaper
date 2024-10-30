@@ -1,10 +1,13 @@
 import "./AddChapter.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import UserContext from "../context/UserContext";
 import axios from "axios"
 
 const AddChapter = () => {
+    const { user } = useContext(UserContext);
+
     const [selectedBook, setSelectedBook] = useState({});
     const [chapterName, setChapterName] = useState("");
     const [mcqs, setMcqs] = useState([])
@@ -35,7 +38,11 @@ const AddChapter = () => {
                 }
             }
         }
-        const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/chapter",payload)
+        const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/chapter",payload,{
+            headers: {
+                Authorization: `Authorization ${user.token}`
+            }
+        })
         if(response.status === 200){
             alert("success")
         }
@@ -240,10 +247,17 @@ const AddLong = ({updateQuestions}) => {
 }
 
 const SearchBox = ({bookIsSelected}) => {
+    const { user } = useContext(UserContext);
     const [books, setBooks] = useState([])
 
     const handleSearch = async (e) => {
-        const response = await axios.get(`/api/v1/books?query=${e.target.value}`);
+        const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/books?query=${e.target.value}`, {
+            headers: {
+                Authorization: `Authorization ${user.token}`
+            }
+        });
+
+        console.error(response);
         if(response.status === 200){
             if(response.data.msg){
                 alert(response.data.msg)
@@ -251,7 +265,7 @@ const SearchBox = ({bookIsSelected}) => {
                 if(!e.target.value){
                     setBooks([])
                 }else{
-                    setBooks(response.data)
+                    setBooks(response.data.books)
                 }
             }
         }
