@@ -1,4 +1,6 @@
-import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "./context/UserContext";
 import AdminPanel from "./components/AdminPanel"
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -7,11 +9,11 @@ import Dashboard from "./components/Dashboard";
 import ViewBooks from "./components/View-Books";
 import AddBook from "./components/AddBook";
 import AddChapter from "./components/AddChapter";
-import Login, { Login2 } from "./pages/Auth";
+import Login from "./pages/Auth";
 
 const ProtectedRoute = ({children, auth=false}) => {
-  // const { user } = useContext(UserContext)
-  const isLoggedIn = false
+  const { user } = useContext(UserContext)
+  const isLoggedIn = user?.token || false;
   if(!isLoggedIn && auth){
     return <Navigate to={"/login"} />;
   }else if(isLoggedIn && ["/login"].includes(window.location.pathname)){
@@ -27,13 +29,13 @@ function App() {
         <Routes>
           <Route exact path="/login" element={
             <ProtectedRoute auth={false}>
-            <Login2 />
+              <Login />
             </ProtectedRoute>} />
           {/* <Route exact path="/signup" element={
             <ProtectedRoute auth={false}>
             <SignUp2 />
             </ProtectedRoute>} /> */}
-          <Route path="/" element={<AdminPanel />}>
+          <Route path="/" element={<ProtectedRoute auth={true}><AdminPanel /></ProtectedRoute>}>
             <Route index element={<Dashboard />} />
             <Route path="view-books" element={<ViewBooks />} />
             <Route path="add-book" element={<AddBook />} />

@@ -10,10 +10,19 @@ import axios from "axios";
 import ReCAPTCHA from 'react-google-recaptcha';
 import UserContext from "../context/UserContext";
 
-const Login = () => {
+import DOMPurify from 'dompurify';
+
+function sanitizeInput(input) {
+  return DOMPurify.sanitize(input);
+}
+
+
+export const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [recaptchaToken, setRecaptchaToken] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const formRef = useRef(null);
 
@@ -34,8 +43,8 @@ const Login = () => {
     }
 
     const formData = new FormData(formRef.current);
-    const username = formData.get("username");
-    const password = formData.get("password");
+    const username = sanitizeInput(formData.get("username"));
+    const password = sanitizeInput(formData.get("password"));
 
     const payload = {
       username,
@@ -43,129 +52,52 @@ const Login = () => {
     }
 
     setLoading(true);
-    const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/login", payload)
-
-    console.warn(response);
+    const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/login", payload);
 
     if(response.data.success){
-      setUser({user: response.data.user, token: response.data.token})
-      navigate("/")
+      setUser({user: response.data.user, token: response.data.token});
+      navigate("/");
+      setLoading(false);
+      return;
     }else{
-      return
+      setLoading(false);
+      setErrorMsg(response.data.msg);
+      setTimeout(()=>{
+        setErrorMsg("");
+      }, 5000);
+      return;
     }
-    setLoading(false);
   };
-  return (
-    <section className="auth-back">
-      {" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
-      <span></span> <span></span> <span></span> <span></span> <span></span>
-      <div className="auth">
-        <div className="content">
-          <h2>LOGIN</h2>
 
-          <form className="form" onSubmit={handleSubmit} ref={formRef}>
-            <div className="inputBox">
-              <input type="text" name="username" required /> <i>Username</i>
-            </div>
-
-            <div className="inputBox">
-              <input type="password" name="password" required /> <i>Password</i>
-            </div>
-
-            <div className="inputBox">
-              <ReCAPTCHA
-                  sitekey={import.meta.env.VITE_SITE_KEY}
-                  onChange={handleRecaptchaValidation}
-              />
-            </div>
-
-            <div className="inputBox">
-              <button type="submit">{loading ? "Wait a moment" : "Login"}</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export const Login2 = () => {
-  const [showPassword, setShowPassword] = useState(false);
   return (
   <>
-    <div className="auth-2">
-      <form action="">
+    <div className="auth">
+      <form onSubmit={handleSubmit} ref={formRef}>
         <img src="/asterik.png" alt="asterik" loading="lazy" />
         <h2>Login</h2>
         <label htmlFor="username">Username</label>
-        <input type="text" id="username" required />
+        <input type="text" id="username" name="username" required />
         <label htmlFor="password">Password</label>
         <div className="password-input">
           <FontAwesomeIcon icon={!showPassword ? faEye : faEyeSlash} className="password-eye-icon" onClick={() => setShowPassword(prev => !prev)} />
-          <input type={showPassword ? "text" : "password"} id="password" required />
+          <input type={showPassword ? "text" : "password"} id="password" name="password" required />
         </div>
-        {/* <p>Want to create a new account? <Link to={"/signup"}>Register</Link>.</p> */}
-        <button type="submit">Login</button>
+        {errorMsg && <p className="error-msg">{errorMsg}</p>}
+        <ReCAPTCHA
+                sitekey={import.meta.env.VITE_SITE_KEY}
+                onChange={handleRecaptchaValidation}
+                style={{margin: "10px 0"}}
+            />
+        <button type="submit" disabled={loading} style={{cursor: loading ? "progress" : "pointer"}}>{loading ? "Logging In" : "Login"}</button>
       </form>
     </div>
   </>);
 }
 
-export const SignUp2 = () => {
+const SignUp2 = () => {
   return (
   <>
-    <div className="auth-2">
+    <div className="auth">
       <form action="">
         <img src="/asterik.png" alt="asterik" loading="lazy" />
         <h2>SignUp</h2>
