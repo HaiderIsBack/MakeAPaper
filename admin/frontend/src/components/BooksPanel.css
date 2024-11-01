@@ -7,6 +7,7 @@
     border: 1px solid #000;
     border-radius: 10px;
     padding: 1rem;
+    margin: 1rem 0;
 }
 
 .books-panel input{
@@ -28,4 +29,57 @@
     border-radius: 5px;
     border: none;
     margin: 7px 0;
+}
+
+.books-panel .book-details{
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.books-panel .book-details svg{
+    font-size: 5rem;
+}
+
+.books-panel .book-details p{
+    margin-bottom: 0;
+    color: #BBBBBB;
+}
+
+.books-panel .book-details p span{
+    color: #000;
+}
+
+.search-results{
+    margin: 1rem 0;
+}
+
+.search-results table{
+    width: 100%;
+}
+
+.search-results table thead th{
+    padding: 0.5rem;
+}
+
+.search-results table tbody tr{
+    border-top: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
+    cursor: pointer;
+}
+
+.search-results table tbody tr:hover{
+    background: rgba(0,0,0,0.01);
+}
+
+.search-results table tbody tr:nth-child(even){
+    background: rgba(0,0,0,0.03);
+}
+
+.search-results table tbody tr > td{
+    padding-left: 10px;
+}
+
+.search-results table tbody td{
+    padding: 10px 0;
 }
