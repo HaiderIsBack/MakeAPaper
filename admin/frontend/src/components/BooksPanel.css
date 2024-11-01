@@ -1,0 +1,31 @@
+.books-panel h1,
+.books-panel h6{
+    font-weight: bolder;
+}
+
+.books-panel .mini-panel{
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.books-panel input{
+    background: #ECECEC;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
+    padding: 0 1rem;
+}
+
+.books-panel .mini-panel .create-btn{
+    width: 100%;
+    height: 40px;
+    background: #000;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    margin: 7px 0;
+}

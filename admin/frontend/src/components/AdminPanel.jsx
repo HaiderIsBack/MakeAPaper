@@ -25,6 +25,7 @@ const AdminPanel2 = () => {
 }
 
 const AdminPanel = () => {
+    const location = useLocation();
     const { user, logout } = useContext(UserContext);
     return (
         <div className="admin-panel-wrapper">
@@ -32,11 +33,11 @@ const AdminPanel = () => {
                 <div className="row" style={{height: "100%"}}>
                     <div className="col-3 control-panel d-flex flex-column justify-content-between">
                         <menu>
-                            <li className="active"><Link>Dashboard</Link></li>
-                            <li><Link>Books</Link></li>
-                            <li><Link>Accounts</Link></li>
-                            <li><Link>Requests</Link></li>
-                            <li><Link>News</Link></li>
+                            <li className={location.pathname === "/" ? "active" : ""}><Link to={"/"}>Dashboard</Link></li>
+                            <li className={location.pathname === "/books" ? "active" : ""}><Link to={"/books"}>Books</Link></li>
+                            <li className={location.pathname === "/accounts" ? "active" : ""}><Link to={"/accounts"}>Accounts</Link></li>
+                            <li className={location.pathname === "/requests" ? "active" : ""}><Link to={"/requests"}>Requests</Link></li>
+                            <li className={location.pathname === "/news" ? "active" : ""}><Link to={"/news"}>News</Link></li>
                         </menu>
                         <div className="logout-btn">
                             <p>Hi, {user.user.username}</p>

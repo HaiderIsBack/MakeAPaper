@@ -13,4 +13,4 @@ const connect = () => {
     }
 }
 
-connect()
+connect();

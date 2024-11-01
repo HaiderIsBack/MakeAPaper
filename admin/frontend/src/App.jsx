@@ -10,6 +10,7 @@ import ViewBooks from "./components/View-Books";
 import AddBook from "./components/AddBook";
 import AddChapter from "./components/AddChapter";
 import Login from "./pages/Auth";
+import BooksPanel from "./components/BooksPanel";
 
 const ProtectedRoute = ({children, auth=false}) => {
   const { user } = useContext(UserContext)
@@ -40,6 +41,8 @@ function App() {
             <Route path="view-books" element={<ViewBooks />} />
             <Route path="add-book" element={<AddBook />} />
             <Route path="add-chapter" element={<AddChapter />} />
+            
+            <Route path="books" element={<BooksPanel />} />
           </Route>
         </Routes>
       </BrowserRouter>

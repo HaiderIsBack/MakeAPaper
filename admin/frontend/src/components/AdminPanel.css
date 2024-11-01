@@ -105,6 +105,7 @@
 .admin-panel-2 .content-panel{
     border-left: 2px solid #000;
     overflow-y: auto !important;
+    padding: 1rem;
 }
 
 .admin-panel-2 .logout-btn{
