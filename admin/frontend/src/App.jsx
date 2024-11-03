@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "./context/UserContext";
 import AdminPanel from "./components/AdminPanel"
 
@@ -24,6 +24,24 @@ const ProtectedRoute = ({children, auth=false}) => {
 }
 
 function App() {
+  const { user, logout } = useContext(UserContext);
+  useEffect(()=>{
+    const verifyLogin = async () => {
+      const res = await fetch("/api/v1/auth/verify", {
+        method: "HEAD",
+        headers: {
+          Authorization: `Authorization ${user.token}`
+        }
+      });
+
+      if(res.status == 403){
+        logout();
+      }
+    }
+    if(user.token){
+      verifyLogin();
+    }
+  }, []);
   return (
     <>
       <BrowserRouter>

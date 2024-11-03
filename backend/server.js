@@ -5,7 +5,7 @@ require("./db/connection")
 const express = require("express")
 const cors = require("cors");
 const bodyParser = require("body-parser")
-const { loginRouter, registerRouter } = require("./routes/Authentication");
+const { loginRouter, registerRouter, authVerifyRouter } = require("./routes/Authentication");
 const docsRouter = require("./routes/Docs");
 const paymentRoute = require("./routes/Payment");
 const AuthRequest = require("./middleware/Authenticate");
@@ -30,7 +30,8 @@ app.use(API_PREFIX,  loginRouter);
 app.use(API_PREFIX,  registerRouter);
 
 // Authentication Middleware
-app.use(AuthRequest)
+app.use(AuthRequest);
+app.use(API_PREFIX, authVerifyRouter);
 
 app.use(API_PREFIX,  docsRouter);
 // app.use(API_PREFIX,  paymentRoute);

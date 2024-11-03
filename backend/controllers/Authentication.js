@@ -11,15 +11,15 @@ const login = async (req, res) => {
     const {username, password} = req.body;
 
     if(!username || !password){
-      res.status(200).json({success: false, msg:"please fill out data first"})
+      res.status(200).json({success: false, msg: "please fill out data first"})
     }else{
-      const user = await Users.findOne({$or:[{username:username},{email: username}]})
+      const user = await Users.findOne({$or:[{username: username},{email: username}]})
       if(!user){
-        res.status(200).json({success: false, msg:"User with this username does not exist"})
+        res.status(200).json({success: false, msg: "Incorrect username or password."})
       }else{
         const validateUser = await bcryptjs.compare(password, user.password)
         if(!validateUser){
-          res.status(200).json({success: false, msg:"User's password is incorrect"})
+          res.status(200).json({success: false, msg: "UseIncorrect username or password."})
         }else{
           const payload = {
             userId: user._id,

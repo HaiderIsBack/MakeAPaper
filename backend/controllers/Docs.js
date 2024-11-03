@@ -49,7 +49,7 @@ const createBook = async (req, res) => {
         const { bookData } = req.body;
         
         if(!bookData){
-            res.status(400).json({msg: "Bad Request"})
+            res.status(400).json({success: false, msg: "Bad Request"})
         }else{
             const book = await Docs.findOne({
                 book: bookData.name,
@@ -57,7 +57,7 @@ const createBook = async (req, res) => {
                 publisher: bookData.publisher
             });
             if(book){
-                res.status(200).json({msg: "Book Already Exists"})
+                res.status(200).json({success: false, msg: "Book Already Exists"})
             }else{
                 const newBook = new Docs({
                     book: bookData.name,
@@ -66,12 +66,12 @@ const createBook = async (req, res) => {
                     modified: getFormattedDate()
                 });
                 newBook.save();
-                res.status(200).json(newBook)
+                res.status(200).json({success: true, newBook})
             }
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({msg: "Error has Occured"})
+        res.status(500).json({success: false, msg: "Error has Occured"})
     }
 }
 

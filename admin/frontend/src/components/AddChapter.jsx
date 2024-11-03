@@ -257,7 +257,6 @@ const SearchBox = ({bookIsSelected}) => {
             }
         });
 
-        console.error(response);
         if(response.status === 200){
             if(response.data.msg){
                 alert(response.data.msg)
