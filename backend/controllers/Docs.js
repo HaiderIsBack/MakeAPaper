@@ -75,6 +75,27 @@ const createBook = async (req, res) => {
     }
 }
 
+// Delete Book
+const deleteBook = (req, res) => {
+    try {
+        const { bookName, author } = req.body;
+        Docs.deleteOne({
+            book: bookName,
+            author: author
+        }, (err)=>{
+            if(err){
+                console.log(err);
+                res.status(200).json({success: false, msg: "Error has Occured"})
+            }else{
+                res.status(200).json({success: true, msg:"Book Deleted Successfully"})
+            }
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success: false, msg: "Error has Occured"})
+    }
+}
+
 // Get all chapters of a book
 const getChapters = async (req, res) => {
     try {
@@ -167,6 +188,7 @@ const insertChapter = async (req, res) => {
 module.exports = {
     getBooks,
     createBook,
+    deleteBook,
     getChapters,
     getChapter,
     insertChapter

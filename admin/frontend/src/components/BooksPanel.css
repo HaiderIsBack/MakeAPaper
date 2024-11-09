@@ -21,6 +21,10 @@
     padding: 0 1rem;
 }
 
+.books-panel input::placeholder{
+    color: #000;
+}
+
 .books-panel .mini-panel .create-btn{
     width: 100%;
     height: 40px;
@@ -33,11 +37,12 @@
 
 .books-panel .book-details{
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
     margin: 1.5rem 0;
 }
 
-.books-panel .book-details svg{
+.books-panel .book-details .left svg{
     font-size: 5rem;
 }
 
@@ -56,9 +61,17 @@
 
 .search-results table{
     width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.search-results table thead{
+    background: #000;
+    border-radius: 10px;
 }
 
 .search-results table thead th{
+    color: white;
     padding: 0.5rem;
 }
 
@@ -66,14 +79,19 @@
     border-top: 1px solid #ECECEC;
     border-bottom: 1px solid #ECECEC;
     cursor: pointer;
-}
-
-.search-results table tbody tr:hover{
-    background: rgba(0,0,0,0.01);
+    transition: all 0.1s;
 }
 
 .search-results table tbody tr:nth-child(even){
     background: rgba(0,0,0,0.03);
+}
+
+.search-results table tbody tr:hover{
+    background: rgba(0,0,0,0.08);
+}
+
+.search-results table tbody tr:active{
+    background: rgba(0,0,0,0.15);
 }
 
 .search-results table tbody tr > td{
@@ -82,4 +100,32 @@
 
 .search-results table tbody td{
     padding: 10px 0;
+    border-left: 1px solid #BBBBBB;
+}
+
+.search-results table tbody td:last-of-type{
+    border-right: 1px solid #BBBBBB;
+}
+
+.success-alert,
+.error-alert{
+    display: flex;
+    align-items: center;
+    background: rgba(0,255,0,0.4);
+    padding: 7px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    margin: 5px 0;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+.error-alert{
+    background: rgba(255,0,0,0.4);
+}
+
+.success-alert p,
+.error-alert p{
+    font-size: large;
+    margin-bottom: 0;
 }

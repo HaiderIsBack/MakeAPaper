@@ -30,8 +30,8 @@ const AdminPanel = () => {
     return (
         <div className="admin-panel-wrapper">
             <div className="admin-panel-2">
-                <div className="row" style={{height: "100%"}}>
-                    <div className="col-3 control-panel d-flex flex-column justify-content-between">
+                <div className="grid grid-cols-12" style={{height: "100%"}}>
+                    <div className="col-span-3 control-panel flex flex-col justify-between">
                         <menu>
                             <li className={location.pathname === "/" ? "active" : ""}><Link to={"/"}>Dashboard</Link></li>
                             <li className={location.pathname === "/books" ? "active" : ""}><Link to={"/books"}>Books</Link></li>
@@ -44,7 +44,7 @@ const AdminPanel = () => {
                             <button onClick={logout}><FontAwesomeIcon icon={faRightFromBracket} /> Logout</button>
                         </div>
                     </div>
-                    <div className="col-9 content-panel">
+                    <div className="col-span-9 content-panel">
                         <Outlet />
                     </div>
                 </div>

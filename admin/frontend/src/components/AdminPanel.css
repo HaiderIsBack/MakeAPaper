@@ -115,6 +115,7 @@
     align-items: baseline;
     margin-bottom: 1rem;
     margin-left: 1rem;
+    padding: 0 5px;
 }
 
 .admin-panel-2 .logout-btn button{
@@ -122,11 +123,12 @@
     border: none;
     outline: none;
     border-top: 1px solid #DEDEDE;
+    background: #DEDEDE;
     border-radius: 10px;
     transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.admin-panel-2 button:hover{
+.admin-panel-2 .logout-btn button:hover{
     background: #000;
     color: #fff;
 }

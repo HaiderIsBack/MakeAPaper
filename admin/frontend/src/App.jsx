@@ -3,7 +3,6 @@ import { useContext, useEffect } from "react";
 import UserContext from "./context/UserContext";
 import AdminPanel from "./components/AdminPanel"
 
-import "bootstrap/dist/css/bootstrap.css";
 import './App.css'
 import Dashboard from "./components/Dashboard";
 import ViewBooks from "./components/View-Books";
@@ -27,10 +26,10 @@ function App() {
   const { user, logout } = useContext(UserContext);
   useEffect(()=>{
     const verifyLogin = async () => {
-      const res = await fetch("/api/v1/auth/verify", {
+      const res = await fetch(import.meta.env.VITE_SERVER_URL+"/auth/verify", {
         method: "HEAD",
         headers: {
-          Authorization: `Authorization ${user.token}`
+          Authorization: `Authorization ${user?.token}`
         }
       });
 
@@ -38,7 +37,7 @@ function App() {
         logout();
       }
     }
-    if(user.token){
+    if(user?.token){
       verifyLogin();
     }
   }, []);

@@ -1,8 +1,8 @@
 import "./BooksPanel.css";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faBookOpenReader, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { useState, useContext, useEffect } from "react";
+import { faBook, faBookOpenReader, faCheck, faPencil, faPlus, faSearch, faTrash, faArrowRight, faEye, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
 
 import UserContext from "../context/UserContext";
@@ -27,8 +27,12 @@ const CreateBook = () => {
 
     const handleBookCreation = async (e) => {
         e.preventDefault();
-        console.log(e.target)
         const formData = new FormData(e.target);
+        if(!formData.get("bookName").trim() || !formData.get("author").trim() || !formData.get("publisher").trim()){
+            setError("Please fill out the required fields.");
+            setTimeout(()=>setError(""),8000);
+            return;
+        }
         const payload = {
             "bookData": {
                 "name": formData.get("bookName").trim(),
@@ -57,14 +61,24 @@ const CreateBook = () => {
     return (
         <div className="mini-panel">
             <h6><FontAwesomeIcon icon={faBookOpenReader} /> Create Book</h6>
-            {success}
-            {error}
+            {
+            success ? (<div className="success-alert">
+                <FontAwesomeIcon icon={faCheck} className="check" />
+                <p>Success: {success}</p>
+            </div>) : 
+            null}
+            {
+            error ? (<div className="error-alert">
+                <FontAwesomeIcon icon={faCheck} className="check" />
+                <p>Error: {error}</p>
+            </div>) :
+            null}
             <form onSubmit={handleBookCreation}>
-                <div className="row">
-                    <div className="col-6">
+                <div className="grid grid-cols-12 gap-5">
+                    <div className="col-span-6">
                         <input type="text" placeholder="Name" name="bookName" required />
                     </div>
-                    <div className="col-6">
+                    <div className="col-span-6">
                         <input type="text" placeholder="Author" name="author" required />
                     </div>
                 </div>
@@ -129,24 +143,18 @@ const CreateChapter = () => {
     }
 
     return (
-        <div className="mini-panel" style={{height: "500px"}}>
+        <div className="mini-panel">
             <h6><FontAwesomeIcon icon={faBookOpenReader} /> Add Chapters</h6>
             {
             selectedBook ?
-            (<div className="book-details">
-                <FontAwesomeIcon icon={faBook} />
-                <div className="details">
-                    <h5>{selectedBook.bookName}</h5>
-                    <p><span>Author</span>: {selectedBook.author || "N/A"}</p>
-                    <p><span>Publisher</span>: {selectedBook.publisher || "N/A"}</p>
-                </div>
-            </div>) :
+            <BookDetails userSelectedBook={selectedBook} /> :
             null}
-            <div className="row">
-                <div className="col-9">
+            <hr className="my-2" />
+            <div className="grid grid-cols-12 gap-5">
+                <div className="col-span-9">
                     <input type="text" placeholder="Search" value={searchQuery} onChange={handleQueryChange} />
                 </div>
-                <div className="col-3">
+                <div className="col-span-3">
                     <button className="create-btn" style={{margin: "5px 0"}} onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
                 </div>
             </div>
@@ -180,6 +188,338 @@ const CreateChapter = () => {
             </div>
         </div>
     );
+}
+
+const BookDetails = ({ userSelectedBook }) => {
+    const { user } = useContext(UserContext);
+    const [isAddingMCQ, setIsAddingMCQ] = useState(false);
+    const [isAddingShort, setIsAddingShort] = useState(false);
+    const [isAddingLong, setIsAddingLong] = useState(false);
+    const [selectedBook, setSelectedBook] = useState({});
+    const [selectedChapter, setSelectedChapter] = useState({});
+
+    const [chapters, setChapters] = useState([]);
+    const [mcqs, setMcqs] = useState([]);
+    const [short, setShort] = useState([]);
+    const [long, setLong] = useState([]);
+
+    useEffect(()=>{
+        const fetchChapters = async () => {
+            const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/chapters?bookName=${userSelectedBook.bookName}&author=${userSelectedBook.author}`,{
+                headers: {
+                    Authorization: `Authorization ${user.token}`
+                }
+            });
+            if(response.status === 200){
+                if(response.data.success){
+                    setChapters(response.data.chapters);
+                }else{
+                    setChapters([]);
+                }
+            }
+        }
+        fetchChapters();
+    },[userSelectedBook]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const payload = {
+            "bookName": selectedBook.bookName,
+            "author": selectedBook.author,
+            "publisher": selectedBook.publisher,
+            "chapter": {
+                "name": chapterName,
+                "questions": {
+                    "mcqs" : mcqs,
+                    "short" : short,
+                    "long" : long
+                }
+            }
+        }
+        const response = await axios.post(import.meta.env.VITE_SERVER_URL+"/chapter",payload,{
+            headers: {
+                Authorization: `Authorization ${user.token}`
+            }
+        })
+        if(response.status === 200){
+            alert("success")
+        }
+    }
+
+    const handleChapterSelection = (chapter) => {
+        setSelectedChapter(chapter);
+    }
+
+    const handleDeleteBook = async () => {
+        const payload = {
+            bookName: userSelectedBook.bookName,
+            author: userSelectedBook.author
+        }
+        const response = await axios.delete(import.meta.env.VITE_SERVER_URL+"/book",payload,{
+            headers: {
+                Authorization: `Authorization ${user.token}`
+            }
+        })
+        if(response.status === 200){
+            alert("success")
+        }
+    }
+
+    return (
+    <>
+        <div className="book-details">
+            <div className="left flex gap-3">
+                <FontAwesomeIcon icon={faBook} />
+                <div className="details">
+                    <h5>{userSelectedBook.bookName}</h5>
+                    <p><span>Author</span>: {userSelectedBook.author || "N/A"}</p>
+                    <p><span>Publisher</span>: {userSelectedBook.publisher || "N/A"}</p>
+                </div>
+            </div>
+            <div className="flex flex-col gap-2">
+                <button className="bg-green-600 hover:bg-green-700 duration-300 text-sm text-white py-1 px-3 rounded-md"><FontAwesomeIcon icon={faPencil} /> Edit</button>
+                <button className="bg-red-600 hover:bg-red-700 duration-300 text-sm text-white py-1 px-3 rounded-md"><FontAwesomeIcon icon={faTrash} onClick={handleDeleteBook} /> Delete</button>
+            </div>
+        </div>
+        <div className="grid grid-cols-12 gap-5">
+            <div className="col-span-9">
+                <input type="text" placeholder="Chapter Name" />
+            </div>
+            <div className="col-span-3">
+                <button className="create-btn" style={{margin: "5px 0"}}><FontAwesomeIcon icon={faCloudArrowUp} /> Add Chapter</button>
+            </div>
+        </div>
+        <div className="grid grid-cols-12 gap-3 my-3">
+            <div className="col-span-4">
+                <AddMCQS updateQuestions={setMcqs} />
+            </div>
+            <div className="col-span-4">
+                <AddShort updateQuestions={setShort} />
+            </div>
+            <div className="col-span-4">
+                <AddLong updateQuestions={setLong} />
+            </div>
+        </div>
+        <div className="search-results">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sr#</th>
+                        <th>Chapter Name</th>
+                        <th style={{width: "300px"}}>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        chapters.length > 0 ?
+                        chapters.map((chapter, i) => {
+                            return (
+                                <tr key={i} onClick={() => handleChapterSelection(chapter)}>
+                                    <td className="text-center">{i + 1}</td>
+                                    <td>{chapter}</td>
+                                    <td>
+                                        <div className="flex gap-2 justify-end pr-3">
+                                            <button className="bg-blue-600 hover:bg-blue-700 duration-300 text-sm text-white py-1 px-3 rounded-md"><FontAwesomeIcon icon={faEye} /> View</button>
+                                            <button className="bg-green-600 hover:bg-green-700 duration-300 text-sm text-white py-1 px-3 rounded-md"><FontAwesomeIcon icon={faPencil} /> Edit</button>
+                                            <button className="bg-red-600 hover:bg-red-700 duration-300 text-sm text-white py-1 px-3 rounded-md"><FontAwesomeIcon icon={faTrash} /> Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        }) :
+                        null
+                    }
+                </tbody>
+            </table>
+        </div>
+    </>
+    );
+}
+
+const AddMCQS = ({ updateQuestions }) => {
+    const [isAddingQuestion, setIsAddingQuestion] = useState(false)
+    const [questions, setQuestions] = useState([]);
+
+    const questionRef = useRef(null);
+    const opt1Ref = useRef(null);
+    const opt2Ref = useRef(null);
+    const opt3Ref = useRef(null);
+    const opt4Ref = useRef(null);
+
+    useEffect(()=>{
+        if(questions.length > 0){
+            updateQuestions(questions);
+        }
+    },[questions]);
+
+    const handleSubmit = () => {
+        if(!questionRef.current.value || !opt1Ref.current.value || !opt2Ref.current.value || !opt3Ref.current.value || !opt4Ref.current.value){
+            return;
+        }
+
+        const payload = {
+            question: questionRef.current.value,
+            options: [
+                opt1Ref.current.value,
+                opt2Ref.current.value,
+                opt3Ref.current.value,
+                opt4Ref.current.value
+            ]
+        }
+
+        setQuestions(prev => [...prev, payload])
+        setIsAddingQuestion(false)
+    }
+    return (<>
+        {questions.length > 0 ? 
+        (<ol className="my-2 list-decimal ml-5">
+            {questions.map((question, index)=>{
+                return <li key={index} className="my-3">
+                    <h6>{question.question}</h6>
+                    <ol type="a" className="list-[lower-alpha] ml-5">
+                        {question.options.map((option, i)=>{
+                            return <li key={i}>{option}</li>
+                        })}
+                    </ol>
+                </li>
+            })}
+        </ol>)
+        : null }
+
+        {/* Add Question Section */}
+        {isAddingQuestion ? 
+        <section>
+            <div className="input-group">
+                <label htmlFor="mcq">MCQs Question <sup>*</sup></label>
+                <input type="text" ref={questionRef} id="mcq" placeholder="Enter Question" required autoSave="false" />
+            </div>
+            {/* Options for MCQS */}
+            <div className="flex items-center gap-2">
+                <h6>a). </h6>
+                <input type="text" ref={opt1Ref} placeholder="Option 1" />
+            </div>
+            <div className="flex items-center gap-2">
+                <h6>b). </h6>
+                <input type="text" ref={opt2Ref} placeholder="Option 2" />
+            </div>
+            <div className="flex items-center gap-2">
+                <h6>c). </h6>
+                <input type="text" ref={opt3Ref} placeholder="Option 3" />
+            </div>
+            <div className="flex items-center gap-2">
+                <h6>d). </h6>
+                <input type="text" ref={opt4Ref} placeholder="Option 4" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+                <div className="cols-span-1">
+                    <button className="bg-red-600 hover:bg-gray-900 duration-300 w-full py-3 text-white rounded-md mt-2" onClick={()=>setIsAddingQuestion(false)}>Cancel</button>
+                </div>
+                <div className="cols-span-1">
+                    <button className="bg-black hover:bg-gray-900 duration-300 w-full py-3 text-white rounded-md mt-2" onClick={handleSubmit}>Submit</button>
+                </div>
+            </div>
+        </section> : 
+        (<button className="w-full bg-gray-100 py-2 text-black hover:bg-black hover:text-white border-2 border-black border-dashed duration-300 rounded-md" onClick={()=>setIsAddingQuestion(true)}><FontAwesomeIcon icon={faPlus} /> MCQ</button>
+        )}
+    </>)
+}
+
+const AddShort = ({ updateQuestions }) => {
+    const [isAddingQuestion, setIsAddingQuestion] = useState(false)
+    const [questions, setQuestions] = useState([])
+
+    const questionRef = useRef(null)
+
+    useEffect(()=>{
+        if(questions.length > 0){
+            updateQuestions(questions)
+        }
+    },[questions])
+
+    const handleSubmit = () => {
+        if(!questionRef.current.value){return}
+        setQuestions(prev => [...prev, questionRef.current.value])
+        setIsAddingQuestion(false)
+    }
+    return (<>
+        {questions.length > 0 ? 
+        (<ol className="my-2 list-decimal ml-5">
+            {questions.map((question, index)=>{
+                return <li key={index} className="my-3">
+                    <h6>{question}</h6>
+                </li>
+            })}
+        </ol>)
+        : null }
+
+        {/* Add Question Section */}
+        {isAddingQuestion ? 
+        <section>
+            <div className="input-group">
+                <input type="text" ref={questionRef} id="short" placeholder="Enter Question" required autoSave="false" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+                <div className="cols-span-1">
+                    <button className="bg-red-600 hover:bg-gray-900 duration-300 w-full py-3 text-white rounded-md mt-2" onClick={()=>setIsAddingQuestion(false)}>Cancel</button>
+                </div>
+                <div className="cols-span-1">
+                    <button className="bg-black hover:bg-gray-900 duration-300 w-full py-3 text-white rounded-md mt-2" onClick={handleSubmit}>Submit</button>
+                </div>
+            </div>
+        </section> : (<button className="w-full bg-gray-100 py-2 text-black hover:bg-black hover:text-white border-2 border-black border-dashed duration-300 rounded-md" onClick={()=>setIsAddingQuestion(true)}><FontAwesomeIcon icon={faPlus} /> Short</button>
+        )}
+    </>)
+}
+
+const AddLong = ({updateQuestions}) => {
+    const [isAddingQuestion, setIsAddingQuestion] = useState(false)
+    const [questions, setQuestions] = useState([])
+
+    const questionRef = useRef(null)
+
+    useEffect(()=>{
+        if(questions.length > 0){
+            updateQuestions(questions)
+        }
+    },[questions])
+
+    const handleSubmit = () => {
+        if(!questionRef.current.value){return}
+        setQuestions(prev => [...prev, questionRef.current.value])
+        setIsAddingQuestion(false)
+    }
+    return (<>
+        {questions.length > 0 ? 
+        (<ol className="my-2 list-decimal ml-5">
+            {questions.map((question, index)=>{
+                return <li key={index} className="my-3">
+                    <h6>{question}</h6>
+                </li>
+            })}
+        </ol>)
+        : null }
+
+        {/* Add Question Section */}
+        {isAddingQuestion ? 
+        <section>
+            <div className="input-group">
+                <label htmlFor="long">Long Question <sup>*</sup></label>
+                <input type="text" ref={questionRef} id="long" placeholder="Enter Question" required autoSave="false" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+                <div className="cols-span-1">
+                    <button className="bg-red-600 hover:bg-gray-900 duration-300 w-full py-3 text-white rounded-md mt-2" onClick={()=>setIsAddingQuestion(false)}>Cancel</button>
+                </div>
+                <div className="cols-span-1">
+                    <button className="bg-black hover:bg-gray-900 duration-300 w-full py-3 text-white rounded-md mt-2" onClick={handleSubmit}>Submit</button>
+                </div>
+            </div>
+        </section> : (<button className="w-full bg-gray-100 py-2 text-black hover:bg-black hover:text-white border-2 border-black border-dashed duration-300 rounded-md" onClick={()=>setIsAddingQuestion(true)}><FontAwesomeIcon icon={faPlus} /> Long</button>
+        )}
+    </>)
 }
 
 export default BooksPanel;
