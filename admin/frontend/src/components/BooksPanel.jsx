@@ -94,6 +94,9 @@ const CreateChapter = () => {
     const [books, setBooks] = useState([]);
     const [selectedBook, setSelectedBook] = useState(null);
 
+    const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
+
     const { user } = useContext(UserContext);
 
     const handleSearch = async () => {
@@ -142,12 +145,34 @@ const CreateChapter = () => {
         setSelectedBook(book);
     }
 
+    const remove = (data) => {
+        if(data.success){
+            setSuccess(data.msg);
+            setTimeout(()=>setSuccess(""), 8000);
+        }else{
+            setError(data.msg);
+            setTimeout(()=>setError(""), 8000);
+        }
+        setSelectedBook(null);
+    }
+
     return (
         <div className="mini-panel">
             <h6><FontAwesomeIcon icon={faBookOpenReader} /> Add Chapters</h6>
+            {success ? (<div className="success-alert">
+                <FontAwesomeIcon icon={faCheck} className="check" />
+                <p>Success: {success}</p>
+            </div>) : 
+            null}
+            {
+            error ? (<div className="error-alert">
+                <FontAwesomeIcon icon={faCheck} className="check" />
+                <p>Error: {error}</p>
+            </div>) :
+            null}
             {
             selectedBook ?
-            <BookDetails userSelectedBook={selectedBook} /> :
+            <BookDetails userSelectedBook={selectedBook} remove={remove} /> :
             null}
             <hr className="my-2" />
             <div className="grid grid-cols-12 gap-5">
@@ -190,7 +215,7 @@ const CreateChapter = () => {
     );
 }
 
-const BookDetails = ({ userSelectedBook }) => {
+const BookDetails = ({ userSelectedBook, remove }) => {
     const { user } = useContext(UserContext);
     const [isAddingMCQ, setIsAddingMCQ] = useState(false);
     const [isAddingShort, setIsAddingShort] = useState(false);
@@ -251,23 +276,28 @@ const BookDetails = ({ userSelectedBook }) => {
     }
 
     const handleDeleteBook = async () => {
-        console.log("triggered")
         const payload = {
             bookName: userSelectedBook.bookName,
             author: userSelectedBook.author
         }
-        const response = await fetch(import.meta.env.VITE_SERVER_URL+"/book",{
+        fetch(import.meta.env.VITE_SERVER_URL+"/book",{
             body: JSON.stringify(payload),
             method: "DELETE",
-            "Content-Type": "application/json",
             headers: {
+                "Content-Type": "application/json",
                 Authorization: `Authorization ${user.token}`
             }
+        }).then((res => res.json()))
+        .then(data => {
+            if(data.success){
+                remove(data);
+            }else{
+                alert(data.msg);
+            }
         })
-        console.log(response);
-        if(response.status === 200){
-            alert("success")
-        }
+        .catch(err => {
+            console.log(err);
+        })
     }
 
     return (
