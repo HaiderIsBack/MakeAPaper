@@ -76,25 +76,29 @@ const createBook = async (req, res) => {
 }
 
 // Delete Book
-const deleteBook = (req, res) => {
+const deleteBook = async (req, res) => {
     try {
         const { bookName, author } = req.body;
-        Docs.deleteOne({
+
+        // Attempt to delete the book
+        const result = await Docs.deleteOne({
             book: bookName,
             author: author
-        }, (err)=>{
-            if(err){
-                console.log(err);
-                res.status(200).json({success: false, msg: "Error has Occured"})
-            }else{
-                res.status(200).json({success: true, msg:"Book Deleted Successfully"})
-            }
         });
+
+        if (result.deletedCount > 0) {
+            // Book found and deleted
+            res.status(200).json({ success: true, msg: "Book Deleted Successfully" });
+        } else {
+            // No book matched the criteria
+            res.status(404).json({ success: false, msg: "Book not found" });
+        }
     } catch (error) {
-        console.log(error)
-        res.status(500).json({success: false, msg: "Error has Occured"})
+        console.log(error);
+        res.status(500).json({ success: false, msg: "An error has occurred" });
     }
-}
+};
+
 
 // Get all chapters of a book
 const getChapters = async (req, res) => {

@@ -251,6 +251,7 @@ const BookDetails = ({ userSelectedBook }) => {
     }
 
     const handleDeleteBook = async () => {
+        console.log("triggered")
         const payload = {
             bookName: userSelectedBook.bookName,
             author: userSelectedBook.author
@@ -260,6 +261,7 @@ const BookDetails = ({ userSelectedBook }) => {
                 Authorization: `Authorization ${user.token}`
             }
         })
+        console.log(response);
         if(response.status === 200){
             alert("success")
         }
