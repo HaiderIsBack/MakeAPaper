@@ -256,7 +256,10 @@ const BookDetails = ({ userSelectedBook }) => {
             bookName: userSelectedBook.bookName,
             author: userSelectedBook.author
         }
-        const response = await axios.delete(import.meta.env.VITE_SERVER_URL+"/book",payload,{
+        const response = await fetch(import.meta.env.VITE_SERVER_URL+"/book",{
+            body: JSON.stringify(payload),
+            method: "DELETE",
+            "Content-Type": "application/json",
             headers: {
                 Authorization: `Authorization ${user.token}`
             }
