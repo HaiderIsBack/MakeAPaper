@@ -163,7 +163,7 @@ const insertChapter = async (req, res) => {
         const { bookName, author, publisher, chapter } = req.body;
 
         if(!bookName || !author || !publisher || !chapter){
-            res.status(400).json({msg: "Bad Request"});
+            res.status(400).json({success: false, msg: "Bad Request"});
         }else{
             const book = await Docs.findOne({
                 book: bookName,
@@ -171,7 +171,7 @@ const insertChapter = async (req, res) => {
                 publisher: publisher
             });
             if(!book){
-                res.status(404).json({msg: "Book not found"});
+                res.status(404).json({success: false, msg: "Book not found"});
             }else{
                 const result = await Docs.updateOne(
                     {_id: book._id},
@@ -180,12 +180,12 @@ const insertChapter = async (req, res) => {
                         modified: getFormattedDate()
                     }}
                 );
-                res.status(200).json(result);
+                res.status(200).json({success: true, result});
             }
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({msg: "Error has Occured"})
+        res.status(500).json({success: false, msg: "Error has Occured"})
     }
 }
 

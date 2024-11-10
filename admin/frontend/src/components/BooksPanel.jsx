@@ -1,7 +1,7 @@
 import "./BooksPanel.css";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faBookOpenReader, faCheck, faPencil, faPlus, faSearch, faTrash, faArrowRight, faEye, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faBookOpenReader, faCheck, faPencil, faPlus, faSearch, faTrash, faEye, faCloudArrowUp, faRefresh } from '@fortawesome/free-solid-svg-icons'
 import { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
 
@@ -119,21 +119,22 @@ const CreateChapter = () => {
         }
     }
 
-    useEffect(()=>{
-        const fetchBooks = async () => {
-            const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/books",{
-                headers: {
-                    Authorization: `Authorization ${user.token}`
-                }
-            });
-            if(response.status === 200){
-                if(response.data.success){
-                    setBooks(response.data.books.slice(0, 10));
-                }else{
-                    alert(response.data.success);
-                }
+    const fetchBooks = async () => {
+        const response = await axios.get(import.meta.env.VITE_SERVER_URL+"/books",{
+            headers: {
+                Authorization: `Authorization ${user.token}`
+            }
+        });
+        if(response.status === 200){
+            if(response.data.success){
+                setBooks(response.data.books.slice(0, 10));
+            }else{
+                alert(response.data.success);
             }
         }
+    }
+
+    useEffect(()=>{
         fetchBooks();
     },[]);
 
@@ -175,12 +176,16 @@ const CreateChapter = () => {
             <BookDetails userSelectedBook={selectedBook} remove={remove} /> :
             null}
             <hr className="my-2" />
-            <div className="grid grid-cols-12 gap-5">
+            <h6>Library</h6>
+            <div className="grid grid-cols-12 gap-3">
                 <div className="col-span-9">
                     <input type="text" placeholder="Search" value={searchQuery} onChange={handleQueryChange} />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-2">
                     <button className="create-btn" style={{margin: "5px 0"}} onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
+                </div>
+                <div className="col-span-1">
+                    <button className="create-btn" style={{margin: "5px 0"}} onClick={fetchBooks}><FontAwesomeIcon icon={faRefresh} /></button>
                 </div>
             </div>
             <div className="search-results">
@@ -217,41 +222,47 @@ const CreateChapter = () => {
 
 const BookDetails = ({ userSelectedBook, remove }) => {
     const { user } = useContext(UserContext);
-    const [isAddingMCQ, setIsAddingMCQ] = useState(false);
-    const [isAddingShort, setIsAddingShort] = useState(false);
-    const [isAddingLong, setIsAddingLong] = useState(false);
+    
     const [selectedBook, setSelectedBook] = useState({});
     const [selectedChapter, setSelectedChapter] = useState({});
 
     const [chapters, setChapters] = useState([]);
+
+    const [chapterName, setChapterName] = useState("");
     const [mcqs, setMcqs] = useState([]);
     const [short, setShort] = useState([]);
     const [long, setLong] = useState([]);
 
-    useEffect(()=>{
-        const fetchChapters = async () => {
-            const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/chapters?bookName=${userSelectedBook.bookName}&author=${userSelectedBook.author}`,{
-                headers: {
-                    Authorization: `Authorization ${user.token}`
-                }
-            });
-            if(response.status === 200){
-                if(response.data.success){
-                    setChapters(response.data.chapters);
-                }else{
-                    setChapters([]);
-                }
+    const fetchChapters = async () => {
+        const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/chapters?bookName=${userSelectedBook.bookName}&author=${userSelectedBook.author}`,{
+            headers: {
+                Authorization: `Authorization ${user.token}`
+            }
+        });
+        if(response.status === 200){
+            if(response.data.success){
+                setChapters(response.data.chapters);
+            }else{
+                setChapters([]);
             }
         }
+    }
+
+    useEffect(()=>{
         fetchChapters();
     },[userSelectedBook]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        if(!chapterName && !userSelectedBook){
+            alert("Please enter chapter name first");
+            return;
+        }
         const payload = {
-            "bookName": selectedBook.bookName,
-            "author": selectedBook.author,
-            "publisher": selectedBook.publisher,
+            "bookName": userSelectedBook.bookName,
+            "author": userSelectedBook.author,
+            "publisher": userSelectedBook.publisher,
             "chapter": {
                 "name": chapterName,
                 "questions": {
@@ -267,7 +278,16 @@ const BookDetails = ({ userSelectedBook, remove }) => {
             }
         })
         if(response.status === 200){
-            alert("success")
+            if(response.data.success){
+                alert("Success");
+                setMcqs([]);
+                setShort([]);
+                setLong([]);
+                setChapterName("");
+                fetchChapters();
+            }else{
+                alert("Failed " + response.data.msg);
+            }
         }
     }
 
@@ -318,10 +338,10 @@ const BookDetails = ({ userSelectedBook, remove }) => {
         </div>
         <div className="grid grid-cols-12 gap-5">
             <div className="col-span-9">
-                <input type="text" placeholder="Chapter Name" />
+                <input type="text" placeholder="Chapter Name" value={chapterName} onChange={(e)=>setChapterName(e.target.value)} />
             </div>
             <div className="col-span-3">
-                <button className="create-btn" style={{margin: "5px 0"}}><FontAwesomeIcon icon={faCloudArrowUp} /> Add Chapter</button>
+                <button className="create-btn" style={{margin: "5px 0"}} onClick={handleSubmit}><FontAwesomeIcon icon={faCloudArrowUp} /> Add Chapter</button>
             </div>
         </div>
         <div className="grid grid-cols-12 gap-3 my-3">
