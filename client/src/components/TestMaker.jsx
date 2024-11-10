@@ -664,7 +664,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                     <ol className='pl-4'>
                         {
                             props?.questionList?.short?.map((short, index) => {
-                                return (<li key={index}><h4>{short}</h4></li>);
+                                return (<li key={index}><h5>{short}</h5></li>);
                             })
                         }
                     </ol>
@@ -681,7 +681,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                     <ol className='pl-4'>
                         {
                             props?.questionList?.long?.map((long, index) => {
-                                return (<li key={index}><h4>{long}</h4></li>);
+                                return (<li key={index}><h5>{long}</h5></li>);
                             })
                         }
                     </ol>

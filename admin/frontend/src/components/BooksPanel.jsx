@@ -232,6 +232,7 @@ const BookDetails = ({ userSelectedBook, remove }) => {
     const [mcqs, setMcqs] = useState([]);
     const [short, setShort] = useState([]);
     const [long, setLong] = useState([]);
+    const [resetTrigger, setResetTrigger] = useState(false);
 
     const fetchChapters = async () => {
         const response = await axios.get(import.meta.env.VITE_SERVER_URL+`/chapters?bookName=${userSelectedBook.bookName}&author=${userSelectedBook.author}`,{
@@ -284,6 +285,7 @@ const BookDetails = ({ userSelectedBook, remove }) => {
                 setShort([]);
                 setLong([]);
                 setChapterName("");
+                setResetTrigger(prev => !prev);
                 fetchChapters();
             }else{
                 alert("Failed " + response.data.msg);
@@ -346,13 +348,13 @@ const BookDetails = ({ userSelectedBook, remove }) => {
         </div>
         <div className="grid grid-cols-12 gap-3 my-3">
             <div className="col-span-4">
-                <AddMCQS updateQuestions={setMcqs} />
+                <AddMCQS updateQuestions={setMcqs} resetTrigger={resetTrigger} />
             </div>
             <div className="col-span-4">
-                <AddShort updateQuestions={setShort} />
+                <AddShort updateQuestions={setShort} resetTrigger={resetTrigger} />
             </div>
             <div className="col-span-4">
-                <AddLong updateQuestions={setLong} />
+                <AddLong updateQuestions={setLong} resetTrigger={resetTrigger} />
             </div>
         </div>
         <div className="search-results">
@@ -391,7 +393,7 @@ const BookDetails = ({ userSelectedBook, remove }) => {
     );
 }
 
-const AddMCQS = ({ updateQuestions }) => {
+const AddMCQS = ({ updateQuestions, resetTrigger }) => {
     const [isAddingQuestion, setIsAddingQuestion] = useState(false)
     const [questions, setQuestions] = useState([]);
 
@@ -406,6 +408,10 @@ const AddMCQS = ({ updateQuestions }) => {
             updateQuestions(questions);
         }
     },[questions]);
+
+    useEffect(()=>{
+        setQuestions([]);
+    }, [resetTrigger]);
 
     const handleSubmit = () => {
         if(!questionRef.current.value || !opt1Ref.current.value || !opt2Ref.current.value || !opt3Ref.current.value || !opt4Ref.current.value){
@@ -480,7 +486,7 @@ const AddMCQS = ({ updateQuestions }) => {
     </>)
 }
 
-const AddShort = ({ updateQuestions }) => {
+const AddShort = ({ updateQuestions, resetTrigger }) => {
     const [isAddingQuestion, setIsAddingQuestion] = useState(false)
     const [questions, setQuestions] = useState([])
 
@@ -490,7 +496,11 @@ const AddShort = ({ updateQuestions }) => {
         if(questions.length > 0){
             updateQuestions(questions)
         }
-    },[questions])
+    },[questions]);
+
+    useEffect(()=>{
+        setQuestions([]);
+    }, [resetTrigger]);
 
     const handleSubmit = () => {
         if(!questionRef.current.value){return}
@@ -528,7 +538,7 @@ const AddShort = ({ updateQuestions }) => {
     </>)
 }
 
-const AddLong = ({updateQuestions}) => {
+const AddLong = ({updateQuestions, resetTrigger}) => {
     const [isAddingQuestion, setIsAddingQuestion] = useState(false)
     const [questions, setQuestions] = useState([])
 
@@ -538,7 +548,11 @@ const AddLong = ({updateQuestions}) => {
         if(questions.length > 0){
             updateQuestions(questions)
         }
-    },[questions])
+    },[questions]);
+
+    useEffect(()=>{
+        setQuestions([]);
+    }, [resetTrigger]);
 
     const handleSubmit = () => {
         if(!questionRef.current.value){return}
